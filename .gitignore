@@ -23,10 +23,10 @@
 hs_err_pid*
 replay_pid*
 
-./*/idea
-*.iml
+/*/.idea
+/*/*.iml
 
-./*/vscode
+vscode
 ./vscode
 bin
 lib
