@@ -23,9 +23,9 @@
 hs_err_pid*
 replay_pid*
 
-*/.idea
-*.iml
+/*/.idea
+/*.iml
 
-*/.vscode
-*/bin
-*/lib
+/*/.vscode
+/*/bin
+/*/lib
