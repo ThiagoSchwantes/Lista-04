@@ -1,5 +1,7 @@
 package br.edu.up.modelos;
 
+import br.edu.up.Prompt;
+
 public class Ponto {
     private Double x;
     private Double y;
@@ -30,7 +32,12 @@ public class Ponto {
         this.y = y;
     }
     
-    public Double calcularDistancia(Double x, Double y){
-
+    public Double calcularDistancia(Ponto ponto2){
+        return Math.sqrt( Math.pow(this.x - ponto2.getX(), 2) + Math.pow(this.y - ponto2.getY(), 2) );
     }
+
+    public Double calcularDistancia(Double x, Double y){
+        return Math.sqrt( Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2) );
+    }
+
 }
