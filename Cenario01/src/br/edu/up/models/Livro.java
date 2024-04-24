@@ -10,7 +10,7 @@ public class Livro {
 
     public Livro(){}
 
-    public Livro(String codigo,String titulo,String[] autores,String isbn,int ano){
+    public Livro(String codigo, String titulo, String[] autores, String isbn, int ano){
         this.codigo = codigo;
         this.titulo = titulo;
         this.autores = autores;
@@ -42,14 +42,6 @@ public class Livro {
         this.autores = autores;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public int getAno() {
         return ano;
     }
@@ -68,6 +60,4 @@ public class Livro {
         Prompt.imprimir("Ano: " + ano);
         Prompt.separador();
     }
-
-    
 }
