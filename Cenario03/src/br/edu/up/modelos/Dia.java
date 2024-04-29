@@ -1,53 +1,66 @@
 package br.edu.up.modelos;
-import br.edu.up.Prompt;
 
 public class Dia {
 
-    private int diaMes = 0;
-    private Compromisso[] compromissos;
+    private int diaMes;
+    private Compromisso[] compromissos = new Compromisso[24];
     
-    Dia(){}
-    Dia(int diaMes){
+    public Dia(){}
+
+    public Dia(int diaMes){
         this.diaMes = diaMes; 
     }
 
-    public void adicionarCompromisso(Compromisso[] comp){
-        this.compromissos = comp;
+    public int getDiaMes() {
+        return diaMes;
     }
 
-    public String consultarCompromisso(int hora){
-        if(compromissos != null){
-            for (Compromisso compromisso : compromissos) {
-                if(compromisso.getHora() == hora){
-                    return compromisso.toString();
-                }
-            }
-        }
-        return "Compromisso não encontrado.";
+    public void setDiaMes(int diaMes) {
+        this.diaMes = diaMes;
     }
 
-    public String excluirCompromisso(int hora){
-        if(compromissos != null){
-            for (int i = 0; i < compromissos.length; i++) {
-                if(compromissos[i].getHora() == hora){
-                    // Movendo os compromissos subsequentes uma posição para trás
-                    for (int j = i; j < compromissos.length - 1; j++) {
-                        compromissos[j] = compromissos[j + 1];
-                    }
-                    return "Exclusão realizada com sucesso.";
-                }
+    public void adicionarCompromisso(Compromisso comp){
+        for (int i = 0; i < compromissos.length; i++) {
+            if (compromissos[i] == null) {
+                compromissos[i] = comp;
+                break;
             }
         }
-        return "Compromisso não encontrado";
+    }
+
+    public Compromisso consultarCompromisso(int hora){
+        
+        for (Compromisso compromisso : compromissos) {
+            if(compromisso.getHora() == hora){
+                return compromisso;
+            }
+        }
+        return null;
+    }
+
+    public void excluirCompromisso(int hora){
+        for (int i = 0; i < compromissos.length; i++) {
+            if (compromissos[i] != null && compromissos[i].getHora() == hora) {
+                compromissos[i] = null;
+                break;
+            }
+        }
     }
     
-    public void listarCompromissos(){
-        if(compromissos != null){
-            for (Compromisso compromisso : compromissos) {
-                Prompt.separador();
-                Prompt.imprimir(compromisso);
-                Prompt.separador();
+    public String listarCompromissos(){
+        String lista = "";
+    
+        for (Compromisso compromisso : compromissos) {
+            if (compromisso != null) { 
+                lista += "Pessoa: " + compromisso.getPessoa() + "\n";
+                lista += "Local: " + compromisso.getLocal() + "\n";
+                lista += "Assunto: " + compromisso.getAssunto() + "\n";
+                lista += "Hora: " + compromisso.getHora() + "\n";
+                lista += "-------------------------------------------\n";
             }
         }
+        
+        return lista;
     }
+    
 }
