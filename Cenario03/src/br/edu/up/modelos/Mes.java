@@ -1,6 +1,7 @@
 package br.edu.up.modelos;
-import br.edu.up.modelos.Dia;
 import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 public class Mes {
     private String nome;
@@ -15,7 +16,7 @@ public class Mes {
         dias = new Dia[qtdeDias];
 
         Month mes = Month.of(nome + 1);
-        this.nome = mes.toString();
+        this.nome = mes.getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
 
         for (int i = 0; i < qtdeDias; i++) {
             dias[i] =  new Dia(i + 1);

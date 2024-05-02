@@ -7,7 +7,9 @@ public class Compromisso {
     private String assunto;
     private int hora;
 
-    public Compromisso(){}
+    public Compromisso(){
+        
+    }
 
     public Compromisso(String pessoa, String local, String assunto, int hora){
         this.pessoa = pessoa;

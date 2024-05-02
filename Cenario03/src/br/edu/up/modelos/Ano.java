@@ -6,15 +6,16 @@ public class Ano {
     private boolean bissexto;
     private Mes[] meses;
 
-    public Ano(int ano, boolean bissexto) {
+    public Ano(int ano, boolean isBissexto) {
         this.ano = ano;
-        this.bissexto = bissexto;
+        this.bissexto = isBissexto;
     }
 
     public void adicionarMes(Mes mes){
         if(meses == null){
             meses = new Mes[12];
         }
+
         for (int i = 0; i < meses.length; i++) {
             if (meses[i] == null) {
                 meses[i] = mes;

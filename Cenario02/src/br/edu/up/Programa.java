@@ -24,6 +24,5 @@ public class Programa {
         Prompt.imprimir("O ponto 1 foi alterado para (" + ponto1.getX() + ", " + ponto1.getY() + ").\n");
         Prompt.separador();
 
-        
     }
 }
