@@ -1,14 +1,27 @@
 package br.edu.up;
-
 import br.edu.up.modelos.*;
 
 public class Programa {
-    public static void main(String[] args) throws Exception {
+
+
+
+    public static void main(String[] args) {
+        
+        Compromisso compromisso = new Compromisso();
+        Dia dia = new Dia();
+
+        dia.adicionarCompromisso(compromisso);
+
+    }
+
+
+    public static void mainUsado(String[] args) throws Exception {
 
         /*A agenda deve permitir a criação de um compromisso com uma pessoa, em um determinado local e 
         horário, para tratar um assunto específico. Para cada dia considerar que será possível agendar o 
         compromisso para qualquer uma das 24 horas de um dia, qualquer dia do mês de 28 a 31 dias e em 
         qualquer um dos 12 meses do ano.  */
+
         
         Mes[] mes = new Mes[12];
         Dia[] dia = new Dia[28];

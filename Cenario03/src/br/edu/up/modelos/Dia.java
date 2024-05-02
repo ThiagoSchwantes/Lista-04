@@ -1,5 +1,7 @@
 package br.edu.up.modelos;
 
+//import br.edu.up.modelos.Compromisso;
+
 public class Dia {
 
     private int diaMes;
