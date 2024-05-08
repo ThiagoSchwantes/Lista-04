@@ -19,8 +19,9 @@ public class Menu {
         Prompt.separador();
 
         Prompt.imprimir("Digite uma das opções:");
-        Prompt.imprimir("\t1 - Entrada de um carro:");
-        Prompt.imprimir("\t2 - Saída de um carro:");
+        Prompt.imprimir("\t1 - Entrada de um carro");
+        Prompt.imprimir("\t2 - Saída de um carro");
+        Prompt.imprimir("\t3 - Finalizar periodo");
 
         int opcao = Prompt.lerInteiro();
 
@@ -32,10 +33,8 @@ public class Menu {
 
                 if(estacionou){
                     Prompt.imprimir("Carro estacionado com sucesso!");
-                    
-                    String a = estacionamento.toString();
 
-                    Prompt.imprimir(a);
+                    Prompt.imprimir(estacionamento.toString());
 
                 }else{
                     Prompt.imprimir("Não foi possível estacionar o carro. Estacionamento lotado.");
@@ -43,6 +42,7 @@ public class Menu {
                 break;
             case 2:
                 String placa = Prompt.lerLinha("Informe a placa do carro:");
+                Prompt.imprimir(estacionamento.cobranca(placa));
                 Boolean desocupou = estacionamento.desocuparVaga(placa);
 
                 if(desocupou){
@@ -51,6 +51,9 @@ public class Menu {
                     Prompt.imprimir("Não foi possível encontar a placa fornecida.");
                 }
                 break;
+
+            case 3:
+                System.out.println(estacionamento.relatorioPeriodo());
             default:
                 Prompt.imprimir("Valor inválido.");
                 break;
