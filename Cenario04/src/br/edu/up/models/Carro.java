@@ -59,5 +59,10 @@ public class Carro{
         this.periodos = periodos;
     }
 
+    @Override
+    public String toString() {
+        return "modelo=" + modelo + ", placa=" + placa + ", cor=" + cor;
+    }
+
     
 }

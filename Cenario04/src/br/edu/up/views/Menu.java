@@ -4,9 +4,9 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Scanner;
 
-import br.edu.up.Prompt;
 import br.edu.up.controller.*;
 import br.edu.up.models.*;
+import br.edu.up.utils.Prompt;
 
 public class Menu {
     private EstacionamentoController estacionamento = new EstacionamentoController();
@@ -32,6 +32,11 @@ public class Menu {
 
                 if(estacionou){
                     Prompt.imprimir("Carro estacionado com sucesso!");
+                    
+                    String a = estacionamento.toString();
+
+                    Prompt.imprimir(a);
+
                 }else{
                     Prompt.imprimir("Não foi possível estacionar o carro. Estacionamento lotado.");
                 }
