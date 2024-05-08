@@ -41,8 +41,8 @@ public class EstacionamentoController {
             if(eachCarro.getPlaca().equals(placa)){
                 eachCarro.setHorarioSaida();
 
-                int quantPeriodos = calcularQuantPeriodos(eachCarro.getHorarioEntrada(), eachCarro.getHorarioSaida());
-                double valorCobrado = quantPeriodos * 5.00;
+                int periodos = calcularQuantPeriodos(eachCarro.getHorarioEntrada(), eachCarro.getHorarioSaida());
+                double valorCobrado = periodos * 5.00;
 
                 Prompt.imprimir("O carro permaneceu estacionado por " + periodos + " minutos.");
                 Prompt.imprimir("Foram cobrados R$ " + valorCobrado + " pelo estacionamento.");
@@ -53,12 +53,6 @@ public class EstacionamentoController {
         }
  
         return desocupou;
-    }
-
-    public int getQuantPeriodos(Carro carro){
-        if () {
-            
-        }
     }
 
     public void relatorioPeriodo(){
@@ -73,6 +67,10 @@ public class EstacionamentoController {
             quantCarrosSaiu = 0;
             valorTotalPagoPorPeriodo = 0.0;
         }
+    }
+
+    public int calcularQuantPeriodos(LocalTime entrada, LocalTime saida){
+        
     }
 
 }
