@@ -2,12 +2,16 @@ package br.edu.up.views;
 
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Scanner;
 
 import br.edu.up.Prompt;
 import br.edu.up.controller.*;
 import br.edu.up.models.*;
 
 public class Menu {
+    private EstacionamentoController estacionamento = new EstacionamentoController();
+    Scanner scanner = new Scanner(System.in);
+    
     public void menuPrincipal(){
         
         Prompt.separador();
@@ -22,21 +26,19 @@ public class Menu {
 
         switch (opcao) {
             case 1:
-                EstacionamentoController controleEntrada = new EstacionamentoController();
                 Carro carro = cadastrarCarro();
-                Boolean estacionou = controleEntrada.ocuparVaga(carro);
+                Boolean estacionou = estacionamento.ocuparVaga(carro);
                 Prompt.separador();
+
                 if(estacionou){
                     Prompt.imprimir("Carro estacionado com sucesso!");
                 }else{
                     Prompt.imprimir("Não foi possível estacionar o carro. Estacionamento lotado.");
                 }
-                menuPrincipal();
                 break;
             case 2:
-                EstacionamentoController controleSaida = new EstacionamentoController();
                 String placa = Prompt.lerLinha("Informe a placa do carro:");
-                Boolean desocupou = controleSaida.desocuparVaga(placa);
+                Boolean desocupou = estacionamento.desocuparVaga(placa);
 
                 if(desocupou){
                     Prompt.imprimir("Vaga liberada com sucesso!");
@@ -46,13 +48,13 @@ public class Menu {
                 break;
             default:
                 Prompt.imprimir("Valor inválido.");
-                menuPrincipal();
                 break;
-        }
+            }
+            
+            Prompt.imprimir("Pressione qualquer tecla para continuar...");
+            scanner.nextLine();
+            menuPrincipal();
     }
-
-
-
 
     public Carro cadastrarCarro(){
         Carro carro = new Carro();

@@ -1,6 +1,4 @@
 package br.edu.up.controller;
-
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import br.edu.up.*;
 import br.edu.up.models.Carro;
@@ -9,7 +7,7 @@ public class EstacionamentoController {
     private Carro carrosEstacionados[] = new Carro[10];
     private Integer quantCarrosEntrou = 0;
     private Integer quantCarrosSaiu = 0;
-    Private double valorTotalPagoPorPeriodo = 0.0;
+    private double valorTotalPagoPorPeriodo = 0.0;
 
     private LocalTime periodoManha = LocalTime.of(6, 0);
     private LocalTime periodoTarde = LocalTime.of(12, 0);
@@ -19,11 +17,10 @@ public class EstacionamentoController {
     public Boolean ocuparVaga(Carro carro){
         Boolean estacionou = false;
         
-        for (Carro eachCarro : carrosEstacionados) {
-            if(eachCarro == null){
-                eachCarro = carro;
-                eachCarro.setHorarioEntrada();
-
+        for (int i = 0; i < carrosEstacionados.length; i++) {
+            if(carrosEstacionados[i] == null){
+                carrosEstacionados[i] = carro;
+                carro.setHorarioEntrada();
 
                 estacionou = true;
                 quantCarrosEntrou++;
@@ -31,26 +28,40 @@ public class EstacionamentoController {
             }
         }
 
+        for (int i = 0; i < carrosEstacionados.length; i++) {
+            if(carrosEstacionados[i] != null){
+                Prompt.separador();
+                Prompt.imprimir("vaga " + (i + 1));
+                Prompt.imprimir(carrosEstacionados[i].getModelo());
+                Prompt.imprimir(carrosEstacionados[i].getPlaca());
+                Prompt.imprimir(carrosEstacionados[i].getCor());
+                Prompt.separador();
+            }
+        }
         return estacionou;
     }
 
     public Boolean desocuparVaga(String placa){
         Boolean desocupou = false;
         
-        for (Carro eachCarro : carrosEstacionados) {
-            if(eachCarro.getPlaca().equals(placa)){
+        for (int i = 0; i < carrosEstacionados.length; i++) {
+            Carro eachCarro = carrosEstacionados[i];
+            if(eachCarro != null && eachCarro.getPlaca().equals(placa)){
                 eachCarro.setHorarioSaida();
-
-                eachCarro.setPeriodos(); = calcularQuantPeriodos(eachCarro.getHorarioEntrada(), eachCarro.getHorarioSaida());
+    
                 double valorCobrado = eachCarro.getPeriodos() * 5.00;
-
+    
                 Prompt.imprimir("O carro permaneceu estacionado por " + eachCarro.getPeriodos() + " minutos.");
                 Prompt.imprimir("Foram cobrados R$ " + valorCobrado + " pelo estacionamento.");
-                valorTotalPagoPorPeriodo = valorCobrado;
+                valorTotalPagoPorPeriodo += valorCobrado;
                 quantCarrosSaiu++;
                 desocupou = true;
+                // Limpar a vaga
+                carrosEstacionados[i] = null;
+                break; // Sair do loop após encontrar o carro
             }
         }
+    
  
         return desocupou;
     }
@@ -66,11 +77,13 @@ public class EstacionamentoController {
             quantCarrosEntrou = 0;
             quantCarrosSaiu = 0;
             valorTotalPagoPorPeriodo = 0.0;
-        }
-    }
 
-    public int calcularQuantPeriodos(LocalTime entrada, LocalTime saida){
-        
+            for (Carro carro : carrosEstacionados) {
+                if(carro != null){
+                    carro.setPeriodos(carro.getPeriodos() + 1);
+                }               
+            }
+        }
     }
 
 }
