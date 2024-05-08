@@ -41,10 +41,10 @@ public class EstacionamentoController {
             if(eachCarro.getPlaca().equals(placa)){
                 eachCarro.setHorarioSaida();
 
-                int periodos = calcularQuantPeriodos(eachCarro.getHorarioEntrada(), eachCarro.getHorarioSaida());
-                double valorCobrado = periodos * 5.00;
+                eachCarro.setPeriodos(); = calcularQuantPeriodos(eachCarro.getHorarioEntrada(), eachCarro.getHorarioSaida());
+                double valorCobrado = eachCarro.getPeriodos() * 5.00;
 
-                Prompt.imprimir("O carro permaneceu estacionado por " + periodos + " minutos.");
+                Prompt.imprimir("O carro permaneceu estacionado por " + eachCarro.getPeriodos() + " minutos.");
                 Prompt.imprimir("Foram cobrados R$ " + valorCobrado + " pelo estacionamento.");
                 valorTotalPagoPorPeriodo = valorCobrado;
                 quantCarrosSaiu++;

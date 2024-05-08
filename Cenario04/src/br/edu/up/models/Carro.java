@@ -9,6 +9,7 @@ public class Carro{
     private String cor;
     private LocalDateTime horarioEntrada;
     private LocalDateTime horarioSaida;
+    private Integer periodos = 1;
     
 
     public String getModelo() {
@@ -49,4 +50,14 @@ public class Carro{
     public void setHorarioSaida(){
         this.horarioSaida = LocalDateTime.now();
     }
+
+    public Integer getPeriodos() {
+        return periodos;
+    }
+
+    public void setPeriodos(Integer periodos) {
+        this.periodos = periodos;
+    }
+
+    
 }
