@@ -1,20 +1,21 @@
 package br.edu.up.modelos;
 
 public class SeguroVida {
-    private String coberturaDoenca;
-    private String nomeBeneficiario;
+    private boolean cobreDoenca;
+    private boolean cobreAcidente;
+    public boolean isCobreDoenca() {
+        return cobreDoenca;
+    }
+    public void setCobreDoenca(boolean cobreDoenca) {
+        this.cobreDoenca = cobreDoenca;
+    }
+    public boolean isCobreAcidente() {
+        return cobreAcidente;
+    }
+    public void setCobreAcidente(boolean cobreAcidente) {
+        this.cobreAcidente = cobreAcidente;
+    }
 
-    public String getCoberturaDoenca() {
-        return coberturaDoenca;
-    }
-    public void setCoberturaDoenca(String coberturaDoenca) {
-        this.coberturaDoenca = coberturaDoenca;
-    }
-    public String getNomeBeneficiario() {
-        return nomeBeneficiario;
-    }
-    public void setNomeBeneficiario(String nomeBeneficiario) {
-        this.nomeBeneficiario = nomeBeneficiario;
-    }
+    //faltou o getDados():String
 
 }

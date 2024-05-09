@@ -2,19 +2,37 @@ package br.edu.up.modelos;
 
 public class Segurado {
     private String nome;
+    private String rg;
+    private String cpf;
+    private Enum sexo;
     private String telefone;
     private String endereco;
     private String cep;
     private String cidade;
-    private String rg;
-    private String cpf;
-    private Character sexo;
-    
+
     public String getNome() {
         return nome;
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getRg() {
+        return rg;
+    }
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+    public String getCpf() {
+        return cpf;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    public Enum getSexo() {
+        return sexo;
+    }
+    public void setSexo(Enum sexo) {
+        this.sexo = sexo;
     }
     public String getTelefone() {
         return telefone;
@@ -40,24 +58,6 @@ public class Segurado {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    public String getRg() {
-        return rg;
-    }
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-    public String getCpf() {
-        return cpf;
-    }
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-    public Character getSexo() {
-        return sexo;
-    }
-    public void setSexo(Character sexo) {
-        this.sexo = sexo;
-    }
     
-    
+    //FALTOU COLOCAR O TOSTRING
 }

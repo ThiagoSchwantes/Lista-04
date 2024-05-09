@@ -1,50 +1,45 @@
 package br.edu.up.modelos;
 
-public class Seguro {
-    private Integer numeroApolice;
-    private String[] segurado;
-    private Double valorPago;
-    private Double valorCobertura;
-    private String inicioVigencia;
-    private String finalVigencia;
-    
-    public Integer getNumeroApolice() {
-        return numeroApolice;
+import java.time.LocalDate;
+
+public abstract class Seguro {
+    private String apolice;
+    private Segurado segurado;
+    private Double vlrApolice;
+    private LocalDate dtaInicio;
+    private LocalDate dtaFim;
+
+
+    public String getApolice() {
+        return apolice;
     }
-    public void setNumeroApolice(Integer numeroApolice) {
-        this.numeroApolice = numeroApolice;
+    public void setApolice(String apolice) {
+        this.apolice = apolice;
     }
-    public String[] getSegurado() {
+    public Segurado getSegurado() {
         return segurado;
     }
-    public void setSegurado(String[] segurado) {
+    public void setSegurado(Segurado segurado) {
         this.segurado = segurado;
     }
-    public Double getValorPago() {
-        return valorPago;
+    public Double getVlrApolice() {
+        return vlrApolice;
     }
-    public void setValorPago(Double valorPago) {
-        this.valorPago = valorPago;
+    public void setVlrApolice(Double vlrApolice) {
+        this.vlrApolice = vlrApolice;
     }
-    public Double getValorCobertura() {
-        return valorCobertura;
+    public LocalDate getDtaInicio() {
+        return dtaInicio;
     }
-    public void setValorCobertura(Double valorCobertura) {
-        this.valorCobertura = valorCobertura;
+    public void setDtaInicio(LocalDate dtaInicio) {
+        this.dtaInicio = dtaInicio;
     }
-    public String getInicioVigencia() {
-        return inicioVigencia;
+    public LocalDate getDtaFim() {
+        return dtaFim;
     }
-    public void setInicioVigencia(String inicioVigencia) {
-        this.inicioVigencia = inicioVigencia;
-    }
-    public String getFinalVigencia() {
-        return finalVigencia;
-    }
-    public void setFinalVigencia(String finalVigencia) {
-        this.finalVigencia = finalVigencia;
+    public void setDtaFim(LocalDate dtaFim) {
+        this.dtaFim = dtaFim;
     }
 
-    
-    
+    //ficou faltando o getDados():String
 }
