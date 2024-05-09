@@ -47,7 +47,7 @@ public class Menu {
 
     public void encerrarPrograma(){
         Prompt.imprimir("Encerrando o programa...");
-        System.exit(3);
+        System.exit(6);
     }
     
 }
