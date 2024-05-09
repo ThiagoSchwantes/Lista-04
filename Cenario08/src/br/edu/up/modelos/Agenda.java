@@ -1,6 +1,6 @@
 package br.edu.up.modelos;
 
-public class Agenda extends Contato{
+public class Agenda {
     private String[] contatos;
 
     public String[] getContatos() {

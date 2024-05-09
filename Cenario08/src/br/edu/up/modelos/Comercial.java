@@ -1,6 +1,6 @@
 package br.edu.up.modelos;
 
-public class Comercial {
+public class Comercial extends Contato{
     private String empresa;
 
     public String getEmpresa() {
