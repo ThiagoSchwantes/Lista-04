@@ -1,4 +1,4 @@
-package br.edu.up.modelos;
+package br.edu.up.models;
 
 public class Passageiro extends Passagem{
 

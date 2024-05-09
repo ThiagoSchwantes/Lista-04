@@ -1,6 +1,6 @@
 package br.edu.up.modelos;
 
-public class Pessoal {
+public class Pessoal extends Contato{
     private String celular;
 
     public String getCelular() {
@@ -10,6 +10,5 @@ public class Pessoal {
     public void setCelular(String celular) {
         this.celular = celular;
     }
-
     
 }

@@ -1,6 +1,6 @@
 package br.edu.up.modelos;
 
-public class Contato {
+public abstract class Contato{
     private Integer codigo;
     private String nome;
     private String telefone;

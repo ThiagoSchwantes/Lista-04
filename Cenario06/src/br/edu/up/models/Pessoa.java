@@ -1,4 +1,4 @@
-package br.edu.up.modelos;
+package br.edu.up.models;
 
 public class Pessoa {
     private String nome;
