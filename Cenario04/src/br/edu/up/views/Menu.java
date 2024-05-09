@@ -1,9 +1,5 @@
 package br.edu.up.views;
-
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.Scanner;
-
 import br.edu.up.controller.*;
 import br.edu.up.models.*;
 import br.edu.up.utils.Prompt;

@@ -11,12 +11,12 @@ public class Menu {
 
         Prompt.imprimir("Digite uma das opções:");
         Prompt.imprimir("\t1 - Incluir seguro");
-        Prompt.imprimir("\t1 - Localizar seguro");
+        Prompt.imprimir("\t2 - Localizar seguro");
         Prompt.imprimir("\t3 - Excluir seguro");
         Prompt.imprimir("\t4 - Excluir todos os seguros");
         Prompt.imprimir("\t5 - Listar todos os seguros");
         Prompt.imprimir("\t6 - Ver quantidade de seguros");
-        Prompt.imprimir("\t6 - Sair");
+        Prompt.imprimir("\t7 - Sair");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
 
