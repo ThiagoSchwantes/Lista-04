@@ -28,6 +28,7 @@ public class Menu {
                 break;
             default:
                 Prompt.imprimir("Valor Inválido.");
+                menuPrincipal();
                 break;
         }
     }
@@ -48,16 +49,16 @@ public class Menu {
 
         switch (opcao2) {
             case 1:
-                //incluirEvento();
+                //controller.incluirEvento();
                 break;
             case 2:
-                //alterarEvento();
+                //controller.alterarEvento();
                 break;
             case 3:
-                //listarEventos();
+                //controller.listarEventos();
                 break;
             case 4:
-                //excluirEvento();
+                //controller.xcluirEvento();
                 break;
             case 5:
                 menuPrincipal();
