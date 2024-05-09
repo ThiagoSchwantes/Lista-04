@@ -5,6 +5,12 @@ public abstract class Contato{
     private String nome;
     private String telefone;
     
+    public Contato(Integer codigo, String nome, String telefone) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
     public Integer getCodigo() {
         return codigo;
     }
@@ -24,5 +30,8 @@ public abstract class Contato{
         this.telefone = telefone;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Contato [codigo=" + codigo + ", nome=" + nome + ", telefone=" + telefone + "]";
+    } 
 }
