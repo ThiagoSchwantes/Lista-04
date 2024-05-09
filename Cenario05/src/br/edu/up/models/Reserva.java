@@ -1,14 +1,16 @@
 package br.edu.up.models;
 
+import java.util.UUID;
+
 public class Reserva {
-    private String id;
+    private UUID id;
     private Evento evento;
     private String nomeResponsavel;
     private int quantPessoas;
     private double valorTotal;
 
-    public Reserva(String id){
-        this.id = id;
+    public Reserva(){
+        id = UUID.randomUUID();
     }
     
     public String getNomeResponsavel() {
@@ -36,13 +38,8 @@ public class Reserva {
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
-    public String getId() {
+
+    public UUID getId() {
         return id;
     }
-
-    @Override
-    public String toString() {
-        return "Reserva [nomeResponsavel=" + nomeResponsavel + ", quantPessoas=" + quantPessoas + "]";
-    }
-    
 }

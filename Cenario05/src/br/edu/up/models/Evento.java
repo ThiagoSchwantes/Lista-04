@@ -1,20 +1,24 @@
 package br.edu.up.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Evento {
-    private String id;
+    private UUID id;
     private String nome;
     private LocalDateTime data;
     private String local;
     private int lotacaoMaxima;
     private int quantIgressosVendidos;
     private double precoIngresso;
+    private List<Reserva> reservas;
 
-    public Evento(String id){
-        this.id = id;
-    }
-    
+    public Evento(){
+        id = UUID.randomUUID();
+    }    
+
     public String getNome() {
         return nome;
     }
@@ -51,13 +55,9 @@ public class Evento {
     public void setPrecoIngresso(double precoIngresso) {
         this.precoIngresso = precoIngresso;
     }
-    public String getId() {
+
+    public UUID getId() {
         return id;
     }
-
-    @Override
-    public String toString() {
-        return "Evento [nome=" + nome + ", data=" + data + ", local=" + local + ", lotacaoMaxima=" + lotacaoMaxima
-                + ", quantIgressosVendidos=" + quantIgressosVendidos + ", precoIngresso=" + precoIngresso + "]";
-    }
+    
 }
