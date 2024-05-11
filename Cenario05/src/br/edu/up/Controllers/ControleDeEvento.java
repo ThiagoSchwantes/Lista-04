@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class ControleDeEvento {
 
+
     public Evento incluirEvento(){
         InformacaoEvento ie = new InformacaoEvento();
 
@@ -17,6 +18,7 @@ public class ControleDeEvento {
         String local = ie.registrarLocal();
         int lotacao = ie.registrarLotacaoMax();
         double precoIngresso = ie.registrarPrecoIngresso();
+
 
         Evento evento = new Evento(nome,data,local,lotacao,precoIngresso);
         Evento.getListaEventos().add(evento);

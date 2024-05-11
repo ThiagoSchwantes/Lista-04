@@ -15,7 +15,6 @@ public class Evento {
     private int lotacaoMaxima;
     private int quantIgressosVendidos = 0;
     private double precoIngresso;
-    private List<Reserva> reservas;
 
     public Evento(String nome, LocalDate data, String local, int lotacaoMaxima,
             double precoIngresso) {

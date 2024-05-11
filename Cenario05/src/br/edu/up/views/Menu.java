@@ -43,6 +43,7 @@ public class Menu {
     public void menuEventos(){
 
         ControleDeEvento controleDeEvento = new ControleDeEvento();
+
         Prompt.separador();
         Prompt.imprimir("MENU DE EVENTOS");
         Prompt.separador();
@@ -113,6 +114,8 @@ public class Menu {
     }
 
     public void menuReserva(){
+        ControleDeReserva controleDeReserva = new ControleDeReserva();
+
         Prompt.separador();
         Prompt.imprimir("MENU DE RESERVAS");
         Prompt.separador();
@@ -128,16 +131,49 @@ public class Menu {
 
         switch (opcao3) {
             case 1:
-                //incluirReserva();
+                Reserva reserva = controleDeReserva.incluirReserva();
+                Prompt.separador();
+                Prompt.imprimir("Reserva realizada com sucesso.");
+                Prompt.imprimir(reserva);
+                Prompt.separador();
+                continuar();
                 break;
             case 2:
-                //alterarReserva();
+                String idString3 = Prompt.lerLinha("Informe o id da reserva: ");
+                try{
+                    UUID id = UUID.fromString(idString3);
+                    Reserva reserva2 = controleDeReserva.alterarReserva(id);
+                    if(reserva2 == null){
+                        Prompt.imprimir("Id não encontrado.");
+                    }else{
+                        Prompt.separador();
+                        Prompt.imprimir("Alteração realizada com sucesso.");
+                        Prompt.imprimir(reserva2);
+                        Prompt.separador();
+                    }
+                }catch (IllegalArgumentException e) {
+                    Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
+                }
+                continuar();
                 break;
             case 3:
-                //listarReserva();
+                controleDeReserva.listaDeReservas();
+                continuar();
                 break;
             case 4:
-                //excluirReserva();
+                String idString4 = Prompt.lerLinha("Informe o id do evento: ");
+                try{
+                    UUID idReserva = UUID.fromString(idString4);
+                    boolean reserva2 = controleDeReserva.excluirReserva(idReserva);
+                    if(reserva2 == false){
+                        Prompt.imprimir("Evento não encontrado.");
+                    }else{
+                        Prompt.imprimir("Evento excluido com sucesso.");
+                    }
+                }catch (IllegalArgumentException e) {
+                    Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
+                }
+                continuar();
                 break;
             case 5:
                 menuPrincipal();
