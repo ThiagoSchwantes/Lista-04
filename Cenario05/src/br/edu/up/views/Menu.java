@@ -1,7 +1,14 @@
 package br.edu.up.views;
 import br.edu.up.utils.*;
 
+import java.util.Scanner;
+import java.util.UUID;
+
+import br.edu.up.Controllers.*;
+import br.edu.up.models.*;
+
 public class Menu {
+    Scanner scanner = new Scanner(System.in);
 
     public void menuPrincipal(){
 
@@ -34,6 +41,8 @@ public class Menu {
     }
 
     public void menuEventos(){
+
+        ControleDeEvento controleDeEvento = new ControleDeEvento();
         Prompt.separador();
         Prompt.imprimir("MENU DE EVENTOS");
         Prompt.separador();
@@ -49,16 +58,50 @@ public class Menu {
 
         switch (opcao2) {
             case 1:
-                //controller.incluirEvento();
+                Evento evento = controleDeEvento.incluirEvento();
+                Prompt.separador();
+                Prompt.imprimir("Evento cadastrado com sucesso!");
+                Prompt.imprimir(evento);
+                Prompt.separador();
+                continuar();
                 break;
             case 2:
-                //controller.alterarEvento();
+                String idString = Prompt.lerLinha("Informe o id do evento: ");
+                try{
+                    UUID id = UUID.fromString(idString);
+                    Evento evento2 = controleDeEvento.alterarEvento(id);
+                    if(evento2 == null){
+                        Prompt.imprimir("Id não encontrado.");
+                    }else{
+                        Prompt.separador();
+                        Prompt.imprimir("Alteração realizada com sucesso.");
+                        Prompt.imprimir(evento2);
+                        Prompt.separador();
+                    }
+                }catch (IllegalArgumentException e) {
+                    Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
+                }
+                
+                continuar();
                 break;
             case 3:
-                //controller.listarEventos();
+                controleDeEvento.listaDeEventos();
+                continuar();
                 break;
             case 4:
-                //controller.xcluirEvento();
+                String idString2 = Prompt.lerLinha("Informe o id do evento: ");
+                try{
+                    UUID id = UUID.fromString(idString2);
+                    boolean evento2 = controleDeEvento.ExcluirEvento(id);
+                    if(evento2 == false){
+                        Prompt.imprimir("Evento não encontrado.");
+                    }else{
+                        Prompt.imprimir("Evento excluido com sucesso.");
+                    }
+                }catch (IllegalArgumentException e) {
+                    Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
+                }
+                continuar();
                 break;
             case 5:
                 menuPrincipal();
@@ -108,5 +151,11 @@ public class Menu {
     public void encerrarPrograma(){
         Prompt.imprimir("Encerrando o programa...");
         System.exit(3);
+    }
+
+    public void continuar(){
+        Prompt.imprimir("Pressione qualquer tecla para continuar...");
+        scanner.nextLine();
+        menuPrincipal();
     }
 }
