@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import br.edu.up.models.Pessoa.Aluno;
-import br.edu.up.models.Pessoa.Professor.Professor;
+import br.edu.up.models.Pessoa.Professor;
 
 public class Disciplina {
     private String nome;
