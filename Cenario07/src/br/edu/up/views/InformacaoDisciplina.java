@@ -17,4 +17,9 @@ public class InformacaoDisciplina {
         String competenciaNecessaria = Prompt.lerLinha("Informe uma competencia necessaria: ");
         return competenciaNecessaria;
     }
+
+    public String registrarCompetenciaComplementar(){
+        String competenciaComplementar = Prompt.lerLinha("Informe uma competencia complementar: ");
+        return competenciaComplementar;
+    }
 }

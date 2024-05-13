@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import br.edu.up.utils.*;
 import br.edu.up.controllers.*;
+import br.edu.up.models.Disciplina;
 import br.edu.up.models.Pessoa.Aluno;
 import br.edu.up.models.Pessoa.Professor;
 
@@ -43,7 +44,12 @@ public class Menu {
                 continuar();
                 break;
             case 3:
-                //incluirDisciplina();
+                ControleDeDisciplina cd = new ControleDeDisciplina();
+                Disciplina disciplina = cd.incluirDisciplina();
+                Prompt.imprimir("Cadastro de disciplina realizado com sucesso.");
+                Prompt.imprimir(disciplina);
+                Prompt.separador();
+                continuar();
                 break;
             case 4:
                 encerrarPrograma();

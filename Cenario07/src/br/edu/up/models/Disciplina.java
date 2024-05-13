@@ -1,8 +1,5 @@
 package br.edu.up.models;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import br.edu.up.models.Pessoa.Aluno;
 import br.edu.up.models.Pessoa.Professor;
 
