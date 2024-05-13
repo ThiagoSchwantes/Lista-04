@@ -24,6 +24,4 @@ public class Aeronave {
     public void setQuantidadeAssentos(Integer quantidadeAssentos) {
         this.quantidadeAssentos = quantidadeAssentos;
     }
-    
-    
 }

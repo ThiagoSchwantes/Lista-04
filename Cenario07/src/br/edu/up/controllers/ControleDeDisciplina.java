@@ -20,16 +20,21 @@ public class ControleDeDisciplina {
         List<Competencia> competenciasNecessarias = new ArrayList<>();
 
         boolean adicionarMaisCompetencias = true;
+
+        
+
         while (adicionarMaisCompetencias) {
-            String competencia = iDisciplina.registrarCompetenciaNecessaria();
-            competenciasNecessarias.add(Competencia.nome);
+            Competencia competencia = new Competencia(iDisciplina.registrarCompetenciaNecessaria());
+            competenciasNecessarias.add(competencia);
 
             System.out.print("Deseja adicionar outra competência necessária? (true/false): ");
             String input = scanner.nextLine();
             adicionarMaisCompetencias = Boolean.parseBoolean(input);
         }
 
+        Disciplina disc = new Disciplina(nomeDisciplina, idDisciplina, competenciasNecessarias, competenciasNecessarias, null, null);
 
+        return disc;
         
     }
 }

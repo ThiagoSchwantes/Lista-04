@@ -9,22 +9,31 @@ public class Menu {
         Prompt.imprimir("MENU PRINCIPAL");
         Prompt.separador();
 
-        Prompt.imprimir("Digite uma das opções:");
+        Prompt.imprimir("Digite uma das opções para gerenciar:");
         
-        Prompt.imprimir("\t1 - Cadastros do sistema.");
-        Prompt.imprimir("\t2 - Gerenciamento de operação.");
-        Prompt.imprimir("\t3 - Fechar Programa\n");
+        Prompt.imprimir("\t1 - Passageiros");
+        Prompt.imprimir("\t2 - Tripulação");
+        Prompt.imprimir("\t3 - Aeronaves");
+        Prompt.imprimir("\t4 - Passagens");
+        Prompt.imprimir("\t5 - Fechar Programa\n");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
 
         switch (opcao1) {
             case 1:
-                menuCadastro();
+                menuPassageiro();
                 break;
             case 2:
-                menuGerenciamento();
+                menuTripulacao();
                 break;
             case 3:
+                menuAeronave();
+                break;
+            
+            case 4:
+                menuPassagem();
+                break;
+            case 5:
                 encerrarPrograma();
                 break;
             default:
@@ -32,92 +41,63 @@ public class Menu {
                 break;
         }
     }
-    
-    public void menuCadastro(){
 
+    public void menuPassageiro(){
+        
         Prompt.separador();
-        Prompt.imprimir("MENU DE CADASTRO:");
+        Prompt.imprimir("MENU DE PASSAGEIROS:");
         Prompt.separador();
 
         Prompt.imprimir("Digite uma das opções:");
-        Prompt.imprimir("\t1 - Passageiros");
-        Prompt.imprimir("\t2 - Tripulação");
-        Prompt.imprimir("\t3 - Aeronaves");
-        Prompt.imprimir("\t4 - Voltar ao menu principal");
-        
-
-        int opcao2 = Prompt.lerInteiro("Digite aqui: ");
-
-        switch (opcao2) {
-            case 1:
-                menuCadastroDePassageiros();
-                break;
-            case 2:
-                menuCadastroDeTripulacao();
-                break;
-            case 3:
-                menuCadastroDeAeronave();
-                break;
-            case 4:
-                menuPrincipal();
-                break;
-            default:
-                Prompt.imprimir("Valor Inválido.");
-                break;
-        }
-    }
-
-    public void menuCadastroDePassageiros(){
-        
-        Prompt.separador();
-        Prompt.imprimir("MENU DE CADASTRO DE PASSAGEIROS:");
-        Prompt.separador();
-
-        Prompt.imprimir("Digite uma das opções:");
-        Prompt.imprimir("\t1 - Incluir passageiro");
-        Prompt.imprimir("\t2 - Listar passageiros");
-        Prompt.imprimir("\t3 - Alterar passageiro");
-        Prompt.imprimir("\t4 - Deletar passageiro");
+        Prompt.imprimir("\t1 - Cadastrar");
+        Prompt.imprimir("\t2 - Listar");
+        Prompt.imprimir("\t3 - Alterar");
+        Prompt.imprimir("\t4 - Deletar");
         Prompt.imprimir("\t5 - Voltar ao menu principal");
 
-        int opcao3 = Prompt.lerInteiro("Digite aqui: ");
+        int opcao = Prompt.lerInteiro("Digite aqui: ");
+        PassageiroView passageiroView = new PassageiroView();
 
-        switch (opcao3) {
+        switch (opcao) {
             case 1:
-                //incluirPassageiro();
+                passageiroView.cadastrarPassageiro();
+                menuPassageiro();
                 break;
             case 2:
-                //listarPassageiros();
+                passageiroView.listarPassageiros();
+                menuPassageiro();
                 break;
             case 3:
-                //alterarPassageiro();
+                passageiroView.alterarPassageiro();
+                menuPassageiro();
                 break;
             case 4:
-                //deletarPassageiro();
+                passageiroView.deletarPassageiro();
+                menuPassageiro();
                 break;
             case 5:
                 menuPrincipal();
                 break;
             default:
                 Prompt.imprimir("Valor Inválido.");
+                menuPassageiro();
                 break;
         }
     }
     
-    public void menuCadastroDeTripulacao(){
+    public void menuTripulacao(){
         
         Prompt.separador();
-        Prompt.imprimir("MENU DE CADASTRO DA TRIPULAÇÃO:");
+        Prompt.imprimir("MENU DA TRIPULAÇÃO:");
         Prompt.separador();
 
         Prompt.imprimir("Digite uma das opções:");
-        Prompt.imprimir("\t1 - Incluir tripulação");
-        Prompt.imprimir("\t2 - Listar tripulação");
-        Prompt.imprimir("\t3 - Alterar tripulação");
-        Prompt.imprimir("\t4 - Deletar tripulação");
+        Prompt.imprimir("\t1 - Comandante");
+        Prompt.imprimir("\t2 - Comissário");
         Prompt.imprimir("\t5 - Voltar ao menu principal");
 
         int opcao4 = Prompt.lerInteiro("Digite aqui: ");
+        TripulanteView trpView = new TripulanteView();
 
         switch (opcao4) {
             case 1:
@@ -141,7 +121,7 @@ public class Menu {
         }
     }
 
-    public void menuCadastroDeAeronave(){
+    public void menuAeronave(){
         
         Prompt.separador();
         Prompt.imprimir("MENU DE CADASTRO DA AERONAVE:");
@@ -178,7 +158,7 @@ public class Menu {
         }
     }
 
-    public void menuGerenciamento(){
+    public void menuPassagem(){
         
         Prompt.separador();
         Prompt.imprimir("MENU DE GERENCIAMENTO DE TRAFEGO:");
