@@ -1,17 +1,25 @@
 package br.edu.up.models;
 
-public enum Competencia {
-    NECESSARIA,
-    COMPLEMENTAR;
+public class Competencia {
+    
+    private String nome;
+    private boolean atingida;
 
-    private String descricao;
-
-    public String getDescricao() {
-        return descricao;
+    public Competencia(String nome) {
+        this.nome = nome;
+        this.atingida = false;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public String getNome() {
+        return nome;
+    }
+
+    public boolean isAtingida() {
+        return atingida;
+    }
+
+    public void setAtingida(boolean atingida) {
+        this.atingida = atingida;
     }
     
 }

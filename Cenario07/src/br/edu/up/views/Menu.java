@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import br.edu.up.utils.*;
 import br.edu.up.controllers.*;
+import br.edu.up.models.Pessoa.Aluno;
 import br.edu.up.models.Pessoa.Professor;
 
 public class Menu {
@@ -18,7 +19,7 @@ public class Menu {
         Prompt.imprimir("\t1 - Incluir Professor.");
         Prompt.imprimir("\t2 - Incluir Aluno.");
         Prompt.imprimir("\t3 - Incluir Disciplina.");
-        Prompt.imprimir("\t3 - Fechar Programa\n");
+        Prompt.imprimir("\t4 - Fechar Programa\n");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
 
@@ -27,20 +28,25 @@ public class Menu {
                 ControleDeProfessor cp = new ControleDeProfessor();
                 Professor professor = cp.incluirProfessor();
                 Prompt.separador();
-                if(professor != null){
-                    Prompt.imprimir("Cadastro do professor realizado com sucesso.");
-                    Prompt.imprimir(professor);
-                }else{
-                    Prompt.imprimir("Ocorreu um erro ao cadastrar,Tente novamente.");
-                }
+                Prompt.imprimir("Cadastro do professor realizado com sucesso.");
+                Prompt.imprimir(professor);
                 Prompt.separador();
                 continuar();
                 break;
             case 2:
-                //menuReserva();
+                ControleDeAluno ca = new ControleDeAluno();
+                Aluno aluno = ca.incluirAluno();
+                Prompt.separador();
+                Prompt.imprimir("Cadastro do aluno realizado com sucesso.");
+                Prompt.imprimir(aluno);
+                Prompt.separador();
+                continuar();
                 break;
             case 3:
-                //encerrarPrograma();
+                //incluirDisciplina();
+                break;
+            case 4:
+                encerrarPrograma();
                 break;
             default:
                 Prompt.imprimir("Valor Inválido.");
@@ -51,7 +57,7 @@ public class Menu {
 
     public void encerrarPrograma(){
         Prompt.imprimir("Encerrando o programa...");
-        System.exit(3);
+        System.exit(4);
     }
 
     public void continuar(){
