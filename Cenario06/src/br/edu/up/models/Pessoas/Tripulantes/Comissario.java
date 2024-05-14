@@ -1,9 +1,19 @@
-package br.edu.up.models.Pessoa.Tripulante;
+package br.edu.up.models.Pessoas.Tripulantes;
 
 import java.util.List;
 
+import br.edu.up.models.Pessoas.Tripulante;
+
 public class Comissario extends Tripulante{
     private List<String> idiomas;
+
+    public Comissario(String nome, String rg, String matriculaFuncionario, String idAeronautica, List<String> idiomas) {
+        this.setNome(nome);
+        this.setRg(rg);
+        this.setMatriculaFuncionario(matriculaFuncionario);
+        this.setIdAeronautica(idAeronautica);
+        this.idiomas = idiomas;
+    }
 
     public List<String> getIdiomas() {
         return idiomas;

@@ -5,9 +5,9 @@ import java.util.List;
 
 import br.edu.up.models.Aeronave;
 import br.edu.up.models.Passagem;
-import br.edu.up.models.Pessoa.Passageiro;
-import br.edu.up.models.Pessoa.Tripulante.Comandante;
-import br.edu.up.models.Pessoa.Tripulante.Comissario;
+import br.edu.up.models.Pessoas.Passageiro;
+import br.edu.up.models.Pessoas.Tripulantes.Comandante;
+import br.edu.up.models.Pessoas.Tripulantes.Comissario;
 
 public class VooController {
     private String dataDoVoo;
@@ -25,9 +25,7 @@ public class VooController {
     }
 
     public void adicionarPassageiro(Passageiro passageiro, Integer numeroAcento, String classeAcento){
-
         passageiro.setPassagem(new Passagem(aeronave, numeroAcento, classeAcento, dataDoVoo));
-
         passageiros.add(passageiro);
     }
 

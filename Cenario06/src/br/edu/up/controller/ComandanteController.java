@@ -3,24 +3,24 @@ package br.edu.up.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Aeronave;
-import br.edu.up.models.Pessoa.Tripulante.Comandante;
-import br.edu.up.models.Pessoa.Tripulante.Comissario;
+import br.edu.up.models.Pessoas.Tripulantes.Comandante;
 
 public class ComandanteController {
     List<Comandante> comandantesCadastrados = new ArrayList<>();
 
-    public void adicionar(Comandante comandante){
+    public Comandante adicionar(Comandante comandante){
         comandantesCadastrados.add(comandante);
+
+        return comandante;
     }
 
     public String listar(){
         String lista = ""; 
-
+        int i = 1;
         for (Comandante comandante : comandantesCadastrados) {
-            lista += "--------------------------\n";
-            lista += comandante.toString()+"\n";
-            lista += "--------------------------\n";
+            lista += "Comandante  " + i + " " + comandante.toString();
+            lista += "\n---------------------------------------------------\n";
+            i++;
         }
 
         return lista;
@@ -38,8 +38,8 @@ public class ComandanteController {
         return busca;
     }
 
-    public void alterar(Comandante comandanteNovo){
-        int index = comandantesCadastrados.indexOf(comandanteNovo);
+    public void alterar(Comandante comandanteAntiga, Comandante comandanteNovo){
+        int index = comandantesCadastrados.indexOf(comandanteAntiga);
         comandantesCadastrados.set(index, comandanteNovo);
     }
 

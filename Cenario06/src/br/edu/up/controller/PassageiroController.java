@@ -3,15 +3,13 @@ package br.edu.up.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Pessoa.Passageiro;
-import br.edu.up.utils.Prompt;
+import br.edu.up.models.Pessoas.Passageiro;
 
 public class PassageiroController {
     List<Passageiro> passageirosCadastrados = new ArrayList<>();
 
     public Passageiro adicionar(Passageiro passageiro){
         passageirosCadastrados.add(passageiro);
-
         return buscar(passageiro.getRg());
     }
 
@@ -19,9 +17,8 @@ public class PassageiroController {
         String lista = ""; 
         int i = 1;
         for (Passageiro passageiro : passageirosCadastrados) {
-            lista += "---------------------------------------------------";
-            lista += "\nPassageiro " + i + " "+passageiro.toString();
-            lista += "---------------------------------------------------";
+            lista += "Passageiro " + i + " "+passageiro.toString();
+            lista += "\n---------------------------------------------------\n";
             i++;
         }
 
@@ -32,7 +29,6 @@ public class PassageiroController {
         Passageiro busca = null;
 
         for (Passageiro passageiro : passageirosCadastrados) {
-            Prompt.imprimir(passageiro.getRg() == rg);
             if(passageiro.getRg().equals(rg)){
                 busca = passageiro;
                 break;

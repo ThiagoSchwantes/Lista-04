@@ -1,6 +1,4 @@
-package br.edu.up.models.Pessoa;
-
-import br.edu.up.models.Aeronave;
+package br.edu.up.models;
 
 public class Pessoa {
     private String nome;

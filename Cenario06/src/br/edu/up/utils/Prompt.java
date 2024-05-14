@@ -14,6 +14,24 @@ import java.io.InputStreamReader;
 public class Prompt {
 
 	/**
+	 * Limpa o console
+	 */
+	public static void clearConsole(){
+        try{
+            if (System.getProperty("os.name").contains("Windows")){
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            else{
+                Runtime.getRuntime().exec("clear");
+            }
+        }
+        catch (final Exception e)
+        {
+           
+        }
+    }
+
+	/**
 	 * Imprime a mensagem enviada no console.
 	 */
 	public static void imprimir(String mensagem) {

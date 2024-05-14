@@ -14,11 +14,11 @@ public class PassagemController {
 
     public String listar(){
         String lista = ""; 
-
+        int i = 1;
         for (Passagem passagem : passagensCadastrados) {
-            lista += "--------------------------\n";
-            lista += passagem.toString()+"\n";
-            lista += "--------------------------\n";
+            lista += "Passagem  " + i + " " + passagem.toString();
+            lista += "\n---------------------------------------------------\n";
+            i++;
         }
 
         return lista;
@@ -36,8 +36,8 @@ public class PassagemController {
         return busca;
     }
 
-    public void alterar(Passagem passagemNova){
-        int index = passagensCadastrados.indexOf(passagemNova);
+    public void alterar(Passagem passagemAntiga, Passagem passagemNova){
+        int index = passagensCadastrados.indexOf(passagemAntiga);
         passagensCadastrados.set(index, passagemNova);
     }
 

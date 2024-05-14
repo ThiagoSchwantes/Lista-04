@@ -3,8 +3,7 @@ package br.edu.up.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Pessoa.Tripulante.Comandante;
-import br.edu.up.models.Pessoa.Tripulante.Comissario;
+import br.edu.up.models.Pessoas.Tripulantes.Comissario;
 
 public class ComissarioController {
     List<Comissario> comissariosCadastrados = new ArrayList<>();
@@ -15,11 +14,11 @@ public class ComissarioController {
 
     public String listar(){
         String lista = ""; 
-
+        int i = 1;
         for (Comissario comissario : comissariosCadastrados) {
-            lista += "--------------------------\n";
-            lista += comissario.toString()+"\n";
-            lista += "--------------------------\n";
+            lista += "Comissario  " + i + " " + comissario.toString();
+            lista += "\n---------------------------------------------------\n";
+            i++;
         }
 
         return lista;
@@ -37,8 +36,8 @@ public class ComissarioController {
         return busca;
     }
 
-    public void alterar(Comissario comissarioNovo){
-        int index = comissariosCadastrados.indexOf(comissarioNovo);
+    public void alterar(Comissario comissarioAntigo, Comissario comissarioNovo){
+        int index = comissariosCadastrados.indexOf(comissarioAntigo);
         comissariosCadastrados.set(index, comissarioNovo);
     }
 

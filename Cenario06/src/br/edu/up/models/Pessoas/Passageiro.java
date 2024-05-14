@@ -1,8 +1,9 @@
-package br.edu.up.models.Pessoa;
+package br.edu.up.models.Pessoas;
 
 import java.util.UUID;
 
 import br.edu.up.models.Passagem;
+import br.edu.up.models.Pessoa;
 
 public class Passageiro extends Pessoa{
 
@@ -33,7 +34,7 @@ public class Passageiro extends Pessoa{
 
     @Override
     public String toString() {
-        return "[idBagagem: " + idBagagem.toString() + ", Nome: " + getNome()
-                + ", RG: " + getRg() + "]" + "\nPassagem: " + passagem + "\n";
+        return "[Nome: " + getNome() + ", RG: " + getRg() + ", idBagagem: " + idBagagem.toString() + "]"
+                + "\nPassagem: " + passagem;
     }
 }

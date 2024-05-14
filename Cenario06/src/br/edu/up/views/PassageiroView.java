@@ -1,27 +1,27 @@
 package br.edu.up.views;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import br.edu.up.models.Passagem;
-import br.edu.up.models.Pessoa.Passageiro;
+import br.edu.up.models.Pessoas.Passageiro;
 import br.edu.up.utils.Prompt;
 
 public class PassageiroView {
-    
+    public Passageiro cadatrar(){
+        Prompt.separador();
+        Prompt.imprimir("CADASTRAR PASSAGEIRO");
+        Prompt.separador();
 
-    public void listarPassageiros(){
+        String nome = Prompt.lerLinha("Digite o seu nome:");
+        String rg = Prompt.lerLinha("Digite o seu rg");
 
+        return new Passageiro(nome, rg);
     }
 
-    public void alterarPassageiro(){
+    public Passageiro alterar(Passageiro passageiro){
+        String nome = Prompt.lerLinha("Digite o seu novo nome:");
+        String rg = Prompt.lerLinha("Digite o seu novo rg");
 
-    }
+        passageiro.setNome(nome);
+        passageiro.setRg(rg);
 
-    public void deletarPassageiro(){
-
+        return passageiro;
     }
 }

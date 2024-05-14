@@ -1,10 +1,10 @@
-package br.edu.up.models.Pessoa.Tripulante;
+package br.edu.up.models.Pessoas;
 
-import br.edu.up.models.Pessoa.Pessoa;
+import br.edu.up.models.Pessoa;
 
 public class Tripulante extends Pessoa{
     private String matriculaFuncionario;
-    private Long idAeronautica;
+    private String idAeronautica;
     
     public String getMatriculaFuncionario() {
         return matriculaFuncionario;
@@ -12,10 +12,10 @@ public class Tripulante extends Pessoa{
     public void setMatriculaFuncionario(String matriculaFuncionario) {
         this.matriculaFuncionario = matriculaFuncionario;
     }
-    public Long getIdAeronautica() {
+    public String getIdAeronautica() {
         return idAeronautica;
     }
-    public void setIdAeronautica(Long idAeronautica) {
+    public void setIdAeronautica(String idAeronautica) {
         this.idAeronautica = idAeronautica;
     } 
 }

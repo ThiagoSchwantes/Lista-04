@@ -1,13 +1,19 @@
 package br.edu.up.views;
+import br.edu.up.controller.ComandanteController;
+import br.edu.up.controller.ComissarioController;
 import br.edu.up.controller.PassageiroController;
-import br.edu.up.models.Pessoa.Passageiro;
+import br.edu.up.models.Pessoas.Passageiro;
+import br.edu.up.models.Pessoas.Tripulantes.Comandante;
+import br.edu.up.models.Pessoas.Tripulantes.Comissario;
 import br.edu.up.utils.*;
 
 public class Menu {
     PassageiroController passageiroController = new PassageiroController();
+    ComandanteController comandanteController = new ComandanteController();
+    ComissarioController comissarioController = new ComissarioController();
 
     public void menuPrincipal(){
-
+        Prompt.clearConsole();
         Prompt.separador();
         Prompt.imprimir("MENU PRINCIPAL");
         Prompt.separador();
@@ -20,6 +26,7 @@ public class Menu {
         Prompt.imprimir("\t5 - Fechar Programa\n");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
+        Prompt.clearConsole();
 
         switch (opcao1) {
             case 1:
@@ -31,7 +38,6 @@ public class Menu {
             case 3:
                 menuAeronave();
                 break;
-            
             case 4:
                 menuVoosPassagem();
                 break;
@@ -39,7 +45,12 @@ public class Menu {
                 encerrarPrograma();
                 break;
             default:
-                Prompt.imprimir("Valor Inválido.");
+                Prompt.separador();
+                Prompt.imprimir("VALOR INVÁLIDO.");
+                Prompt.separador();
+
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
         }
     }
@@ -57,62 +68,93 @@ public class Menu {
         Prompt.imprimir("\t5 - Voltar ao menu principal");
 
         int opcao = Prompt.lerInteiro("Digite aqui: ");
+        Prompt.clearConsole();
+        PassageiroView pv = new PassageiroView();
 
         switch (opcao) {
             case 1:
-                String nome = Prompt.lerLinha("Digite o seu nome:");
-                String rg = Prompt.lerLinha("Digite o seu rg");
-                String passageiroString = passageiroController.adicionar(new Passageiro(nome, rg)).toString();
+            
+                Passageiro passageiroCadastrado = pv.cadatrar();
+                passageiroController.adicionar(passageiroCadastrado);
 
-                Prompt.linhaEmBranco();
                 Prompt.separador();
-                Prompt.imprimir("Passageiro cadastrado" + passageiroString);
-                Prompt.pressionarEnter();
+                Prompt.imprimir("PASSAGEIRO CADASTRADO\n" + passageiroCadastrado.toString());
+                Prompt.separador();
+
                 break;
             case 2:
+                Prompt.separador();
+                Prompt.imprimir("LISTAR PASSAGEIROS");
+                Prompt.separador();
+
                 Prompt.imprimir(passageiroController.listar());
                 break;
             case 3:
                 Prompt.separador();
+                Prompt.imprimir("ALTERAR PASSAGEIRO");
+                Prompt.separador();
+
                 String rgAntigo = Prompt.lerLinha("Digite o rg do passageiro que deseja alterar:");
                 Passageiro passageiroVelho = passageiroController.buscar(rgAntigo);
 
                 if (passageiroVelho == null) {
+                    Prompt.separador();
                     Prompt.imprimir("Não foi achado nenhum passageiro com este rg!");
+                    Prompt.separador();
                     break;
                 }
                 
                 String nomeAlterar = Prompt.lerLinha("Digite o novo nome do passageiro:");
                 String rgAlterar = Prompt.lerLinha("Digite o seu rg");
 
+                
+
                 Passageiro passageiroAlterado = passageiroVelho;
                 passageiroAlterado.setNome(nomeAlterar);
                 passageiroAlterado.setRg(rgAlterar);
 
                 passageiroController.alterar(passageiroVelho, passageiroAlterado);
+
                 Prompt.separador();
-                Prompt.pressionarEnter();
+                Prompt.imprimir("Passageiro alterado com suscesso!");
+                Prompt.separador();
                 break;
             case 4:
+                Prompt.separador();
+                Prompt.imprimir("DELETAR PASSAGEIRO");
+                Prompt.separador();
+
                 String rgDeletar = Prompt.lerLinha("Digite o rg do passageiro que deseja deletar:");
-                passageiroController.deletar(passageiroController.buscar(rgDeletar));
+                Passageiro passageiroDeletar =  passageiroController.buscar(rgDeletar);
+
+                if (passageiroDeletar == null) {
+                    Prompt.separador();
+                    Prompt.imprimir("Passageiro não encontrado!");
+                    Prompt.separador();
+                }else{
+                    passageiroController.deletar(passageiroDeletar);
+
+                    Prompt.separador();
+                    Prompt.imprimir("Passageiro deletado com sucesso!");
+                    Prompt.separador();
+                }
+
                 break;
             case 5:
                 menuPrincipal();
                 break;
             default:
-                Prompt.imprimir("Valor Inválido.");
+                Prompt.separador();
+                Prompt.imprimir("VALOR INVÁLIDO.");
+                Prompt.separador();
                 break;
-        }
+            }
+        Prompt.pressionarEnter();
+        
+        Prompt.clearConsole();
         menuPassageiro();
     }
 
-    public void cadastrarPassageiro(){
-        String nome = Prompt.lerLinha("Digite o seu nome:");
-        String rg = Prompt.lerLinha("Digite o seu RG:");
-
-    }
-    
     public void menuTripulacao(){
         
         Prompt.separador();
@@ -122,33 +164,235 @@ public class Menu {
         Prompt.imprimir("Digite uma das opções:");
         Prompt.imprimir("\t1 - Comandante");
         Prompt.imprimir("\t2 - Comissário");
-        Prompt.imprimir("\t5 - Voltar ao menu principal");
+        Prompt.imprimir("\t3 - Voltar ao menu principal");
 
-        int opcao4 = Prompt.lerInteiro("Digite aqui: ");
-        TripulanteView trpView = new TripulanteView();
+        int opcao = Prompt.lerInteiro("Digite aqui: ");
+        Prompt.clearConsole();
 
-        switch (opcao4) {
+        switch (opcao) {
             case 1:
-                //incluirTripulante();
+                menuComandante();
                 break;
             case 2:
-                //listarTripulantes();
+                menuComissario();
                 break;
             case 3:
-                //alterarTripulante();
+                menuPrincipal();
+                break;
+            default:
+                Prompt.imprimir("Valor Inválido.");
+                menuTripulacao();
+                break;
+        }
+    }
+
+    public void menuComandante(){
+        Prompt.separador();
+        Prompt.imprimir("MENU DE COMANDANTE:");
+        Prompt.separador();
+
+        Prompt.imprimir("Digite uma das opções:");
+        Prompt.imprimir("\t1 - Cadastrar");
+        Prompt.imprimir("\t2 - Listar");
+        Prompt.imprimir("\t3 - Alterar");
+        Prompt.imprimir("\t4 - Deletar");
+        Prompt.imprimir("\t5 - Voltar ao menu principal");
+
+        int opcao = Prompt.lerInteiro("Digite aqui: ");
+        Prompt.clearConsole();
+
+        ComandanteView cv = new ComandanteView();
+
+        switch (opcao) {
+            case 1:
+                Comandante comandanteCadastrar = cv.cadatrar();
+                comandanteController.adicionar(comandanteCadastrar);
+
+                Prompt.separador();
+                Prompt.imprimir("COMANDANTE CADASTRADO\n" + comandanteCadastrar.toString());
+                Prompt.separador();
+
+                break;
+            case 2:
+                Prompt.separador();
+                Prompt.imprimir("LISTAR COMANDANTES");
+                Prompt.separador();
+
+                Prompt.imprimir(comandanteController.listar());
+                break;
+            case 3:
+                Prompt.separador();
+                Prompt.imprimir("ALTERAR COMANDANTE");
+                Prompt.separador();
+
+                String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a Matrícula de Funcionário do comandante que deseja alterar:");
+                Comandante comandanteAntigo = comandanteController.buscar(matriculaFuncionarioAlterar);
+
+                if (comandanteAntigo == null) {
+                    Prompt.separador();
+                    Prompt.imprimir("Não foi achado nenhum comandante com esta matricula!");
+                    Prompt.separador();
+                    break;
+                }
+
+                Prompt.clearConsole();
+                Prompt.separador();
+                Prompt.imprimir("ALTERAR COMANDANTE");
+                Prompt.separador();
+                
+                String nomeAlterar = Prompt.lerLinha("Digite o novo nome do comandante:");
+                String rgAlterar = Prompt.lerLinha("Digite o novo rg");
+
+                Comandante comandanteAlterado = comandanteAntigo;
+                comandanteAlterado.setNome(nomeAlterar);
+                comandanteAlterado.setRg(rgAlterar);
+
+                comandanteController.alterar(comandanteAntigo, comandanteAlterado);
+
+                Prompt.separador();
+                Prompt.imprimir("Passageiro alterado com suscesso!");
+                Prompt.separador();
                 break;
             case 4:
-                //deletarTripulante();
+                Prompt.separador();
+                Prompt.imprimir("DELETAR PASSAGEIRO");
+                Prompt.separador();
+
+                String rgDeletar = Prompt.lerLinha("Digite o rg do passageiro que deseja deletar:");
+                Passageiro passageiroDeletar =  passageiroController.buscar(rgDeletar);
+
+                if (passageiroDeletar == null) {
+                    Prompt.separador();
+                    Prompt.imprimir("Passageiro não encontrado!");
+                    Prompt.separador();
+                }else{
+                    passageiroController.deletar(passageiroDeletar);
+
+                    Prompt.separador();
+                    Prompt.imprimir("Passageiro deletado com sucesso!");
+                    Prompt.separador();
+                }
+
                 break;
             case 5:
                 menuPrincipal();
                 break;
             default:
-                Prompt.imprimir("Valor Inválido.");
+                Prompt.separador();
+                Prompt.imprimir("VALOR INVÁLIDO.");
+                Prompt.separador();
                 break;
-        }
+            }
+        Prompt.pressionarEnter();
+        
+        Prompt.clearConsole();
+        menuComandante();
     }
+    
+    public void menuComissario(){
+        Prompt.separador();
+        Prompt.imprimir("MENU DE COMISSARIO:");
+        Prompt.separador();
 
+        Prompt.imprimir("Digite uma das opções:");
+        Prompt.imprimir("\t1 - Cadastrar");
+        Prompt.imprimir("\t2 - Listar");
+        Prompt.imprimir("\t3 - Alterar");
+        Prompt.imprimir("\t4 - Deletar");
+        Prompt.imprimir("\t5 - Voltar ao menu principal");
+
+        int opcao = Prompt.lerInteiro("Digite aqui: ");
+        Prompt.clearConsole();
+
+        ComissarioView cv = new ComissarioView();
+
+        switch (opcao) {
+            case 1:
+                Comissario comissarioCadastrar = cv.cadatrar();
+                comissarioController.adicionar(comissarioCadastrar);
+
+                Prompt.clearConsole();
+                Prompt.separador();
+                Prompt.imprimir("COMISSARIO CADASTRADO COM SUCESSO!\n" + comissarioCadastrar.toString());
+                Prompt.separador();
+
+                break;
+            case 2:
+                Prompt.separador();
+                Prompt.imprimir("LISTAR COMISSARIOS");
+                Prompt.separador();
+
+                Prompt.imprimir(comandanteController.listar());
+                break;
+            case 3:
+                Prompt.separador();
+                Prompt.imprimir("ALTERAR COMISSARIOE");
+                Prompt.separador();
+
+                String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a Matrícula de Funcionário do comandante que deseja alterar:");
+                Comandante comandanteAntigo = comandanteController.buscar(matriculaFuncionarioAlterar);
+
+                if (comandanteAntigo == null) {
+                    Prompt.separador();
+                    Prompt.imprimir("Não foi achado nenhum comandante com esta matricula!");
+                    Prompt.separador();
+                    break;
+                }
+
+                Prompt.clearConsole();
+                Prompt.separador();
+                Prompt.imprimir("ALTERAR COMISSARIO");
+                Prompt.separador();
+                
+                String nomeAlterar = Prompt.lerLinha("Digite o novo nome do comandante:");
+                String rgAlterar = Prompt.lerLinha("Digite o novo rg");
+
+                Comandante comandanteAlterado = comandanteAntigo;
+                comandanteAlterado.setNome(nomeAlterar);
+                comandanteAlterado.setRg(rgAlterar);
+
+                comandanteController.alterar(comandanteAntigo, comandanteAlterado);
+
+                Prompt.separador();
+                Prompt.imprimir("Passageiro alterado com suscesso!");
+                Prompt.separador();
+                break;
+            case 4:
+                Prompt.separador();
+                Prompt.imprimir("DELETAR COMISSARIO");
+                Prompt.separador();
+
+                String rgDeletar = Prompt.lerLinha("Digite o rg do passageiro que deseja deletar:");
+                Passageiro passageiroDeletar =  passageiroController.buscar(rgDeletar);
+
+                if (passageiroDeletar == null) {
+                    Prompt.separador();
+                    Prompt.imprimir("Passageiro não encontrado!");
+                    Prompt.separador();
+                }else{
+                    passageiroController.deletar(passageiroDeletar);
+
+                    Prompt.separador();
+                    Prompt.imprimir("Passageiro deletado com sucesso!");
+                    Prompt.separador();
+                }
+
+                break;
+            case 5:
+                menuPrincipal();
+                break;
+            default:
+                Prompt.separador();
+                Prompt.imprimir("VALOR INVÁLIDO.");
+                Prompt.separador();
+                break;
+            }
+        Prompt.pressionarEnter();
+        
+        Prompt.clearConsole();
+        menuComandante();
+    }
+    
     public void menuAeronave(){
         
         Prompt.separador();
@@ -162,9 +406,9 @@ public class Menu {
         Prompt.imprimir("\t4 - Deletar aeronave");
         Prompt.imprimir("\t5 - Voltar ao menu principal");
 
-        int opcao5 = Prompt.lerInteiro("Digite aqui: ");
-
-        switch (opcao5) {
+        int opcao = Prompt.lerInteiro("Digite aqui: ");
+        Prompt.clearConsole();
+        switch (opcao) {
             case 1:
                 //incluirAeronave();
                 break;
@@ -184,6 +428,9 @@ public class Menu {
                 Prompt.imprimir("Valor Inválido.");
                 break;
         }
+        Prompt.pressionarEnter();
+        Prompt.clearConsole();
+        menuAeronave();
     }
 
     public void menuVoosPassagem(){
@@ -197,9 +444,10 @@ public class Menu {
         Prompt.imprimir("\t2 - Deletar passagem");
         Prompt.imprimir("\t3 - Voltar ao menu principal");
 
-        int opcao6 = Prompt.lerInteiro("Digite aqui: ");
+        int opcao = Prompt.lerInteiro("Digite aqui: ");
+        Prompt.clearConsole();
 
-        switch (opcao6) {
+        switch (opcao) {
             case 1:
                 //emitirPassagem();
                 break;
@@ -214,15 +462,16 @@ public class Menu {
                 Prompt.imprimir("Valor Inválido.");
                 break;
         }
+
+        Prompt.pressionarEnter();
+        Prompt.clearConsole();
+        menuVoosPassagem();
     }
 
-    public void continuar(){
-        Prompt.pressionarEnter();
-        menuPrincipal();
-    }
 
     public void encerrarPrograma(){
         Prompt.imprimir("Encerrando o programa...");
         System.exit(3);
     }
+
 }
