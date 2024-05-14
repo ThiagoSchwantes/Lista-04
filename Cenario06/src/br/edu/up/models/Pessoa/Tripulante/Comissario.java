@@ -20,4 +20,11 @@ public class Comissario extends Tripulante{
     public void removerIdioma(String idioma){
         this.idiomas.remove(idioma);
     }
+
+    @Override
+    public String toString() {
+        return "Comissario [idiomas=" + idiomas + ", getNome()=" + getNome() + ", getIdiomas()=" + getIdiomas()
+                + ", getMatriculaFuncionario()=" + getMatriculaFuncionario() + ", getRg()=" + getRg()
+                + ", getIdAeronautica()=" + getIdAeronautica() + "]";
+    }   
 }

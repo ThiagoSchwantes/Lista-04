@@ -10,4 +10,11 @@ public class Comandante extends Tripulante{
     public void setTotalHorasDeVoo(Double totalHorasDeVoo) {
         this.totalHorasDeVoo = totalHorasDeVoo;
     }
+
+    @Override
+    public String toString() {
+        return "Comandante [totalHorasDeVoo=" + totalHorasDeVoo + ", getNome()=" + getNome()
+                + ", getMatriculaFuncionario()=" + getMatriculaFuncionario() + ", getRg()=" + getRg()
+                + ", getIdAeronautica()=" + getIdAeronautica() + "]";
+    }
 }

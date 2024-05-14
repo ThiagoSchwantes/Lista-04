@@ -1,31 +1,30 @@
 package br.edu.up.models;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Passagem {
+    private UUID idProtocolo = UUID.randomUUID();
     private Aeronave aeronave;
-    private Integer numeroAcento;
-    private String classeAcento;
+    private Acento acento;
     private String dataDoVoo;
-    
 
     public Passagem(Aeronave aeronave, Integer numeroAcento, String classeAcento, String dataDoVoo) {
         this.aeronave = aeronave;
-        this.numeroAcento = numeroAcento;
-        this.classeAcento = classeAcento;
+        this.acento = new Acento(numeroAcento, classeAcento);
         this.dataDoVoo = dataDoVoo;
     }
 
     public Integer getNumeroAcento() {
-        return numeroAcento;
+        return acento.getNumeroAcento();
     }
     public void setNumeroAcento(Integer numeroAcento) {
-        this.numeroAcento = numeroAcento;
+        this.acento.setNumeroAcento(numeroAcento);
     }
     public String getClasseAcento() {
-        return classeAcento;
+        return acento.getClasseAcento();
     }
     public void setClasseAcento(String classeAcento) {
-        this.classeAcento = classeAcento;
+        this.acento.setClasseAcento(classeAcento);
     }
     public String getDataDoVoo() {
         return dataDoVoo;
@@ -41,6 +40,18 @@ public class Passagem {
     public void setAeronave(Aeronave aeronave) {
         this.aeronave = aeronave;
     }
+
+    public UUID getIdProtocolo(){
+        return idProtocolo;
+    }
+
+    @Override
+    public String toString() {
+        return "Passagem [idProtocolo=" + idProtocolo + ", aeronave=" + aeronave + ", acento=" + acento + ", dataDoVoo="
+                + dataDoVoo + "]";
+    }
+
+
 
     
 }

@@ -1,7 +1,10 @@
 package br.edu.up.views;
+import br.edu.up.controller.PassageiroController;
+import br.edu.up.models.Pessoa.Passageiro;
 import br.edu.up.utils.*;
 
 public class Menu {
+    PassageiroController passageiroController = new PassageiroController();
 
     public void menuPrincipal(){
 
@@ -10,11 +13,10 @@ public class Menu {
         Prompt.separador();
 
         Prompt.imprimir("Digite uma das opções para gerenciar:");
-        
         Prompt.imprimir("\t1 - Passageiros");
         Prompt.imprimir("\t2 - Tripulação");
         Prompt.imprimir("\t3 - Aeronaves");
-        Prompt.imprimir("\t4 - Passagens");
+        Prompt.imprimir("\t4 - Voos / passagens");
         Prompt.imprimir("\t5 - Fechar Programa\n");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
@@ -31,7 +33,7 @@ public class Menu {
                 break;
             
             case 4:
-                menuPassagem();
+                menuVoosPassagem();
                 break;
             case 5:
                 encerrarPrograma();
@@ -43,7 +45,6 @@ public class Menu {
     }
 
     public void menuPassageiro(){
-        
         Prompt.separador();
         Prompt.imprimir("MENU DE PASSAGEIROS:");
         Prompt.separador();
@@ -56,33 +57,60 @@ public class Menu {
         Prompt.imprimir("\t5 - Voltar ao menu principal");
 
         int opcao = Prompt.lerInteiro("Digite aqui: ");
-        PassageiroView passageiroView = new PassageiroView();
 
         switch (opcao) {
             case 1:
-                passageiroView.cadastrarPassageiro();
-                menuPassageiro();
+                String nome = Prompt.lerLinha("Digite o seu nome:");
+                String rg = Prompt.lerLinha("Digite o seu rg");
+                String passageiroString = passageiroController.adicionar(new Passageiro(nome, rg)).toString();
+
+                Prompt.linhaEmBranco();
+                Prompt.separador();
+                Prompt.imprimir("Passageiro cadastrado" + passageiroString);
+                Prompt.pressionarEnter();
                 break;
             case 2:
-                passageiroView.listarPassageiros();
-                menuPassageiro();
+                Prompt.imprimir(passageiroController.listar());
                 break;
             case 3:
-                passageiroView.alterarPassageiro();
-                menuPassageiro();
+                Prompt.separador();
+                String rgAntigo = Prompt.lerLinha("Digite o rg do passageiro que deseja alterar:");
+                Passageiro passageiroVelho = passageiroController.buscar(rgAntigo);
+
+                if (passageiroVelho == null) {
+                    Prompt.imprimir("Não foi achado nenhum passageiro com este rg!");
+                    break;
+                }
+                
+                String nomeAlterar = Prompt.lerLinha("Digite o novo nome do passageiro:");
+                String rgAlterar = Prompt.lerLinha("Digite o seu rg");
+
+                Passageiro passageiroAlterado = passageiroVelho;
+                passageiroAlterado.setNome(nomeAlterar);
+                passageiroAlterado.setRg(rgAlterar);
+
+                passageiroController.alterar(passageiroVelho, passageiroAlterado);
+                Prompt.separador();
+                Prompt.pressionarEnter();
                 break;
             case 4:
-                passageiroView.deletarPassageiro();
-                menuPassageiro();
+                String rgDeletar = Prompt.lerLinha("Digite o rg do passageiro que deseja deletar:");
+                passageiroController.deletar(passageiroController.buscar(rgDeletar));
                 break;
             case 5:
                 menuPrincipal();
                 break;
             default:
                 Prompt.imprimir("Valor Inválido.");
-                menuPassageiro();
                 break;
         }
+        menuPassageiro();
+    }
+
+    public void cadastrarPassageiro(){
+        String nome = Prompt.lerLinha("Digite o seu nome:");
+        String rg = Prompt.lerLinha("Digite o seu RG:");
+
     }
     
     public void menuTripulacao(){
@@ -158,7 +186,7 @@ public class Menu {
         }
     }
 
-    public void menuPassagem(){
+    public void menuVoosPassagem(){
         
         Prompt.separador();
         Prompt.imprimir("MENU DE GERENCIAMENTO DE TRAFEGO:");
@@ -186,6 +214,11 @@ public class Menu {
                 Prompt.imprimir("Valor Inválido.");
                 break;
         }
+    }
+
+    public void continuar(){
+        Prompt.pressionarEnter();
+        menuPrincipal();
     }
 
     public void encerrarPrograma(){

@@ -9,8 +9,6 @@ public class AeronaveView {
         String rg = Prompt.lerLinha("Digite o seu RG:");
 
         Aeronave passageiro = new Aeronave();
-        passageiro.setNome(nome);
-        passageiro.setRg(rg);
     }
 
     public void listarPassageiros(){
