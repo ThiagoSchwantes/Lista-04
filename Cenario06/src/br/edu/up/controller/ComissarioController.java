@@ -36,9 +36,9 @@ public class ComissarioController {
         return busca;
     }
 
-    public void alterar(Comissario comissarioAntigo, Comissario comissarioNovo){
-        int index = comissariosCadastrados.indexOf(comissarioAntigo);
-        comissariosCadastrados.set(index, comissarioNovo);
+    public void alterar(Comissario comissario){
+        int index = comissariosCadastrados.indexOf(comissario);
+        comissariosCadastrados.set(index, comissario);
     }
 
     public void deletar(Comissario comissario){

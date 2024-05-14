@@ -107,13 +107,10 @@ public class Menu {
                 String nomeAlterar = Prompt.lerLinha("Digite o novo nome do passageiro:");
                 String rgAlterar = Prompt.lerLinha("Digite o seu rg");
 
-                
+                passageiroVelho.setNome(nomeAlterar);
+                passageiroVelho.setRg(rgAlterar);
 
-                Passageiro passageiroAlterado = passageiroVelho;
-                passageiroAlterado.setNome(nomeAlterar);
-                passageiroAlterado.setRg(rgAlterar);
-
-                passageiroController.alterar(passageiroVelho, passageiroAlterado);
+                passageiroController.alterar(passageiroVelho);
 
                 Prompt.separador();
                 Prompt.imprimir("Passageiro alterado com suscesso!");
@@ -226,9 +223,9 @@ public class Menu {
                 Prompt.separador();
 
                 String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a Matrícula de Funcionário do comandante que deseja alterar:");
-                Comandante comandanteAntigo = comandanteController.buscar(matriculaFuncionarioAlterar);
+                Comandante comandanteAlterar = comandanteController.buscar(matriculaFuncionarioAlterar);
 
-                if (comandanteAntigo == null) {
+                if (comandanteAlterar == null) {
                     Prompt.separador();
                     Prompt.imprimir("Não foi achado nenhum comandante com esta matricula!");
                     Prompt.separador();
@@ -243,11 +240,10 @@ public class Menu {
                 String nomeAlterar = Prompt.lerLinha("Digite o novo nome do comandante:");
                 String rgAlterar = Prompt.lerLinha("Digite o novo rg");
 
-                Comandante comandanteAlterado = comandanteAntigo;
-                comandanteAlterado.setNome(nomeAlterar);
-                comandanteAlterado.setRg(rgAlterar);
+                comandanteAlterar.setNome(nomeAlterar);
+                comandanteAlterar.setRg(rgAlterar);
 
-                comandanteController.alterar(comandanteAntigo, comandanteAlterado);
+                comandanteController.alterar(comandanteAlterar);
 
                 Prompt.separador();
                 Prompt.imprimir("Passageiro alterado com suscesso!");
@@ -351,7 +347,7 @@ public class Menu {
                 comandanteAlterado.setNome(nomeAlterar);
                 comandanteAlterado.setRg(rgAlterar);
 
-                comandanteController.alterar(comandanteAntigo, comandanteAlterado);
+                comandanteController.alterar(comandanteAlterado);
 
                 Prompt.separador();
                 Prompt.imprimir("Passageiro alterado com suscesso!");

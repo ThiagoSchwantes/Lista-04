@@ -38,8 +38,8 @@ public class PassageiroController {
         return busca;
     }
 
-    public void alterar(Passageiro passageiroVelho, Passageiro passageiroNovo){
-        int index = passageirosCadastrados.indexOf(passageiroVelho);
+    public void alterar(Passageiro passageiroNovo){
+        int index = passageirosCadastrados.indexOf(passageiroNovo);
         passageirosCadastrados.set(index, passageiroNovo);
     }
     

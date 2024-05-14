@@ -36,9 +36,9 @@ public class AeronaveController {
         return busca;
     }
 
-    public void alterar(Aeronave aeronaveAntiga, Aeronave passageiroNovo){
-        int index = aeronavesCadastradas.indexOf(aeronaveAntiga);
-        aeronavesCadastradas.set(index, passageiroNovo);
+    public void alterar(Aeronave aeronave){
+        int index = aeronavesCadastradas.indexOf(aeronave);
+        aeronavesCadastradas.set(index, aeronave);
     }
 
     public void deletar(Aeronave aeronave){

@@ -36,9 +36,9 @@ public class PassagemController {
         return busca;
     }
 
-    public void alterar(Passagem passagemAntiga, Passagem passagemNova){
-        int index = passagensCadastrados.indexOf(passagemAntiga);
-        passagensCadastrados.set(index, passagemNova);
+    public void alterar(Passagem passagem){
+        int index = passagensCadastrados.indexOf(passagem);
+        passagensCadastrados.set(index, passagem);
     }
 
     public void deletar(Passagem comissario){

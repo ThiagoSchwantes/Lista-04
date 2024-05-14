@@ -38,9 +38,9 @@ public class ComandanteController {
         return busca;
     }
 
-    public void alterar(Comandante comandanteAntiga, Comandante comandanteNovo){
-        int index = comandantesCadastrados.indexOf(comandanteAntiga);
-        comandantesCadastrados.set(index, comandanteNovo);
+    public void alterar(Comandante comandante){
+        int index = comandantesCadastrados.indexOf(comandante);
+        comandantesCadastrados.set(index, comandante);
     }
 
     public void deletar(Comandante comandante){
