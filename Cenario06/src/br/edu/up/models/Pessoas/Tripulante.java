@@ -1,4 +1,4 @@
-package br.edu.up.models.Pessoas;
+package br.edu.up.models.pessoas;
 
 import br.edu.up.models.Pessoa;
 

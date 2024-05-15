@@ -3,7 +3,7 @@ package br.edu.up.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Pessoas.Tripulantes.Comandante;
+import br.edu.up.models.pessoas.tripulantes.Comandante;
 
 public class ComandanteController {
     List<Comandante> comandantesCadastrados = new ArrayList<>();

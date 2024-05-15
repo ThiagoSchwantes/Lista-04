@@ -3,33 +3,52 @@ package br.edu.up.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Aeronave;
-import br.edu.up.models.Passagem;
-import br.edu.up.models.Pessoas.Passageiro;
-import br.edu.up.models.Pessoas.Tripulantes.Comandante;
-import br.edu.up.models.Pessoas.Tripulantes.Comissario;
+import br.edu.up.models.Voo;
 
 public class VooController {
-    private String dataDoVoo;
-    private Comandante comandante;
-    private Aeronave aeronave;
+    List<Voo> voosCadastrados = new ArrayList<>();
 
-    private List<Passageiro> passageiros = new ArrayList<>();
-
-    private List<Comissario> comissarios = new ArrayList<>();
-
-    public void Voo(Comandante comandante, Aeronave aeronave, String data){
-        this.comandante = comandante;
-        this.aeronave = aeronave;
-        this.dataDoVoo = data;
+    public void adicionar(Voo voo){
+        voosCadastrados.add(voo);
     }
 
-    public void adicionarPassageiro(Passageiro passageiro, Integer numeroAcento, String classeAcento){
-        passageiro.setPassagem(new Passagem(aeronave, numeroAcento, classeAcento, dataDoVoo));
-        passageiros.add(passageiro);
+    public String listar(){
+        String lista = ""; 
+        int i = 1;
+        
+        for (Voo voo : voosCadastrados) {
+            lista += "Voo  " + i + " " + voo.toString();
+            lista += "\n---------------------------------------------------\n";
+            i++;
+        }
+
+        if(lista.equals("")){
+            lista = "Nada cadastrado";
+            lista += "\n---------------------------------------------------\n";
+        }
+
+        return lista;
     }
 
-    public void adicionarComissario(Comissario comissario){
-        comissarios.add(comissario);
+    public Voo buscar(String idVoo){
+        Voo busca = null;
+
+        for (Voo voo : voosCadastrados) {
+            if(voo.getIdVoo().toString().equals(idVoo)){
+                busca = voo;
+                break;
+            }
+        }
+
+        return busca;
+    }
+
+    public void alterar(Voo voo){
+        int index = voosCadastrados.indexOf(voo);
+        voosCadastrados.set(index, voo);
+    }
+
+    public void deletar(Voo voo){
+        voosCadastrados.remove(voo);
     }
 }

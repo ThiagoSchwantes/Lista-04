@@ -27,7 +27,9 @@ public class Prompt {
         }
         catch (final Exception e)
         {
-           
+           for (int i = 0; i < 100; i++) {
+				Prompt.imprimir("\n");
+		   }
         }
     }
 

@@ -3,7 +3,7 @@ package br.edu.up.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Pessoas.Passageiro;
+import br.edu.up.models.pessoas.Passageiro;
 
 public class PassageiroController {
     List<Passageiro> passageirosCadastrados = new ArrayList<>();

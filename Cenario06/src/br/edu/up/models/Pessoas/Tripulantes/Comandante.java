@@ -1,6 +1,6 @@
-package br.edu.up.models.Pessoas.Tripulantes;
+package br.edu.up.models.pessoas.tripulantes;
 
-import br.edu.up.models.Pessoas.Tripulante;
+import br.edu.up.models.pessoas.Tripulante;
 
 public class Comandante extends Tripulante{
     private Double totalHorasDeVoo;
@@ -23,8 +23,7 @@ public class Comandante extends Tripulante{
 
     @Override
     public String toString() {
-        return "[totalHorasDeVoo=" + totalHorasDeVoo + ", getNome()=" + getNome()
-                + ", getMatriculaFuncionario()=" + getMatriculaFuncionario() + ", getRg()=" + getRg()
-                + ", getIdAeronautica()=" + getIdAeronautica() + "]";
+        return "[Nome: " + getNome()  +  ", RG: " + getRg() + ", Matricula do Funcionario: " + getMatriculaFuncionario() 
+        + ", Identificacao Aeronautica: " + getIdAeronautica()+ ", total de horas de voo: " + totalHorasDeVoo  + "]";        
     }
 }

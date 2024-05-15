@@ -1,8 +1,8 @@
-package br.edu.up.models.Pessoas.Tripulantes;
+package br.edu.up.models.pessoas.tripulantes;
 
 import java.util.List;
 
-import br.edu.up.models.Pessoas.Tripulante;
+import br.edu.up.models.pessoas.Tripulante;
 
 public class Comissario extends Tripulante{
     private List<String> idiomas;
@@ -33,8 +33,7 @@ public class Comissario extends Tripulante{
 
     @Override
     public String toString() {
-        return "Comissario [idiomas=" + idiomas + ", getNome()=" + getNome() + ", getIdiomas()=" + getIdiomas()
-                + ", getMatriculaFuncionario()=" + getMatriculaFuncionario() + ", getRg()=" + getRg()
-                + ", getIdAeronautica()=" + getIdAeronautica() + "]";
-    }   
+        return "[Nome: " + getNome()  +  ", RG: " + getRg() + ", Matricula do Funcionario: " + getMatriculaFuncionario() 
+        + ", Identificacao Aeronautica: " + getIdAeronautica()+ ", idiomas: " + idiomas + "]";        
+    }
 }

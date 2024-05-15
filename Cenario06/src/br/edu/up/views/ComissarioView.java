@@ -3,7 +3,7 @@ package br.edu.up.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Pessoas.Tripulantes.Comissario;
+import br.edu.up.models.pessoas.tripulantes.Comissario;
 import br.edu.up.utils.Prompt;
 
 public class ComissarioView {
