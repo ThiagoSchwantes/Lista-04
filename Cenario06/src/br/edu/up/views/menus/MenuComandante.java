@@ -46,14 +46,13 @@ public class MenuComandante {
                 Prompt.separador();
                 break;
             }
-
+            
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
             mostrar();
         }
     }
-
 
     public void cadastrar(){
         Prompt.separador();

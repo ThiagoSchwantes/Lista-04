@@ -6,7 +6,7 @@ import java.util.List;
 public class Aeronave {
 
     private Integer codigo;
-    private String tipoAeronave;
+    private String tipo;
     private Integer quantidadeAssentos;
     private List<Acento> acentosOcupados = new ArrayList<>();
     
@@ -16,11 +16,11 @@ public class Aeronave {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
-    public String getTipoAeronave() {
-        return tipoAeronave;
+    public String getAeronave() {
+        return tipo;
     }
-    public void setTipoAeronave(String tipoAeronave) {
-        this.tipoAeronave = tipoAeronave;
+    public void setAeronave(String tipo) {
+        this.tipo = tipo;
     }
     public Integer getQuantidadeAssentos() {
         return quantidadeAssentos;
@@ -31,20 +31,10 @@ public class Aeronave {
     public List<Acento> getAcentosOcupados() {
         return acentosOcupados;
     }
-    public void ocuparAcento(Integer numeroAcento, String classeAcento) {
-        Acento acento = new Acento(numeroAcento, classeAcento);
-
-        acentosOcupados.add(acento);
-    }
-    public void desocuparAcento(Integer numeroAcento, String classeAcento) {
-        Acento acento = new Acento(numeroAcento, classeAcento);
-
-        acentosOcupados.remove(acento);
-    }
-
+    
     @Override
     public String toString() {
-        return "Aeronave [codigo=" + codigo + ", tipoAeronave=" + tipoAeronave + ", quantidadeAssentos="
+        return "Aeronave [codigo=" + codigo + ", tipo da Aeronave=" + tipo + ", quantidade de Assentos="
                 + quantidadeAssentos + "]";
     }
    
