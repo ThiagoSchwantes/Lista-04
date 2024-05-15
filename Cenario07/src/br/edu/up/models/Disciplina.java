@@ -1,7 +1,7 @@
 package br.edu.up.models;
 import java.util.List;
-import br.edu.up.models.Pessoa.Aluno;
-import br.edu.up.models.Pessoa.Professor;
+import br.edu.up.models.Pessoas.Aluno;
+import br.edu.up.models.Pessoas.Professor;
 
 public class Disciplina {
     private String nome;
@@ -10,6 +10,7 @@ public class Disciplina {
     private List<Competencia> competenciasComplementares;
     private Professor professor;
     private List<Aluno> alunosMatriculados;
+    private List<Disciplina> disciplinas;
     
     public Disciplina(String nome, int id, List<Competencia> competenciasNecessarias,
             List<Competencia> competenciasComplementares, Professor professor, List<Aluno> alunosMatriculados) {
@@ -19,6 +20,12 @@ public class Disciplina {
         this.competenciasComplementares = competenciasComplementares;
         this.professor = professor;
         this.alunosMatriculados = alunosMatriculados;
+    }
+
+    public boolean estaAprovado(Aluno aluno){
+        //implementar lógica 
+        
+        return true;
     }
     public String getNome() {
         return nome;

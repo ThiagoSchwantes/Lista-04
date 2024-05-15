@@ -1,14 +1,10 @@
-package br.edu.up.models.Pessoa;
-
-import java.util.ArrayList;
-import java.util.List;
+package br.edu.up.models.Pessoas;
+import br.edu.up.models.Pessoa;
 
 public class Aluno extends Pessoa{
     private int anoIngresso;
     private String curso;
     private String turno; //diurno, vespertino, noturno
-    private static List<Aluno> listaAlunos = new ArrayList<>();
-
     
     public Aluno(String nome, String rg, String matricula, int anoIngresso, String curso, String turno) {
         super(nome, rg, matricula);
@@ -40,12 +36,7 @@ public class Aluno extends Pessoa{
     public void setCurso(String curso) {
         this.curso = curso;
     }
-    public static List<Aluno> getListaAlunos() {
-        return listaAlunos;
-    }
-    public static void setListaAlunos(List<Aluno> listaAlunos) {
-        Aluno.listaAlunos = listaAlunos;
-    }
+
     @Override
     public String toString() {
         return "Aluno{" +

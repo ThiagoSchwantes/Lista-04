@@ -1,25 +1,24 @@
 package br.edu.up.controllers;
 
-import br.edu.up.models.Pessoa.Aluno;
-import br.edu.up.views.InformacaoAluno;
-import br.edu.up.views.InformacaoPessoa;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.edu.up.models.Pessoas.Aluno;
 
 public class ControleDeAluno {
-    public Aluno incluirAluno(){
-        InformacaoPessoa iPessoa = new InformacaoPessoa();
-        InformacaoAluno iAluno = new InformacaoAluno();
 
-        String nome = iPessoa.registrarNome();
-        String rg = iPessoa.registrarRg();
-        String matricula = iPessoa.registrarMatricula();
-        int anoIngresso = iAluno.registrarAnoIngresso();
-        String curso = iAluno.registrarNomeCurso();
-        String turno = iAluno.registrarTurno();
+    private List<Aluno> alunos = new ArrayList<>();
 
-        Aluno aluno = new Aluno(nome,rg,matricula,anoIngresso,curso,turno);
-        Aluno.getListaAlunos().add(aluno);
+    public void incluirAluno(Aluno aluno){
+        alunos.add(aluno);
+    }
 
-        return aluno;
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
     
 }

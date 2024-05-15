@@ -1,4 +1,4 @@
-package br.edu.up.models.Pessoa;
+package br.edu.up.models;
 
 
 public abstract class Pessoa {

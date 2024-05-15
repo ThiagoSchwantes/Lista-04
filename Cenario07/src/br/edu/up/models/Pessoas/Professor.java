@@ -1,11 +1,9 @@
-package br.edu.up.models.Pessoa;
-import java.util.ArrayList;
-import java.util.List;
+package br.edu.up.models.Pessoas;
+import br.edu.up.models.Pessoa;
 
 public class Professor extends Pessoa{
     private int lattesId;
     private Titulacao titulacao;
-    private static List<Professor> listaProfessores = new ArrayList<>();
 
     public Professor(String nome,String rg,String matricula,int lattesId, Titulacao titulacao) {
         super(nome, rg, matricula);
@@ -24,9 +22,7 @@ public class Professor extends Pessoa{
     public void setTitulacao(Titulacao titulacao) {
         this.titulacao = titulacao;
     }
-    public static List<Professor> getListaProfessores() {
-        return listaProfessores;
-    }
+
     @Override
     public String toString() {
         return "Professor{" +

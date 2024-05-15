@@ -21,5 +21,10 @@ public class Competencia {
     public void setAtingida(boolean atingida) {
         this.atingida = atingida;
     }
+
+    @Override
+    public String toString() {
+        return "Competencia [nome=" + nome + ", atingida=" + atingida + "]";
+    }
     
 }

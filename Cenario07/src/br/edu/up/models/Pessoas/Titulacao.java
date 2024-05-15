@@ -1,4 +1,4 @@
-package br.edu.up.models.Pessoa;
+package br.edu.up.models.Pessoas;
 
 public class Titulacao {
     private String nomeInstituicao;
