@@ -21,6 +21,11 @@ public class ComissarioController {
             i++;
         }
 
+        if(lista.equals("")){
+            lista = "Nada cadastrado";
+            lista += "\n---------------------------------------------------\n";
+        }
+
         return lista;
     }
 
@@ -28,7 +33,7 @@ public class ComissarioController {
         Comissario busca = null;
 
         for (Comissario comissario : comissariosCadastrados) {
-            if(comissario.getMatriculaFuncionario() == matriculaFuncionario){
+            if(comissario.getMatriculaFuncionario().equals(matriculaFuncionario)){
                 busca = comissario;
                 break;
             }

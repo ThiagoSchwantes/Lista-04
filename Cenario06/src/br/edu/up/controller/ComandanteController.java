@@ -23,6 +23,11 @@ public class ComandanteController {
             i++;
         }
 
+        if(lista.equals("")){
+            lista = "Nada cadastrado";
+            lista += "\n---------------------------------------------------\n";
+        }
+        
         return lista;
     }
 
@@ -30,11 +35,12 @@ public class ComandanteController {
         Comandante busca = null;
 
         for (Comandante comandante : comandantesCadastrados) {
-            if(comandante.getMatriculaFuncionario() == matriculaFuncionario){
+            if(comandante.getMatriculaFuncionario().equals(matriculaFuncionario)){
                 busca = comandante;
                 break;
             }
         }
+        
         return busca;
     }
 

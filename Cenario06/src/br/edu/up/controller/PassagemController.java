@@ -15,10 +15,16 @@ public class PassagemController {
     public String listar(){
         String lista = ""; 
         int i = 1;
+        
         for (Passagem passagem : passagensCadastrados) {
             lista += "Passagem  " + i + " " + passagem.toString();
             lista += "\n---------------------------------------------------\n";
             i++;
+        }
+
+        if(lista.equals("")){
+            lista = "Nada cadastrado";
+            lista += "\n---------------------------------------------------\n";
         }
 
         return lista;
@@ -28,7 +34,7 @@ public class PassagemController {
         Passagem busca = null;
 
         for (Passagem passagem : passagensCadastrados) {
-            if(passagem.getIdProtocolo().toString() == idProtocolo){
+            if(passagem.getIdProtocolo().toString().equals(idProtocolo)){
                 busca = passagem;
                 break;
             }

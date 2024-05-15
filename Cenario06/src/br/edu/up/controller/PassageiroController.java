@@ -22,6 +22,11 @@ public class PassageiroController {
             i++;
         }
 
+        if(lista.equals("")){
+            lista = "Nada cadastrado";
+            lista += "\n---------------------------------------------------\n";
+        }
+
         return lista;
     }
 

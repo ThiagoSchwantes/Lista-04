@@ -231,41 +231,30 @@ public class Menu {
                     Prompt.separador();
                     break;
                 }
-
-                Prompt.clearConsole();
-                Prompt.separador();
-                Prompt.imprimir("ALTERAR COMANDANTE");
-                Prompt.separador();
                 
-                String nomeAlterar = Prompt.lerLinha("Digite o novo nome do comandante:");
-                String rgAlterar = Prompt.lerLinha("Digite o novo rg");
-
-                comandanteAlterar.setNome(nomeAlterar);
-                comandanteAlterar.setRg(rgAlterar);
-
-                comandanteController.alterar(comandanteAlterar);
+                comandanteController.alterar(cv.alterar(comandanteAlterar));
 
                 Prompt.separador();
-                Prompt.imprimir("Passageiro alterado com suscesso!");
+                Prompt.imprimir("Comandante alterado com suscesso!");
                 Prompt.separador();
                 break;
             case 4:
                 Prompt.separador();
-                Prompt.imprimir("DELETAR PASSAGEIRO");
+                Prompt.imprimir("DELETAR COMANDANTE");
                 Prompt.separador();
 
-                String rgDeletar = Prompt.lerLinha("Digite o rg do passageiro que deseja deletar:");
-                Passageiro passageiroDeletar =  passageiroController.buscar(rgDeletar);
+                String matriculaFuncionarioDeletar = Prompt.lerLinha("Digite a mátricula de Funcionário do comandante que deseja deletar:");
+                Comandante comandanteDeletar =  comandanteController.buscar(matriculaFuncionarioDeletar);
 
-                if (passageiroDeletar == null) {
+                if (comandanteDeletar == null) {
                     Prompt.separador();
-                    Prompt.imprimir("Passageiro não encontrado!");
+                    Prompt.imprimir("Comandante não encontrado!");
                     Prompt.separador();
                 }else{
-                    passageiroController.deletar(passageiroDeletar);
+                    comandanteController.deletar(comandanteDeletar);
 
                     Prompt.separador();
-                    Prompt.imprimir("Passageiro deletado com sucesso!");
+                    Prompt.imprimir("Comandante deletado com sucesso!");
                     Prompt.separador();
                 }
 
@@ -280,7 +269,6 @@ public class Menu {
                 break;
             }
         Prompt.pressionarEnter();
-        
         Prompt.clearConsole();
         menuComandante();
     }
@@ -318,58 +306,51 @@ public class Menu {
                 Prompt.imprimir("LISTAR COMISSARIOS");
                 Prompt.separador();
 
-                Prompt.imprimir(comandanteController.listar());
+                Prompt.imprimir(comissarioController.listar());
                 break;
             case 3:
                 Prompt.separador();
-                Prompt.imprimir("ALTERAR COMISSARIOE");
+                Prompt.imprimir("ALTERAR COMISSARIO");
                 Prompt.separador();
 
-                String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a Matrícula de Funcionário do comandante que deseja alterar:");
-                Comandante comandanteAntigo = comandanteController.buscar(matriculaFuncionarioAlterar);
+                String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a Matrícula de Funcionário do comissário que deseja alterar:");
+                Comissario comissarioAlterado = comissarioController.buscar(matriculaFuncionarioAlterar);
 
-                if (comandanteAntigo == null) {
+                if (comissarioAlterado == null) {
                     Prompt.separador();
-                    Prompt.imprimir("Não foi achado nenhum comandante com esta matricula!");
+                    Prompt.imprimir("Não foi achado nenhum comissario com esta matricula!");
                     Prompt.separador();
                     break;
                 }
 
                 Prompt.clearConsole();
                 Prompt.separador();
-                Prompt.imprimir("ALTERAR COMISSARIO");
+                Prompt.imprimir("ALTERAR COMISSÁRIO");
                 Prompt.separador();
                 
-                String nomeAlterar = Prompt.lerLinha("Digite o novo nome do comandante:");
-                String rgAlterar = Prompt.lerLinha("Digite o novo rg");
-
-                Comandante comandanteAlterado = comandanteAntigo;
-                comandanteAlterado.setNome(nomeAlterar);
-                comandanteAlterado.setRg(rgAlterar);
-
-                comandanteController.alterar(comandanteAlterado);
+                comissarioController.alterar(cv.alterar(comissarioAlterado));
 
                 Prompt.separador();
-                Prompt.imprimir("Passageiro alterado com suscesso!");
+                Prompt.imprimir("Comissario alterado com suscesso!");
                 Prompt.separador();
                 break;
             case 4:
                 Prompt.separador();
-                Prompt.imprimir("DELETAR COMISSARIO");
+                Prompt.imprimir("DELETAR COMISSÁRIO");
                 Prompt.separador();
 
-                String rgDeletar = Prompt.lerLinha("Digite o rg do passageiro que deseja deletar:");
-                Passageiro passageiroDeletar =  passageiroController.buscar(rgDeletar);
+                String matriculaFuncionarioDeletar = Prompt.lerLinha("Digite a matricual de funcionário do comissario que deseja deletar:");
+                Comissario comissarioDeletar =  comissarioController.buscar(matriculaFuncionarioDeletar);
 
-                if (passageiroDeletar == null) {
+                if (comissarioDeletar == null) {
                     Prompt.separador();
-                    Prompt.imprimir("Passageiro não encontrado!");
+                    Prompt.imprimir("Comissário não encontrado!");
                     Prompt.separador();
                 }else{
-                    passageiroController.deletar(passageiroDeletar);
+                    comissarioController.deletar(comissarioDeletar);
 
                     Prompt.separador();
-                    Prompt.imprimir("Passageiro deletado com sucesso!");
+                    Prompt.imprimir("Comissário deletado com sucesso!");
                     Prompt.separador();
                 }
 
@@ -384,9 +365,8 @@ public class Menu {
                 break;
             }
         Prompt.pressionarEnter();
-        
         Prompt.clearConsole();
-        menuComandante();
+        menuComissario();
     }
     
     public void menuAeronave(){

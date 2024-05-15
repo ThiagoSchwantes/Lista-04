@@ -29,8 +29,6 @@ public class VooController {
         passageiros.add(passageiro);
     }
 
-
-
     public void adicionarComissario(Comissario comissario){
         comissarios.add(comissario);
     }

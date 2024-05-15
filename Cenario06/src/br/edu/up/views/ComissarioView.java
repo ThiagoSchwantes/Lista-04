@@ -3,7 +3,6 @@ package br.edu.up.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.models.Pessoas.Tripulantes.Comandante;
 import br.edu.up.models.Pessoas.Tripulantes.Comissario;
 import br.edu.up.utils.Prompt;
 
@@ -30,6 +29,7 @@ public class ComissarioView {
 
         boolean repetir = false;
         do {
+            Prompt.separador(); 
             Character opcao = Prompt.lerCaractere("Deseja adicionar mais algum idioma? (S/N)");
 
             if (Character.toLowerCase(opcao) == 's') {
@@ -42,26 +42,57 @@ public class ComissarioView {
                 repetir = false;
             }
             
-            Prompt.separador();            
+                       
         } while (repetir);        
 
         return new Comissario(nome, rg, matriculaFuncionario, idAeronautica, idiomas);
     }
 
-    public Comandante alterar(Comandante comandanteAlterar){
-        String nome = Prompt.lerLinha("Digite o seu nome:");
-        String rg = Prompt.lerLinha("Digite o seu rg");
-        Double totalHorasDeVoo = Prompt.lerDecimal("Digite quantas horas têm de voo:");
+    public Comissario alterar(Comissario comissarioAlterar){
+        Prompt.clearConsole();
+        Prompt.separador();
+        Prompt.imprimir("ALTERAR COMISSÁRIO");
+        Prompt.separador();
+        
+        String nomeAlterar = Prompt.lerLinha("Digite o novo nome:");
+        String rgAlterar = Prompt.lerLinha("Digite o novo rg");
+        String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a nova mátricula de Funcionário:");
+        String idAeronauticaAlterar = Prompt.lerLinha("Digite a nova identificação de aernoáutica:");
 
-        String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
-        String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
+        List<String> idiomas = new ArrayList<>();
 
-        comandanteAlterar.setNome(nome);
-        comandanteAlterar.setRg(rg);
-        comandanteAlterar.setTotalHorasDeVoo(totalHorasDeVoo);
-        comandanteAlterar.setMatriculaFuncionario(matriculaFuncionario);
-        comandanteAlterar.setIdAeronautica(idAeronautica);
+        Prompt.clearConsole();
+        Prompt.separador();
+        Prompt.imprimir("ALTERAR IDIOMAS DO COMISSÁRIO");
+        Prompt.separador();
 
-        return comandanteAlterar;
+        idiomas.add(Prompt.lerLinha("Digite o seu idioma nativo:"));
+
+        boolean repetir = false;
+
+        do {
+            Prompt.separador();  
+            Character opcao = Prompt.lerCaractere("Deseja adicionar mais algum idioma? (S/N)");
+            
+            if (Character.toLowerCase(opcao) == 's') {
+                repetir = true;
+                idiomas.add(Prompt.lerLinha("Digite seu outro idioma:"));
+            }else if(Character.toLowerCase(opcao) != 'n'){
+                Prompt.imprimir("Erro, digite uma das opções!");
+                repetir = true;
+            }else{
+                repetir = false;
+            }
+            
+                     
+        } while (repetir);
+
+        comissarioAlterar.setNome(nomeAlterar);
+        comissarioAlterar.setRg(rgAlterar);
+        comissarioAlterar.setMatriculaFuncionario(matriculaFuncionarioAlterar);
+        comissarioAlterar.setIdAeronautica(idAeronauticaAlterar);
+        comissarioAlterar.setIdiomas(idiomas);
+
+        return comissarioAlterar;
     }
 }
