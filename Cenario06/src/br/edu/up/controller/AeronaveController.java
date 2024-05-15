@@ -8,7 +8,7 @@ import br.edu.up.models.Aeronave;
 public class AeronaveController {
     List<Aeronave> aeronavesCadastradas = new ArrayList<>();
 
-    public void cadastrar(Aeronave aeronave){
+    public void adicionar(Aeronave aeronave){
         aeronavesCadastradas.add(aeronave);
     }
 

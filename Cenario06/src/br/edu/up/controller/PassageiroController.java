@@ -8,9 +8,8 @@ import br.edu.up.models.pessoas.Passageiro;
 public class PassageiroController {
     List<Passageiro> passageirosCadastrados = new ArrayList<>();
 
-    public Passageiro adicionar(Passageiro passageiro){
+    public void adicionar(Passageiro passageiro){
         passageirosCadastrados.add(passageiro);
-        return buscar(passageiro.getRg());
     }
 
     public String listar(){

@@ -1,4 +1,4 @@
-package br.edu.up.views;
+package br.edu.up.views.menus;
 
 import br.edu.up.controller.ComandanteController;
 import br.edu.up.models.pessoas.tripulantes.Comandante;
