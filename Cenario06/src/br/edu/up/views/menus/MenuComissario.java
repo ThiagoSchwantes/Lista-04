@@ -1,8 +1,5 @@
 package br.edu.up.views.menus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.edu.up.controller.ComissarioController;
 import br.edu.up.models.pessoas.tripulantes.Comissario;
 import br.edu.up.utils.Prompt;
@@ -38,25 +35,7 @@ public class MenuComissario {
                 alterar();
                 break;
             case 4:
-                Prompt.separador();
-                Prompt.imprimir("DELETAR COMISSÁRIO");
-                Prompt.separador();
-
-                String matriculaFuncionarioDeletar = Prompt.lerLinha("Digite a matricual de funcionário do comissario que deseja deletar:");
-                Comissario comissarioDeletar =  comissarioController.buscar(matriculaFuncionarioDeletar);
-
-                if (comissarioDeletar == null) {
-                    Prompt.separador();
-                    Prompt.imprimir("Comissário não encontrado!");
-                    Prompt.separador();
-                }else{
-                    comissarioController.deletar(comissarioDeletar);
-
-                    Prompt.separador();
-                    Prompt.imprimir("Comissário deletado com sucesso!");
-                    Prompt.separador();
-                }
-
+                deletar();
                 break;
             case 5:
                 break;
@@ -85,14 +64,14 @@ public class MenuComissario {
         String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
         String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
 
-        List<String> idiomas = new ArrayList<>();
-
         Prompt.clearConsole();
         Prompt.separador();
         Prompt.imprimir("IDIOMAS DO COMISSÁRIO");
         Prompt.separador();
 
-        idiomas.add(Prompt.lerLinha("Digite o seu idioma nativo:"));
+        String[] idiomas = new String[1];
+
+        idiomas[0]  =  Prompt.lerLinha("Digite o seu idioma nativo:");
 
         boolean repetir = false;
         do {
@@ -101,7 +80,15 @@ public class MenuComissario {
 
             if (Character.toLowerCase(opcao) == 's') {
                 repetir = true;
-                idiomas.add(Prompt.lerLinha("Digite seu outro idioma:"));
+                
+                String[] idiomasAux = new String[idiomas.length+1];
+                System.arraycopy(idiomas, 0, idiomasAux, 0, idiomas.length);
+
+                idiomasAux[idiomas.length] = Prompt.lerLinha("Digite seu outro idioma:");
+                
+                idiomas = new String[idiomas.length + 1];
+                idiomas = idiomasAux;
+                
             }else if(Character.toLowerCase(opcao) != 'n'){
                 Prompt.imprimir("Erro, digite uma das opções!");
                 repetir = true;
@@ -136,9 +123,9 @@ public class MenuComissario {
         Prompt.separador();
 
         String matriculaFuncionario = Prompt.lerLinha("Digite a Matrícula de Funcionário do comissário que deseja alterar:");
-        Comissario comissario = comissarioController.buscar(matriculaFuncionario);
+        Comissario comissarioAntigo = comissarioController.buscar(matriculaFuncionario);
 
-        if (comissario == null) {
+        if (comissarioAntigo == null) {
             Prompt.separador();
             Prompt.imprimir("Não foi achado nenhum comissario com esta matricula!");
             Prompt.separador();
@@ -155,14 +142,15 @@ public class MenuComissario {
             String idAeronauticaAlterar = Prompt.lerLinha("Digite a nova identificação de aernoáutica:");
 
             //menu de adicionar novos idiomas do comissario
-            List<String> idiomas = new ArrayList<>();
+            String[] idiomas = new String[1];
 
             Prompt.clearConsole();
             Prompt.separador();
             Prompt.imprimir("ALTERAR IDIOMAS DO COMISSÁRIO");
             Prompt.separador();
 
-            idiomas.add(Prompt.lerLinha("Digite o seu idioma nativo:"));
+            
+            idiomas[0] = Prompt.lerLinha("Digite o seu idioma nativo:");
 
             boolean repetir = false;
 
@@ -172,7 +160,13 @@ public class MenuComissario {
                 
                 if (Character.toLowerCase(opcao) == 's') {
                     repetir = true;
-                    idiomas.add(Prompt.lerLinha("Digite seu outro idioma:"));
+
+                    String[] idiomasAux = new String[idiomas.length+1];
+                    System.arraycopy(idiomas, 0, idiomasAux, 0, idiomas.length);
+
+                    idiomasAux[idiomas.length] = Prompt.lerLinha("Digite seu outro idioma:");
+                    idiomas = new String[idiomas.length + 1];
+                    idiomas = idiomasAux;
                 }else if(Character.toLowerCase(opcao) != 'n'){
                     Prompt.imprimir("Erro, digite uma das opções!");
                     repetir = true;
@@ -181,17 +175,39 @@ public class MenuComissario {
                 }     
             } while (repetir);
             
+            Comissario comissarioNovo = comissarioAntigo;
             //alterar o comissario e salvar
-            comissario.setNome(nomeAlterar);
-            comissario.setRg(rgAlterar);
-            comissario.setMatriculaFuncionario(matriculaFuncionario);
-            comissario.setIdAeronautica(idAeronauticaAlterar);
-            comissario.setIdiomas(idiomas);
+            comissarioNovo.setNome(nomeAlterar);
+            comissarioNovo.setRg(rgAlterar);
+            comissarioNovo.setMatriculaFuncionario(matriculaFuncionario);
+            comissarioNovo.setIdAeronautica(idAeronauticaAlterar);
+            comissarioNovo.setIdiomas(idiomas);
                 
-            comissarioController.alterar(comissario);
+            comissarioController.alterar(comissarioAntigo, comissarioNovo);
     
             Prompt.separador();
             Prompt.imprimir("Comissario alterado com suscesso!");
+            Prompt.separador();
+        }
+    }
+
+    public void deletar(){
+        Prompt.separador();
+        Prompt.imprimir("DELETAR COMISSÁRIO");
+        Prompt.separador();
+
+        String matriculaFuncionarioDeletar = Prompt.lerLinha("Digite a matricual de funcionário do comissario que deseja deletar:");
+        Comissario comissarioDeletar =  comissarioController.buscar(matriculaFuncionarioDeletar);
+
+        if (comissarioDeletar == null) {
+            Prompt.separador();
+            Prompt.imprimir("Comissário não encontrado!");
+            Prompt.separador();
+        }else{
+            comissarioController.deletar(comissarioDeletar);
+
+            Prompt.separador();
+            Prompt.imprimir("Comissário deletado com sucesso!");
             Prompt.separador();
         }
     }

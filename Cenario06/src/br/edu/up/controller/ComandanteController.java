@@ -1,17 +1,18 @@
 package br.edu.up.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.edu.up.models.pessoas.tripulantes.Comandante;
 
 public class ComandanteController {
-    List<Comandante> comandantesCadastrados = new ArrayList<>();
+    Comandante[] comandantesCadastrados = new Comandante[0];
 
-    public Comandante adicionar(Comandante comandante){
-        comandantesCadastrados.add(comandante);
+    public void adicionar(Comandante comandante){
 
-        return comandante;
+        Comandante[] aux = new Comandante[comandantesCadastrados.length + 1];
+        System.arraycopy(comandantesCadastrados, 0, aux, 0, comandantesCadastrados.length);
+        
+        aux[comandantesCadastrados.length] = comandante;
+
+        comandantesCadastrados = aux;
     }
 
     public String listar(){
@@ -44,12 +45,32 @@ public class ComandanteController {
         return busca;
     }
 
-    public void alterar(Comandante comandante){
-        int index = comandantesCadastrados.indexOf(comandante);
-        comandantesCadastrados.set(index, comandante);
+    public boolean alterar(Comandante comandanteAntigo, Comandante comandanteNovo){
+        for (int i = 0; i < comandantesCadastrados.length; i++) {
+            if(comandantesCadastrados[i] == comandanteAntigo){
+                comandantesCadastrados[i] = comandanteNovo;
+                return true;
+            }
+        }    
+        return false;
     }
 
     public void deletar(Comandante comandante){
-        comandantesCadastrados.remove(comandante);
+        Comandante[] novoComandanteCadastrados = new Comandante[comandantesCadastrados.length - 1];
+
+        for (int i = 0; i < comandantesCadastrados.length; i++) {
+            if(comandantesCadastrados[i] == comandante){
+
+                for (int j = i; j < comandantesCadastrados.length-1; j++) {
+                    novoComandanteCadastrados[j] = comandantesCadastrados[j+1];
+                }
+                break;
+            }else{
+                novoComandanteCadastrados[i] = comandantesCadastrados[i];
+            }
+        }
+        
+        comandantesCadastrados = new Comandante[comandantesCadastrados.length-1];
+        comandantesCadastrados = novoComandanteCadastrados;
     }
 }

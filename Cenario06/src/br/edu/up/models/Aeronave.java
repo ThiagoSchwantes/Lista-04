@@ -1,25 +1,26 @@
 package br.edu.up.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Aeronave {
 
     private Integer codigo;
     private String tipo;
     private Integer quantidadeAssentos;
-    private List<Acento> acentosOcupados = new ArrayList<>();
     
+    public Aeronave(String tipo, Integer quantidadeAssentos) {
+        this.tipo = tipo;
+        this.quantidadeAssentos = quantidadeAssentos;
+    }
+
     public Integer getCodigo() {
         return codigo;
     }
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
-    public String getAeronave() {
+    public String getTipo() {
         return tipo;
     }
-    public void setAeronave(String tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
     public Integer getQuantidadeAssentos() {
@@ -28,14 +29,9 @@ public class Aeronave {
     public void setQuantidadeAssentos(Integer quantidadeAssentos) {
         this.quantidadeAssentos = quantidadeAssentos;
     }
-    public List<Acento> getAcentosOcupados() {
-        return acentosOcupados;
-    }
-    
+
     @Override
     public String toString() {
-        return "Aeronave [codigo=" + codigo + ", tipo da Aeronave=" + tipo + ", quantidade de Assentos="
-                + quantidadeAssentos + "]";
+        return "[codigo: " + codigo + ", tipo: " + tipo + ", quantidadeAssentos: " + quantidadeAssentos + "]";
     }
-   
 }
