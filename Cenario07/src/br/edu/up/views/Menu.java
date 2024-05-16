@@ -31,9 +31,9 @@ public class Menu {
     ControleDeProfessor controleProfessor = new ControleDeProfessor();
     
     public Professor incluirProfessor(){
-        String nome = Prompt.lerLinha("Informe o nome da pessoa: ");
-        String rg = Prompt.lerLinha("Informe o rg da pessoa: ");
-        String matricula = Prompt.lerLinha("Informe a matricula da pessoa: ");
+        String nome = Prompt.lerLinha("Informe o nome do professor: ");
+        String rg = Prompt.lerLinha("Informe o rg do professor: ");
+        String matricula = Prompt.lerLinha("Informe a matricula do professor: ");
 
         int lattesId = Prompt.lerInteiro("Informe o id do seu currículo Lattes: ");
 
@@ -117,6 +117,62 @@ public class Menu {
         
     }
 
+    public void gerenciarCompetencias(){
+        List<Disciplina> disciplinasDisponiveis = controleDisciplina.getDisciplinas();
+        Prompt.separador();
+        Prompt.imprimir("Disciplinas disponíveis:");
+        for (int i = 0; i < disciplinasDisponiveis.size(); i++) {
+            Disciplina disciplina = disciplinasDisponiveis.get(i);
+            Prompt.imprimir((i + 1) + ". " + disciplina.getNome());
+        }
+        int opcaoDisciplina = Prompt.lerInteiro("Selecione a disciplina desejada: ");
+        if (opcaoDisciplina < 1 || opcaoDisciplina > disciplinasDisponiveis.size()) {
+            Prompt.imprimir("Opção inválida.");
+        }
+        Disciplina disciplinaSelecionada = disciplinasDisponiveis.get(opcaoDisciplina - 1);
+        List<Aluno> alunosDisciplina = disciplinaSelecionada.getAlunosMatriculados();
+        int aptoNecessarias = 0;
+        int inaptoNecessarias = 0;
+        int aptoComplementares = 0;
+        int inaptoComplementares = 0;
+        for(int i = 0; i < alunosDisciplina.size(); i++){
+            Aluno aluno = alunosDisciplina.get(i);
+            List<Competencia> competenciaNecessaria = disciplinaSelecionada.getCompetenciasNecessarias();
+            for(int j = 0; j < competenciaNecessaria.size(); j++){
+                Competencia competencia = competenciaNecessaria.get(j);
+                char resultado = Prompt.lerCaractere("O aluno " + aluno.getNome() + " possui a competência " + competencia.getNome() + " (s/n): ");
+                if(resultado == 's'){
+                    aptoNecessarias++;
+                }else if(resultado == 'n'){
+                    inaptoNecessarias++;
+                }
+            }
+            List<Competencia> competenciaComplementares = disciplinaSelecionada.getCompetenciasComplementares();
+            for(int j = 0; j < competenciaComplementares.size(); j++){
+                Competencia competencia = competenciaComplementares.get(j);
+                char resultado = Prompt.lerCaractere("O aluno " + aluno.getNome() + " possui a competência " + competencia.getNome() + " (s/n): ");
+                if(resultado == 's'){
+                    aptoComplementares++;
+                }else if(resultado == 'n'){
+                    inaptoComplementares++;
+                }
+            }
+            int mediaNecessarias = competenciaNecessaria.size() / 2;
+            int mediaComplementar = competenciaComplementares.size() / 2;
+
+            if(aptoNecessarias == competenciaNecessaria.size() && aptoComplementares >= mediaComplementar){
+                Prompt.imprimir("Aluno aprovado.");
+                aluno.setEstaAprovado("Aprovado");
+            }else if(aptoNecessarias < mediaNecessarias || aptoComplementares < mediaComplementar){
+                Prompt.imprimir("Aluno reprovado.");
+                aluno.setEstaAprovado("Reprovado");
+            }else{
+                Prompt.imprimir("Aluno pendente.");
+                aluno.setEstaAprovado("Pendente");
+            }
+            
+        }
+    }
     Scanner scanner = new Scanner(System.in);
 
     public void menuPrincipal(){
@@ -152,14 +208,17 @@ public class Menu {
                 continuar();
                 break;
             case 3:
-                ControleDeDisciplina cd = new ControleDeDisciplina();
-                Disciplina disciplina = cd.incluirDisciplina();
+                Disciplina disciplina = incluirDisciplina();
+                Prompt.separador();
                 Prompt.imprimir("Cadastro de disciplina realizado com sucesso.");
                 Prompt.imprimir(disciplina);
                 Prompt.separador();
                 continuar();
                 break;
             case 4:
+                gerenciarCompetencias();
+                Prompt.separador();
+                continuar();
                 break;
             case 5:
                 encerrarPrograma();

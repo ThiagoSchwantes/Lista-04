@@ -5,7 +5,8 @@ public class Aluno extends Pessoa{
     private int anoIngresso;
     private String curso;
     private String turno; //diurno, vespertino, noturno
-    
+    private String estaAprovado = null;
+
     public Aluno(String nome, String rg, String matricula, int anoIngresso, String curso, String turno) {
         super(nome, rg, matricula);
         this.anoIngresso = anoIngresso;
@@ -37,17 +38,20 @@ public class Aluno extends Pessoa{
         this.curso = curso;
     }
 
+    
     @Override
     public String toString() {
-        return "Aluno{" +
-            "nome='" + getNome() + '\'' +
-            ", rg='" + getRg() + '\'' +
-            ", matricula='" + getMatricula() + '\'' +
-            ", anoIngresso=" + anoIngresso +
-            ", curso=" + anoIngresso +
-            ", turno=" + turno +
-            '}';
+        return "Aluno [anoIngresso=" + anoIngresso + ", curso=" + curso + ", turno=" + turno + ", estaAprovado="
+                + estaAprovado + "]";
     }
+    public String getEstaAprovado() {
+        return estaAprovado;
+    }
+    public void setEstaAprovado(String estaAprovado) {
+        this.estaAprovado = estaAprovado;
+    }
+
+    
     
     
 }

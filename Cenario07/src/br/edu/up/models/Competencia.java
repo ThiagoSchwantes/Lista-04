@@ -3,28 +3,24 @@ package br.edu.up.models;
 public class Competencia {
     
     private String nome;
-    private boolean atingida;
+    
+    public Competencia() {
+    }
 
     public Competencia(String nome) {
         this.nome = nome;
-        this.atingida = false;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public boolean isAtingida() {
-        return atingida;
-    }
-
-    public void setAtingida(boolean atingida) {
-        this.atingida = atingida;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
     public String toString() {
-        return "Competencia [nome=" + nome + ", atingida=" + atingida + "]";
+        return "Competencia [nome=" + nome + "]";
     }
-    
 }
