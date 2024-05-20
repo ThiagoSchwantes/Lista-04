@@ -1,15 +1,17 @@
 package br.edu.up.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.edu.up.models.Passagem;
 
 public class PassagemController {
-    List<Passagem> passagensCadastrados = new ArrayList<>();
+    Passagem[] passagensCadastrados = new Passagem[0];
 
     public void adicionar(Passagem passagem){
-        passagensCadastrados.add(passagem);
+        Passagem[] aux = new Passagem[passagensCadastrados.length + 1];
+        System.arraycopy(passagensCadastrados, 0, aux, 0, passagensCadastrados.length);
+        
+        aux[passagensCadastrados.length] = passagem;
+
+        passagensCadastrados = aux;
     }
 
     public String listar(){
@@ -42,12 +44,32 @@ public class PassagemController {
         return busca;
     }
 
-    public void alterar(Passagem passagem){
-        int index = passagensCadastrados.indexOf(passagem);
-        passagensCadastrados.set(index, passagem);
+    public boolean alterar(Passagem passagemAntiga, Passagem passagemNova){
+        for (int i = 0; i < passagensCadastrados.length; i++) {
+            if(passagensCadastrados[i] == passagemAntiga){
+                passagensCadastrados[i] = passagemNova;
+                return true;
+            }
+        }    
+        return false;
     }
 
-    public void deletar(Passagem comissario){
-        passagensCadastrados.remove(comissario);
+    public void deletar(Passagem passageiro){
+        Passagem[] novoPassagensCadastrados = new Passagem[passagensCadastrados.length - 1];
+
+        for (int i = 0; i < passagensCadastrados.length; i++) {
+            if(passagensCadastrados[i] == passageiro){
+
+                for (int j = i; j < passagensCadastrados.length-1; j++) {
+                    novoPassagensCadastrados[j] = passagensCadastrados[j+1];
+                }
+                break;
+            }else{
+                novoPassagensCadastrados[i] = passagensCadastrados[i];
+            }
+        }
+        
+        passagensCadastrados = new Passagem[passagensCadastrados.length-1];
+        passagensCadastrados = novoPassagensCadastrados;
     }
 }
