@@ -1,6 +1,6 @@
 package br.edu.up.models;
 
-public class Cliente {
+public abstract class Cliente {
     
     private String nome;
     private String telefone;
@@ -8,7 +8,18 @@ public class Cliente {
     private Endereco endereco;
     private Double vlrMaxCredito;
     private Double vlrEmprestado;
+
     
+    
+    public Cliente(String nome, String telefone, String email, Endereco endereco, Double vlrMaxCredito,
+            Double vlrEmprestado) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
+        this.vlrMaxCredito = vlrMaxCredito;
+        this.vlrEmprestado = vlrEmprestado;
+    }
     public String getNome() {
         return nome;
     }
@@ -46,5 +57,7 @@ public class Cliente {
         this.vlrEmprestado = vlrEmprestado;
     }
 
+    public abstract void emprestar(double valor);
+    public abstract void devolver(double valor);
     
 }
