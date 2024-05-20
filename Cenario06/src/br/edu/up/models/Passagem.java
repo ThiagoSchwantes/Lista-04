@@ -3,12 +3,10 @@ import java.util.UUID;
 
 public class Passagem {
     private UUID idProtocolo = UUID.randomUUID();
-    private Aeronave aeronave;
     private Acento acento;
     private String dataDoVoo;
 
-    public Passagem(Aeronave aeronave, Integer numeroAcento, String classeAcento, String dataDoVoo) {
-        this.aeronave = aeronave;
+    public Passagem(Integer numeroAcento, String classeAcento, String dataDoVoo) {
         this.acento = new Acento(numeroAcento, classeAcento);
         this.dataDoVoo = dataDoVoo;
     }
@@ -31,26 +29,13 @@ public class Passagem {
     public void setDataDoVoo(String dataDoVoo) {
         this.dataDoVoo = dataDoVoo;
     }
-
-    public Aeronave getAeronave() {
-        return aeronave;
-    }
-
-    public void setAeronave(Aeronave aeronave) {
-        this.aeronave = aeronave;
-    }
-
     public UUID getIdProtocolo(){
         return idProtocolo;
     }
 
     @Override
     public String toString() {
-        return "Passagem [idProtocolo=" + idProtocolo + ", aeronave=" + aeronave + ", acento=" + acento + ", dataDoVoo="
+        return "Passagem [idProtocolo=" + idProtocolo + ", acento=" + acento + ", dataDoVoo="
                 + dataDoVoo + "]";
     }
-
-
-
-    
 }

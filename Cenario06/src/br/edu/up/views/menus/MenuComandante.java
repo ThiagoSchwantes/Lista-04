@@ -89,14 +89,28 @@ public class MenuComandante {
         Prompt.separador();
 
         String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a Matrícula de Funcionário do comandante que deseja alterar:");
-        Comandante comandante = comandanteController.buscar(matriculaFuncionarioAlterar);
+        Comandante comandanteAntigo = comandanteController.buscar(matriculaFuncionarioAlterar);
 
-        if (comandante == null) {
+        if (comandanteAntigo == null) {
             Prompt.separador();
             Prompt.imprimir("Não foi achado nenhum comandante com esta matricula!");
             Prompt.separador();
         }else{
-            comandanteController.alterar(comandante);
+            String nome = Prompt.lerLinha("Digite o seu nome:");
+            String rg = Prompt.lerLinha("Digite o seu rg");
+            Double totalHorasDeVoo = Prompt.lerDecimal("Digite quantas horas têm de voo:");
+
+            String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
+            String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
+
+            Comandante comandanteNovo = comandanteAntigo;    
+            comandanteNovo.setNome(nome);
+            comandanteNovo.setRg(rg);
+            comandanteNovo.setTotalHorasDeVoo(totalHorasDeVoo);
+            comandanteNovo.setMatriculaFuncionario(matriculaFuncionario);
+            comandanteNovo.setIdAeronautica(idAeronautica);
+            
+            comandanteController.alterar(comandanteAntigo, comandanteNovo);
 
             Prompt.separador();
             Prompt.imprimir("Comandante alterado com suscesso!");

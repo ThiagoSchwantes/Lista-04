@@ -1,6 +1,7 @@
 package br.edu.up.views.menus;
 
 import br.edu.up.controller.AeronaveController;
+import br.edu.up.models.Aeronave;
 import br.edu.up.utils.Prompt;
 
 public class MenuAeronave {
@@ -59,19 +60,15 @@ public class MenuAeronave {
         Prompt.imprimir("CADASTRAR AERONAVE");
         Prompt.separador();
 
-        String nome = Prompt.lerLinha("Digite o seu nome:");
-        String rg = Prompt.lerLinha("Digite o seu rg");
-        Double totalHorasDeVoo = Prompt.lerDecimal("Digite quantas horas têm de voo:");
+        String tipo = Prompt.lerLinha("Digite o tipo do avião:");
+        Integer quantidadeAcentos = Prompt.lerInteiro("Digite a quantidade de acentos");
 
-        String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
-        String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
+        Aeronave aeronave = new Aeronave(tipo, quantidadeAcentos);
 
-        Comandante comandanteCadastrar = new Comandante(nome, rg, matriculaFuncionario, idAeronautica, totalHorasDeVoo);
-
-        comandanteController.adicionar(comandanteCadastrar);
+        aeronaveController.adicionar(aeronave);
 
         Prompt.separador();
-        Prompt.imprimir("AERONAVE CADASTRADA\n" + comandanteCadastrar.toString());
+        Prompt.imprimir("AERONAVE CADASTRADA\n" + aeronave.toString());
         Prompt.separador();
     }
     
@@ -80,7 +77,7 @@ public class MenuAeronave {
         Prompt.imprimir("LISTAR AERONAVE");
         Prompt.separador();
 
-        Prompt.imprimir(comandanteController.listar());
+        Prompt.imprimir(aeronaveController.listar());
     }
 
     public void alterar(){
@@ -88,18 +85,27 @@ public class MenuAeronave {
         Prompt.imprimir("ALTERAR AERONAVE");
         Prompt.separador();
 
-        String matriculaFuncionarioAlterar = Prompt.lerLinha("Digite a Matrícula de Funcionário do comandante que deseja alterar:");
-        Comandante comandante = comandanteController.buscar(matriculaFuncionarioAlterar);
+        Prompt.imprimir(aeronaveController.listar());
 
-        if (comandante == null) {
+        Integer codigo = Prompt.lerInteiro("\nDigite o código do avião que deseja alterar:");
+        Aeronave aeronaveAntiga = aeronaveController.buscar(codigo);
+
+        if (aeronaveAntiga == null) {
             Prompt.separador();
-            Prompt.imprimir("Não foi achado nenhum comandante com esta matricula!");
+            Prompt.imprimir("Não foi achado nenhuma aeronave com este código!");
             Prompt.separador();
         }else{
-            comandanteController.alterar(comandante);
+            String tipo = Prompt.lerLinha("Digite o novo tipo do avião:");
+            Integer quantidadeAcentos = Prompt.lerInteiro("Digite a nova quantidade de acentos");
+
+            Aeronave aeronave = aeronaveAntiga;
+            aeronave.setQuantidadeAssentos(quantidadeAcentos);
+            aeronave.setTipo(tipo);
+            
+            aeronaveController.alterar(aeronaveAntiga, aeronave);
 
             Prompt.separador();
-            Prompt.imprimir("Comandante alterado com suscesso!");
+            Prompt.imprimir("Aeronave alterada com suscesso!");
             Prompt.separador();
         }
     }
@@ -109,18 +115,20 @@ public class MenuAeronave {
         Prompt.imprimir("DELETAR AERONAVE");
         Prompt.separador();
 
-        String matriculaFuncionarioDeletar = Prompt.lerLinha("Digite a mátricula de Funcionário do comandante que deseja deletar:");
-        Comandante comandanteDeletar =  comandanteController.buscar(matriculaFuncionarioDeletar);
+        Prompt.imprimir(aeronaveController.listar());
 
-        if (comandanteDeletar == null) {
+        Integer codigo = Prompt.lerInteiro("\nDigite o código do avião que deseja deletar:");
+        Aeronave aeronave = aeronaveController.buscar(codigo);
+
+        if (aeronave == null) {
             Prompt.separador();
-            Prompt.imprimir("Comandante não encontrado!");
+            Prompt.imprimir("Aeronave não encontrada!");
             Prompt.separador();
         }else{
-            comandanteController.deletar(comandanteDeletar);
+            aeronaveController.deletar(aeronave);
 
             Prompt.separador();
-            Prompt.imprimir("Comandante deletado com sucesso!");
+            Prompt.imprimir("Aeronave deletada com sucesso!");
             Prompt.separador();
         }
     }

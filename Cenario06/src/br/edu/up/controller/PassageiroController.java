@@ -1,15 +1,16 @@
 package br.edu.up.controller;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import br.edu.up.models.pessoas.Passageiro;
 
 public class PassageiroController {
-    List<Passageiro> passageirosCadastrados = new ArrayList<>();
+    Passageiro[] passageirosCadastrados = new Passageiro[0];
 
     public void adicionar(Passageiro passageiro){
-        passageirosCadastrados.add(passageiro);
+        Passageiro[] aux = new Passageiro[passageirosCadastrados.length + 1];
+        System.arraycopy(passageirosCadastrados, 0, aux, 0, passageirosCadastrados.length);
+        
+        aux[passageirosCadastrados.length] = passageiro;
+
+        passageirosCadastrados = aux;
     }
 
     public String listar(){
@@ -42,13 +43,32 @@ public class PassageiroController {
         return busca;
     }
 
-    public void alterar(Passageiro passageiroNovo){
-        int index = passageirosCadastrados.indexOf(passageiroNovo);
-        passageirosCadastrados.set(index, passageiroNovo);
+    public boolean alterar(Passageiro passageiroAntigo, Passageiro passageiroNovo){
+        for (int i = 0; i < passageirosCadastrados.length; i++) {
+            if(passageirosCadastrados[i] == passageiroAntigo){
+                passageirosCadastrados[i] = passageiroNovo;
+                return true;
+            }
+        }    
+        return false;
     }
-    
 
     public void deletar(Passageiro passageiro){
-        passageirosCadastrados.remove(passageiro);
+        Passageiro[] novoPassageirosCadastrados = new Passageiro[passageirosCadastrados.length - 1];
+
+        for (int i = 0; i < passageirosCadastrados.length; i++) {
+            if(passageirosCadastrados[i] == passageiro){
+
+                for (int j = i; j < passageirosCadastrados.length-1; j++) {
+                    novoPassageirosCadastrados[j] = passageirosCadastrados[j+1];
+                }
+                break;
+            }else{
+                novoPassageirosCadastrados[i] = passageirosCadastrados[i];
+            }
+        }
+        
+        passageirosCadastrados = new Passageiro[passageirosCadastrados.length-1];
+        passageirosCadastrados = novoPassageirosCadastrados;
     }
 }

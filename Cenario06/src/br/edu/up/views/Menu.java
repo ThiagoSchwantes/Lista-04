@@ -5,12 +5,14 @@ import br.edu.up.views.menus.MenuAeronave;
 import br.edu.up.views.menus.MenuComandante;
 import br.edu.up.views.menus.MenuComissario;
 import br.edu.up.views.menus.MenuPassageiro;
+import br.edu.up.views.menus.MenuPassagem;
 
 public class Menu {
     MenuPassageiro menuPassageiro = new MenuPassageiro();
     MenuComandante menuComandante= new MenuComandante();
     MenuComissario menuComissario = new MenuComissario();
     MenuAeronave menuAeronave = new MenuAeronave();
+    MenuPassagem menuPassagem = new MenuPassagem();
 
     public void menuPrincipal(){
         Prompt.clearConsole();
@@ -39,7 +41,7 @@ public class Menu {
                 menuAeronave.mostrar();
                 break;
             case 4:
-            
+                menuPassagem.mostrar();
                 break;
             case 5:
                 encerrarPrograma();

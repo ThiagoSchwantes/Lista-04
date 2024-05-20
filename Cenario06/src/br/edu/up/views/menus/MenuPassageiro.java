@@ -86,9 +86,9 @@ public class MenuPassageiro {
         Prompt.separador();
 
         String rgAntigo = Prompt.lerLinha("Digite o rg do passageiro que deseja alterar:");
-        Passageiro passageiro = passageiroController.buscar(rgAntigo);
+        Passageiro passageiroAntigo = passageiroController.buscar(rgAntigo);
 
-        if (passageiro == null) {
+        if (passageiroAntigo == null) {
             Prompt.separador();
             Prompt.imprimir("Não foi achado nenhum passageiro com este rg!");
             Prompt.separador();
@@ -96,10 +96,12 @@ public class MenuPassageiro {
             String nomeAlterar = Prompt.lerLinha("Digite o novo nome do passageiro:");
             String rgAlterar = Prompt.lerLinha("Digite o seu rg");
 
-            passageiro.setNome(nomeAlterar);
-            passageiro.setRg(rgAlterar);
+            Passageiro passageiroNovo = passageiroAntigo;
 
-            passageiroController.alterar(passageiro);
+            passageiroNovo.setNome(nomeAlterar);
+            passageiroNovo.setRg(rgAlterar);
+
+            passageiroController.alterar(passageiroAntigo, passageiroNovo);
 
             Prompt.separador();
             Prompt.imprimir("Passageiro alterado com suscesso!");
