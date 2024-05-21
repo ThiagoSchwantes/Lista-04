@@ -36,6 +36,15 @@ public class ClientePessoa extends Cliente{
         this.altura = altura;
     }
 
+    
+
+    @Override
+    public String toString() {
+        return "ClientePessoa [cpf=" + cpf + ", peso=" + peso + ", altura=" + altura + ", getNome()=" + getNome()
+                + ", getTelefone()=" + getTelefone() + ", getEmail()=" + getEmail() + ", getEndereco()=" + getEndereco()
+                + ", getVlrMaxCredito()=" + getVlrMaxCredito() + ", getVlrEmprestado()=" + getVlrEmprestado() + "]";
+    }
+
     @Override
     public void emprestar(double valor) {
         if (valor + getVlrEmprestado() <= getVlrMaxCredito()) {

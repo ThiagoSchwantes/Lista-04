@@ -59,5 +59,12 @@ public abstract class Cliente {
 
     public abstract void emprestar(double valor);
     public abstract void devolver(double valor);
+    @Override
+    public String toString() {
+        return "Cliente [nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco
+                + ", vlrMaxCredito=" + vlrMaxCredito + ", vlrEmprestado=" + vlrEmprestado + "]";
+    }
+
+    
     
 }

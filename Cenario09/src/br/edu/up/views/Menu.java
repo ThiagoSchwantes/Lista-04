@@ -1,4 +1,6 @@
 package br.edu.up.views;
+import java.util.Scanner;
+
 import br.edu.up.controllers.ClienteController;
 import br.edu.up.models.*;
 import br.edu.up.utils.*;
@@ -24,7 +26,7 @@ public class Menu {
         String uf = Prompt.lerLinha("Informe o estado que o cliente mora: ");
 
         Double maxCredito = Prompt.lerDecimal("Informe o valor máximo permitido de crédito ao cliente: ");
-        Double valorEmprestado = Prompt.lerDecimal("Informe o valor emprestado ao cliente: ");
+        Double valorEmprestado = 0.0;
 
         Cidade cidade = new Cidade(nomeCidade, uf);
         Endereco endereco = new Endereco(rua, numero, bairro, cep, cidade);
@@ -51,7 +53,7 @@ public class Menu {
         String uf = Prompt.lerLinha("Informe o estado que o cliente mora: ");
 
         Double maxCredito = Prompt.lerDecimal("Informe o valor máximo permitido de crédito ao cliente: ");
-        Double valorEmprestado = Prompt.lerDecimal("Informe o valor emprestado ao cliente: ");
+        Double valorEmprestado = 0.0;
 
         Cidade cidade = new Cidade(nomeCidade, uf);
         Endereco endereco = new Endereco(rua, numero, bairro, cep, cidade);
@@ -80,6 +82,7 @@ public class Menu {
             if (cliente.getNome().equals(nome)) {
                 double valor = Prompt.lerDecimal("Informe o valor do empréstimo: ");
                 cliente.emprestar(valor);
+                Prompt.imprimir("Empréstimo realizado com sucesso.");
                 clienteEncontrado = true;
                 break;
             }
@@ -98,6 +101,7 @@ public class Menu {
             if (cliente.getNome().equals(nome)) {
                 double valor = Prompt.lerDecimal("Informe o valor do empréstimo: ");
                 cliente.emprestar(valor);
+                Prompt.imprimir("Empréstimo realizado com sucesso.");
                 clienteEncontrado = true;
                 break;
             }
@@ -108,6 +112,45 @@ public class Menu {
         }
     }
     
+    private void devolucaoClientePessoa() {
+        String nome = Prompt.lerLinha("Informe o nome do cliente: ");
+        boolean clienteEncontrado = false;
+    
+        for (Cliente cliente : controleCliente.getListaClientesPessoa()) {
+            if (cliente.getNome().equals(nome)) {
+                double valor = Prompt.lerDecimal("Informe o valor da devolução: ");
+                cliente.devolver(valor);
+                Prompt.imprimir("Devolução realizado com sucesso.");
+                clienteEncontrado = true;
+                break;
+            }
+        }
+        
+        if (!clienteEncontrado) {
+            Prompt.imprimir("Cliente não encontrado ou não é uma pessoa.");
+        }
+    }
+
+    private void devolucaoClienteEmpresa() {
+        String nome = Prompt.lerLinha("Informe o nome da empresa do cliente: ");
+        boolean clienteEncontrado = false;
+    
+        for (Cliente cliente : controleCliente.getListaClientesEmpresa()) {
+            if (cliente.getNome().equals(nome)) {
+                double valor = Prompt.lerDecimal("Informe o valor da devolução: ");
+                cliente.devolver(valor);
+                Prompt.imprimir("Devolução realizado com sucesso.");
+                clienteEncontrado = true;
+                break;
+            }
+        }
+        
+        if (!clienteEncontrado) {
+            Prompt.imprimir("Cliente não encontrado ou não é uma pessoa.");
+        }
+    }
+
+    Scanner scanner = new Scanner(System.in);
     public void menuPrincipal(){
 
         Prompt.separador();
@@ -123,7 +166,7 @@ public class Menu {
         Prompt.imprimir("\t6 - Emprestar para cliente empresa");
         Prompt.imprimir("\t7 - Devolução de cliente pessoa");
         Prompt.imprimir("\t8 - Devolução de cliente empresa");
-        Prompt.imprimir("\t6 - Sair");
+        Prompt.imprimir("\t9 - Sair");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
 
@@ -133,34 +176,42 @@ public class Menu {
                 Prompt.separador();
                 Prompt.imprimir("cliente cadastrado com sucesso.");
                 Prompt.separador();
+                continuar();
                 break;
             case 2:
                 incluirClienteEmpresa();
                 Prompt.separador();
                 Prompt.imprimir("cliente cadastrado com sucesso.");
                 Prompt.separador();
+                continuar();
                 break;
             case 3:
                 mostrarClientePessoa();
+                continuar();
                 break;
             case 4:
                 mostrarClienteEmpresa();
+                continuar();
                 break;
             case 5:
                 emprestarClientePessoa();
-                Prompt.imprimir("Empréstimo realizado com sucesso.");
                 Prompt.separador();
+                continuar();
                 break;
             case 6:
                 emprestarClienteEmpresa();
-                Prompt.imprimir("Empréstimo realizado com sucesso.");
                 Prompt.separador();
+                continuar();
                 break;
             case 7:
-                //devolucaoClientePessoa();
+                devolucaoClientePessoa();
+                Prompt.separador();
+                continuar();
                 break;
             case 8:
-                //devolucaoClienteEmpresa();
+                devolucaoClienteEmpresa();
+                Prompt.separador();
+                continuar();
                 break;
             case 9:
                 encerrarPrograma();
@@ -175,5 +226,11 @@ public class Menu {
     public void encerrarPrograma(){
         Prompt.imprimir("Encerrando o programa...");
         System.exit(9);
+    }
+
+    public void continuar(){
+        Prompt.imprimir("Pressione qualquer tecla para continuar...");
+        scanner.nextLine();
+        menuPrincipal();
     }
 }

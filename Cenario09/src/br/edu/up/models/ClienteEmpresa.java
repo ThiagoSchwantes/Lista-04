@@ -31,6 +31,15 @@ public class ClienteEmpresa extends Cliente {
     public void setAnoFundacao(int anoFundacao) {
         this.anoFundacao = anoFundacao;
     }
+
+    @Override
+    public String toString() {
+        return "ClienteEmpresa [cnpj=" + cnpj + ", inscEstadual=" + inscEstadual + ", anoFundacao=" + anoFundacao
+                + ", getNome()=" + getNome() + ", getTelefone()=" + getTelefone() + ", getEmail()=" + getEmail()
+                + ", getEndereco()=" + getEndereco() + ", getVlrMaxCredito()=" + getVlrMaxCredito()
+                + ", getVlrEmprestado()=" + getVlrEmprestado() + "]";
+    }
+
     @Override
     public void emprestar(double valor) {
         if (valor + getVlrEmprestado() <= getVlrMaxCredito()) {
