@@ -1,7 +1,36 @@
 package br.edu.up.views;
+import java.util.Scanner;
+
+import br.edu.up.controllers.ContatoController;
+import br.edu.up.modelos.*;
 import br.edu.up.utils.*;
 
 public class Menu {
+
+    Agenda agenda = new Agenda();
+
+    public String getNome(){
+        String nome = Prompt.lerLinha("Informe o nome do contato: ");
+        return nome;
+    }
+    public String getTelefone(){
+        String telefone = Prompt.lerLinha("Informe o telefone do contato: ");
+        return telefone;
+    }
+    public String getAniversario(){
+        String aniversario = Prompt.lerLinha("Informe o aniversário do contato: ");
+        return aniversario;
+    }
+    public String getCnpj(){
+        String cnpj = Prompt.lerLinha("Informe o CNPJ do contato: ");
+        return cnpj;
+    }
+    public int getCodigo(){
+        int codigo = Prompt.lerInteiro("Informe o código do contato: ");
+        return codigo;
+    }
+
+    Scanner scanner = new Scanner(System.in);
 
     public void menuPrincipal(){
 
@@ -11,7 +40,7 @@ public class Menu {
 
         Prompt.imprimir("Digite uma das opções:");
         Prompt.imprimir("\t1 - Incluir contato pessoal");
-        Prompt.imprimir("\t1 - Incluir um contato comercial");
+        Prompt.imprimir("\t2 - Incluir um contato comercial");
         Prompt.imprimir("\t3 - Excluir um contato pelo código");
         Prompt.imprimir("\t4 - Consultar um contato pelo código");
         Prompt.imprimir("\t5 - Listar todos os contatos");
@@ -19,21 +48,37 @@ public class Menu {
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
 
+        ContatoController contatoController = new ContatoController();
+
         switch (opcao1) {
             case 1:
-                //incluirContatoPessoal();
+                Pessoal pessoal = contatoController.incluirContatoPessoal(this, agenda);
+                Prompt.imprimir(pessoal);
+                continuar();
                 break;
             case 2:
-                //incluirContatoComercial();
+                Comercial comercial = contatoController.incluirContatoComercial(this, agenda);
+                Prompt.imprimir(comercial);
+                continuar();
                 break;
             case 3:
-                //excluirContato();
+                if(contatoController.excluirContato(this, agenda)){
+                    Prompt.imprimir("Exclusão realizada com sucesso.");
+                }else{
+                    Prompt.imprimir("erro ao excluir contato.");
+                }
+
+                continuar();
                 break;
             case 4:
-                //consultarContato();
+                Contato contato = contatoController.consultarContato(this, agenda);
+                Prompt.imprimir(contato);
+                continuar();
                 break;
             case 5:
-                //listarContatos();
+                String lista = agenda.listarContatos();
+                Prompt.imprimir(lista);
+                continuar();
                 break;
             case 6:
                 encerrarPrograma();
@@ -49,5 +94,9 @@ public class Menu {
         Prompt.imprimir("Encerrando o programa...");
         System.exit(6);
     }
-    
+    public void continuar(){
+        Prompt.imprimir("Pressione qualquer tecla para continuar...");
+        scanner.nextLine();
+        menuPrincipal();
+    }
 }

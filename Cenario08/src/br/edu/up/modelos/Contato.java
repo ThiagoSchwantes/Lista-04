@@ -1,12 +1,13 @@
 package br.edu.up.modelos;
 
 public abstract class Contato{
-    private Integer codigo;
+    private static int contadorCodigo = 0;
+    private int codigo;
     private String nome;
     private String telefone;
     
-    public Contato(Integer codigo, String nome, String telefone) {
-        this.codigo = codigo;
+    public Contato(String nome, String telefone) {
+        this.codigo = ++contadorCodigo;
         this.nome = nome;
         this.telefone = telefone;
     }

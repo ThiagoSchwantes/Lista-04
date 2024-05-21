@@ -3,8 +3,6 @@ package br.edu.up.modelos;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.up.utils.Prompt;
-
 public class Agenda {
 
     List<Contato> listaContatos = new ArrayList<>();
@@ -13,11 +11,11 @@ public class Agenda {
 
     }
 
-    public void adicionar(Comercial contatoComercial){
+    public void adicionarContatoComercial(Comercial contatoComercial){
         listaContatos.add(contatoComercial);
     }
 
-    public void adicionar(Pessoal contatoPessoal){
+    public void adicionarContatoPessoal(Pessoal contatoPessoal){
         listaContatos.add(contatoPessoal);
     }
 
@@ -38,11 +36,21 @@ public class Agenda {
         }
     }
     
-    public String listarContatos(){
-        String frase = "";
+    public String listarContatos(){/*dessa forma esta concatenando os contatos */
+        StringBuilder frase = new StringBuilder();
         for (Contato contato : listaContatos) {
-            frase = "[ " + contato + " ],\n";
+            frase.append("[ ").append(contato).append(" ],\n");
         }
-        return frase;
+        return frase.toString();
     }
+
+    public List<Contato> getListaContatos() {
+        return listaContatos;
+    }
+
+    public void setListaContatos(List<Contato> listaContatos) {
+        this.listaContatos = listaContatos;
+    }
+
+    
 }

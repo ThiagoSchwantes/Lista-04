@@ -4,8 +4,8 @@ public class Pessoal extends Contato{
     
     private String aniversario;
 
-    public Pessoal(int codigo, String nome, String telefone, String aniversario){
-        super(codigo, nome, telefone);
+    public Pessoal(String nome, String telefone, String aniversario){
+        super(nome, telefone);
         this.aniversario = aniversario;
     }
 
@@ -19,8 +19,10 @@ public class Pessoal extends Contato{
 
     @Override
     public String toString() {
-        return "Pessoal [aniversario=" + aniversario + "]";
+        return "Pessoal [getCodigo()=" + getCodigo() + ", getNome()=" + getNome()
+                + ", getTelefone()=" + getTelefone() + " , aniversario=" + aniversario + "]";
     }
 
+    
     
 }
