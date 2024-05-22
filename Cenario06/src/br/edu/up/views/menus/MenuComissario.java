@@ -1,13 +1,14 @@
 package br.edu.up.views.menus;
 
 import br.edu.up.controller.ComissarioController;
+import br.edu.up.models.Aeronave;
 import br.edu.up.models.pessoas.tripulantes.Comissario;
 import br.edu.up.utils.Prompt;
 
 public class MenuComissario {
     ComissarioController comissarioController = new ComissarioController();
     
-    public void mostrar(){
+    public void mostrar(MenuAeronave menuAeronave){
         boolean sair = false;
 
         Prompt.separador();
@@ -26,7 +27,7 @@ public class MenuComissario {
 
         switch (opcao) {
             case 1:
-                cadastrar();
+                cadastrar(menuAeronave);
                 break;
             case 2:
                 listar();
@@ -45,67 +46,94 @@ public class MenuComissario {
                 Prompt.separador();
                 break;
             }
+
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
-            mostrar();
+            mostrar(menuAeronave);
         }
     }
 
-    public void cadastrar(){
-        
-        Prompt.separador();
-        Prompt.imprimir("CADASTRAR COMISSÁRIO");
-        Prompt.separador();
+    public void cadastrar(MenuAeronave menuAeronave){
+        if (!menuAeronave.aeronaveController.listar().equals("")) {
+            Prompt.separador();
+            Prompt.imprimir("CADASTRAR COMISSÁRIO");
+            Prompt.separador();
 
-        String nome = Prompt.lerLinha("Digite o seu nome:");
-        String rg = Prompt.lerLinha("Digite o seu rg");
+            String nome = Prompt.lerLinha("Digite o seu nome:");
+            String rg = Prompt.lerLinha("Digite o seu rg");
 
-        String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
-        String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
+            String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
+            String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
 
-        Prompt.clearConsole();
-        Prompt.separador();
-        Prompt.imprimir("IDIOMAS DO COMISSÁRIO");
-        Prompt.separador();
+            Prompt.clearConsole();
+            Prompt.separador();
+            Prompt.imprimir("IDIOMAS DO COMISSÁRIO");
+            Prompt.separador();
 
-        String[] idiomas = new String[1];
+            String[] idiomas = new String[1];
 
-        idiomas[0]  =  Prompt.lerLinha("Digite o seu idioma nativo:");
+            idiomas[0]  =  Prompt.lerLinha("Digite o seu idioma nativo:");
 
-        boolean repetir = false;
-        do {
-            Prompt.separador(); 
-            Character opcao = Prompt.lerCaractere("Deseja adicionar mais algum idioma? (S/N)");
+            boolean repetir = false;
+            do {
+                Prompt.separador(); 
+                Character opcao = Prompt.lerCaractere("Deseja adicionar mais algum idioma? (S/N)");
 
-            if (Character.toLowerCase(opcao) == 's') {
-                repetir = true;
-                
-                String[] idiomasAux = new String[idiomas.length+1];
-                System.arraycopy(idiomas, 0, idiomasAux, 0, idiomas.length);
+                if (Character.toLowerCase(opcao) == 's') {
+                    repetir = true;
+                    
+                    String[] idiomasAux = new String[idiomas.length+1];
+                    System.arraycopy(idiomas, 0, idiomasAux, 0, idiomas.length);
 
-                idiomasAux[idiomas.length] = Prompt.lerLinha("Digite seu outro idioma:");
-                
-                idiomas = new String[idiomas.length + 1];
-                idiomas = idiomasAux;
-                
-            }else if(Character.toLowerCase(opcao) != 'n'){
-                Prompt.imprimir("Erro, digite uma das opções!");
-                repetir = true;
-            }else{
-                repetir = false;
-            } 
-                       
-        } while (repetir);        
+                    idiomasAux[idiomas.length] = Prompt.lerLinha("Digite seu outro idioma:");
+                    
+                    idiomas = new String[idiomas.length + 1];
+                    idiomas = idiomasAux;
+                    
+                }else if(Character.toLowerCase(opcao) != 'n'){
+                    Prompt.imprimir("Erro, digite uma das opções!");
+                    repetir = true;
+                }else{
+                    repetir = false;
+                } 
+                        
+            } while (repetir);     
 
-        Comissario comissario = new Comissario(nome, rg, matriculaFuncionario, idAeronautica, idiomas);
+            Comissario comissario = new Comissario(nome, rg, matriculaFuncionario, idAeronautica, idiomas);
+            
+            boolean achado = false;
+            do {
+                Prompt.clearConsole();
+                Prompt.imprimir("LISTA DE AVIÕES:");
+                Prompt.separador();
 
-        comissarioController.adicionar(comissario);
+                menuAeronave.aeronaveController.listar();
 
-        Prompt.clearConsole();
-        Prompt.separador();
-        Prompt.imprimir("COMISSARIO CADASTRADO COM SUCESSO!\n" + comissario.toString());
-        Prompt.separador();
+                Prompt.separador();
+                int opcao = Prompt.lerInteiro("Em qual avião o comissario vai estar?");
+                Prompt.separador();
+
+                Aeronave aeronaveEscolhida = menuAeronave.aeronaveController.buscar(opcao);
+
+                if(aeronaveEscolhida == null){
+                    Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
+                    Prompt.pressionarEnter();
+                }else{
+                    achado = true;
+                    comissario.setAeronave(aeronaveEscolhida);
+                }
+            } while (achado != true);
+
+            comissarioController.adicionar(comissario);
+
+            Prompt.clearConsole();
+            Prompt.separador();
+            Prompt.imprimir("COMISSARIO CADASTRADO COM SUCESSO!\n" + comissario.toString());
+            Prompt.separador();
+        }else{
+            Prompt.imprimir("Não é possível cadastrar nenhuma Pessoa ainda! Não possui nenhuma aeronave cadastrada");
+        }
     }
 
     public void listar(){

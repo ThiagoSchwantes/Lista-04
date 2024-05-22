@@ -24,6 +24,6 @@ public class Comandante extends Tripulante{
     @Override
     public String toString() {
         return "[Nome: " + getNome()  +  ", RG: " + getRg() + ", Matricula do Funcionario: " + getMatriculaFuncionario() 
-        + ", Identificacao Aeronautica: " + getIdAeronautica()+ ", total de horas de voo: " + totalHorasDeVoo  + "]";        
+        + ", Identificacao Aeronautica: " + getIdAeronautica()+ ", total de horas de voo: " + totalHorasDeVoo  + "Aeronave: " + getAeronave() +"]";        
     }
 }

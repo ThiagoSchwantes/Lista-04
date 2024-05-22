@@ -1,13 +1,17 @@
 package br.edu.up.views.menus;
 
 import br.edu.up.controller.PassageiroController;
+import br.edu.up.controller.PassagemController;
+import br.edu.up.models.Aeronave;
+import br.edu.up.models.Passagem;
 import br.edu.up.models.pessoas.Passageiro;
 import br.edu.up.utils.Prompt;
 
 public class MenuPassageiro {
-    PassageiroController passageiroController = new PassageiroController();
+    protected PassageiroController passageiroController = new PassageiroController();
+    protected PassagemController passagemController = new PassagemController();
 
-    public void mostrar(){
+    public void mostrar(MenuAeronave menuAeronave){
         boolean sair = false;
 
         Prompt.separador();
@@ -26,7 +30,7 @@ public class MenuPassageiro {
 
         switch (opcao) {
             case 1:
-                cadastrar();
+                cadastrar(menuAeronave);
                 break;
             case 2:
                 listar();
@@ -50,25 +54,64 @@ public class MenuPassageiro {
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
-            mostrar();
+            mostrar(menuAeronave);
         }
     }
 
-    public void cadastrar(){
-        Prompt.separador();
-        Prompt.imprimir("CADASTRAR PASSAGEIRO");
-        Prompt.separador();
+    public void cadastrar(MenuAeronave menuAeronave){
+        if (!menuAeronave.aeronaveController.listar().equals("")) {
+            Prompt.separador();
+            Prompt.imprimir("CADASTRAR PASSAGEIRO");
+            Prompt.separador();
 
-        String nome = Prompt.lerLinha("Digite o seu nome:");
-        String rg = Prompt.lerLinha("Digite o seu rg");
+            String nome = Prompt.lerLinha("Digite o seu nome:");
+            String rg = Prompt.lerLinha("Digite o seu rg");
 
-        Passageiro passageiroCadastrado = new Passageiro(nome, rg);
+            Passageiro passageiroCadastrado = new Passageiro(nome, rg);
 
-        passageiroController.adicionar(passageiroCadastrado);
+            boolean achado = false;
+            do {
+                Prompt.clearConsole();
+                Prompt.imprimir("LISTA DE AVIÕES:");
+                Prompt.separador();
 
-        Prompt.separador();
-        Prompt.imprimir("PASSAGEIRO CADASTRADO\n" + passageiroCadastrado.toString());
-        Prompt.separador();
+                menuAeronave.aeronaveController.listar();
+
+                Prompt.separador();
+                int opcao = Prompt.lerInteiro("Em qual avião o comissario vai estar?");
+                Prompt.separador();
+
+                Aeronave aeronaveEscolhida = menuAeronave.aeronaveController.buscar(opcao);
+
+                if(aeronaveEscolhida == null){
+                    Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
+                    Prompt.pressionarEnter();
+                }else{
+                    achado = true;
+                    passageiroCadastrado.setAeronave(aeronaveEscolhida);
+                }
+            } while (achado != true);
+
+            Prompt.clearConsole();
+            Prompt.separador();
+            Prompt.imprimir("EMITIR SUA PASSAGEM:");
+            Prompt.separador();
+
+            Integer numeroAcento = Prompt.lerInteiro("Digite o numero do acento que deseja centar!");
+            String classe = Prompt.lerLinha("Digite em qual classe você vai centar");
+            String data = Prompt.lerLinha("Digite a data do voo:");
+
+            Passagem passagem = new Passagem(numeroAcento, classe, data);
+            passageiroCadastrado.setPassagem(passagem);
+            
+            passageiroController.adicionar(passageiroCadastrado);
+
+            Prompt.separador();
+            Prompt.imprimir("PASSAGEIRO CADASTRADO\n" + passageiroCadastrado.toString());
+            Prompt.separador();
+        }else{
+            Prompt.imprimir("Não é possível cadastrar nenhuma Pessoa ainda! Não possui nenhuma aeronave cadastrada");
+        }
     }
 
     public void listar(){

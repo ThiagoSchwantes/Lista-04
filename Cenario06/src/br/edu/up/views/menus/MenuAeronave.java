@@ -5,7 +5,7 @@ import br.edu.up.models.Aeronave;
 import br.edu.up.utils.Prompt;
 
 public class MenuAeronave {
-    AeronaveController aeronaveController = new AeronaveController();
+    protected AeronaveController aeronaveController = new AeronaveController();
 
     public void mostrar(){
         boolean sair = false;
@@ -77,7 +77,12 @@ public class MenuAeronave {
         Prompt.imprimir("LISTAR AERONAVE");
         Prompt.separador();
 
-        Prompt.imprimir(aeronaveController.listar());
+        if(!aeronaveController.listar().equals("")){
+            Prompt.imprimir(aeronaveController.listar());
+        }else{
+           Prompt.imprimir("Nada cadastrado");
+           Prompt.separador();
+        }
     }
 
     public void alterar(){
@@ -115,21 +120,27 @@ public class MenuAeronave {
         Prompt.imprimir("DELETAR AERONAVE");
         Prompt.separador();
 
-        Prompt.imprimir(aeronaveController.listar());
+        if(!aeronaveController.listar().equals("")){
+            Prompt.imprimir(aeronaveController.listar());
 
-        Integer codigo = Prompt.lerInteiro("\nDigite o código do avião que deseja deletar:");
-        Aeronave aeronave = aeronaveController.buscar(codigo);
+            Integer codigo = Prompt.lerInteiro("\nDigite o código do avião que deseja deletar:");
+            Aeronave aeronave = aeronaveController.buscar(codigo);
 
-        if (aeronave == null) {
-            Prompt.separador();
-            Prompt.imprimir("Aeronave não encontrada!");
-            Prompt.separador();
+            if (aeronave == null) {
+                Prompt.separador();
+                Prompt.imprimir("Aeronave não encontrada!");
+                Prompt.separador();
+            }else{
+                aeronaveController.deletar(aeronave);
+
+                Prompt.separador();
+                Prompt.imprimir("Aeronave deletada com sucesso!");
+                Prompt.separador();
+            }
         }else{
-            aeronaveController.deletar(aeronave);
-
-            Prompt.separador();
-            Prompt.imprimir("Aeronave deletada com sucesso!");
-            Prompt.separador();
+           Prompt.imprimir("Nada cadastrado");
+           Prompt.separador();
+           Prompt.pressionarEnter();
         }
     }
 }

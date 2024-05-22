@@ -1,13 +1,14 @@
 package br.edu.up.views.menus;
 
 import br.edu.up.controller.ComandanteController;
+import br.edu.up.models.Aeronave;
 import br.edu.up.models.pessoas.tripulantes.Comandante;
 import br.edu.up.utils.Prompt;
 
 public class MenuComandante {
     ComandanteController comandanteController = new ComandanteController();
 
-    public void mostrar(){
+    public void mostrar(MenuAeronave menuAeronave){
         boolean sair = false;
 
         Prompt.separador();
@@ -26,7 +27,7 @@ public class MenuComandante {
 
         switch (opcao) {
             case 1:
-                cadastrar();
+                cadastrar(menuAeronave);
                 break;
             case 2:
                 listar();
@@ -50,29 +51,54 @@ public class MenuComandante {
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
-            mostrar();
+            mostrar(menuAeronave);
         }
     }
 
-    public void cadastrar(){
-        Prompt.separador();
-        Prompt.imprimir("CADASTRAR COMANDANTE");
-        Prompt.separador();
+    public void cadastrar(MenuAeronave menuAeronave){
+        if (!menuAeronave.aeronaveController.listar().equals("")) {
+            Prompt.separador();
+            Prompt.imprimir("CADASTRAR COMANDANTE");
+            Prompt.separador();
 
-        String nome = Prompt.lerLinha("Digite o seu nome:");
-        String rg = Prompt.lerLinha("Digite o seu rg");
-        Double totalHorasDeVoo = Prompt.lerDecimal("Digite quantas horas têm de voo:");
+            String nome = Prompt.lerLinha("Digite o seu nome:");
+            String rg = Prompt.lerLinha("Digite o seu rg");
+            Double totalHorasDeVoo = Prompt.lerDecimal("Digite quantas horas têm de voo:");
+            String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
+            String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
 
-        String matriculaFuncionario = Prompt.lerLinha("Digite a mátricula de Funcionário:");
-        String idAeronautica = Prompt.lerLinha("Digite a sua identificação de aernoáutica:");
+            Comandante comandanteCadastrar = new Comandante(nome, rg, matriculaFuncionario, idAeronautica, totalHorasDeVoo);
 
-        Comandante comandanteCadastrar = new Comandante(nome, rg, matriculaFuncionario, idAeronautica, totalHorasDeVoo);
+            boolean achado = false;
+            do {
+                Prompt.clearConsole();
+                Prompt.imprimir("LISTA DE AVIÕES:");
+                Prompt.separador();
 
-        comandanteController.adicionar(comandanteCadastrar);
+                menuAeronave.aeronaveController.listar();
 
-        Prompt.separador();
-        Prompt.imprimir("COMANDANTE CADASTRADO\n" + comandanteCadastrar.toString());
-        Prompt.separador();
+                Prompt.separador();
+                int opcao = Prompt.lerInteiro("Em qual avião o comandente vai estar?");
+                Prompt.separador();
+
+                Aeronave aeronaveEscolhida = menuAeronave.aeronaveController.buscar(opcao);
+
+                if(aeronaveEscolhida == null){
+                    Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
+                    Prompt.pressionarEnter();
+                }else{
+                    achado = true;
+                    comandanteCadastrar.setAeronave(aeronaveEscolhida);
+                }
+            } while (achado != true);
+
+            comandanteController.adicionar(comandanteCadastrar);
+            Prompt.separador();
+            Prompt.imprimir("COMANDANTE CADASTRADO\n" + comandanteCadastrar.toString());
+            Prompt.separador(); 
+        }else{
+            Prompt.imprimir("Não é possível cadastrar nenhuma Pessoa ainda! Não possui nenhuma aeronave cadastrada");
+        }
     }
     
     public void listar(){
