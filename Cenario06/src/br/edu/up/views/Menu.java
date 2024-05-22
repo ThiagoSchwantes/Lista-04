@@ -32,7 +32,7 @@ public class Menu {
 
         switch (opcao1) {
             case 1:
-                menuPassageiro.mostrar();
+                menuPassageiro.mostrar(menuAeronave);
                 break;
             case 2:
                 menuTripulacao();
@@ -41,7 +41,7 @@ public class Menu {
                 menuAeronave.mostrar();
                 break;
             case 4:
-                menuPassagem.mostrar();
+                menuPassagem.mostrar(menuPassageiro);
                 break;
             case 5:
                 encerrarPrograma();
@@ -74,10 +74,10 @@ public class Menu {
 
         switch (opcao) {
             case 1:
-                menuComandante.mostrar();
+                menuComandante.mostrar(menuAeronave);
                 break;
             case 2:
-                menuComissario.mostrar();
+                menuComissario.mostrar(menuAeronave);
                 break;
             case 3:
                 menuPrincipal();

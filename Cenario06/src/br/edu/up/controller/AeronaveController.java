@@ -21,15 +21,11 @@ public class AeronaveController {
     public String listar(){
         String lista = ""; 
         int i = 1;
+        
         for (Aeronave aeronave : aeronavesCadastradas) {
             lista += "Aeronave " + i + " "+aeronave.toString();
             lista += "\n---------------------------------------------------\n";
             i++;
-        }
-
-        if(lista.equals("")){
-            lista = "Nada cadastrado";
-            lista += "\n---------------------------------------------------\n";
         }
 
         return lista;
