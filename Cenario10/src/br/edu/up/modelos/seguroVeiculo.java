@@ -1,10 +1,21 @@
 package br.edu.up.modelos;
 
-public class seguroVeiculo {
+import java.time.LocalDate;
+
+public class SeguroVeiculo extends Seguro{
     private Double vlrFranquia;
     private boolean temCarroReserva;
     private boolean cobreVidros;
 
+    
+    public SeguroVeiculo(String apolice, Segurado segurado, Double vlrApolice, LocalDate dtaInicio, LocalDate dtaFim,
+            Double vlrFranquia, boolean temCarroReserva, boolean cobreVidros) {
+        super(apolice, segurado, vlrApolice, dtaInicio, dtaFim);
+        this.vlrFranquia = vlrFranquia;
+        this.temCarroReserva = temCarroReserva;
+        this.cobreVidros = cobreVidros;
+    }
+    
     public Double getVlrFranquia() {
         return vlrFranquia;
     }
@@ -23,6 +34,13 @@ public class seguroVeiculo {
     public void setCobreVidros(boolean cobreVidros) {
         this.cobreVidros = cobreVidros;
     }
+
+    @Override
+    public String toString() {
+        return "seguroVeiculo [vlrFranquia=" + vlrFranquia + ", temCarroReserva=" + temCarroReserva + ", cobreVidros="
+                + cobreVidros + ", Segurado=" + getSegurado() + ", VlrApolice=" + getVlrApolice()
+                + ", DtaInicio=" + getDtaInicio() + ", DtaFim=" + getDtaFim() + "]";
+    }
     
-     //faltou o getDados():String   
+    
 }
