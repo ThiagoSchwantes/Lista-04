@@ -1,5 +1,4 @@
 package br.edu.up.modelos;
-
 import java.time.LocalDate;
 
 public abstract class Seguro {
@@ -9,6 +8,13 @@ public abstract class Seguro {
     private LocalDate dtaInicio;
     private LocalDate dtaFim;
 
+    public Seguro(String apolice, Segurado segurado, Double vlrApolice, LocalDate dtaInicio, LocalDate dtaFim) {
+        this.apolice = apolice;
+        this.segurado = segurado;
+        this.vlrApolice = vlrApolice;
+        this.dtaInicio = dtaInicio;
+        this.dtaFim = dtaFim;
+    }
 
     public String getApolice() {
         return apolice;
@@ -41,5 +47,10 @@ public abstract class Seguro {
         this.dtaFim = dtaFim;
     }
 
-    //ficou faltando o getDados():String
+    @Override
+    public String toString() {
+        return "Seguro [apolice=" + apolice + ", segurado=" + segurado + ", vlrApolice=" + vlrApolice + ", dtaInicio="
+                + dtaInicio + ", dtaFim=" + dtaFim + "]";
+    }
+    
 }
