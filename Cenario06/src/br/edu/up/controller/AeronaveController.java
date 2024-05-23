@@ -19,13 +19,11 @@ public class AeronaveController {
     }
 
     public String listar(){
-        String lista = ""; 
-        int i = 1;
+        String lista = "";
         
         for (Aeronave aeronave : aeronavesCadastradas) {
             lista += "Aeronave " + aeronave.toString();
             lista += "\n---------------------------------------------------\n";
-            i++;
         }
 
         return lista;
