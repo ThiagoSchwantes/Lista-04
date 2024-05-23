@@ -23,7 +23,7 @@ public class Menu {
         Prompt.imprimir("MENU PRINCIPAL");
         Prompt.separador();
 
-        Prompt.imprimir("Digite uma das opções para gerenciar:");
+        Prompt.imprimir("Digite uma das opções para você gerenciar:");
         Prompt.imprimir("\t1 - Aeronaves");
         Prompt.imprimir("\t2 - Passageiros");
         Prompt.imprimir("\t3 - Tripulação");
