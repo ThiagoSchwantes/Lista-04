@@ -1,14 +1,14 @@
 package br.edu.up.views;
 import br.edu.up.utils.*;
 
-import java.util.Scanner;
+import java.time.LocalDate;
 import java.util.UUID;
-
 import br.edu.up.Controllers.*;
 import br.edu.up.models.*;
 
 public class Menu {
-    Scanner scanner = new Scanner(System.in);
+    ControleDeEvento controleDeEvento = new ControleDeEvento();
+    ControleDeReserva controleDeReserva = new ControleDeReserva();
 
     public void menuPrincipal(){
 
@@ -41,9 +41,6 @@ public class Menu {
     }
 
     public void menuEventos(){
-
-        ControleDeEvento controleDeEvento = new ControleDeEvento();
-
         Prompt.separador();
         Prompt.imprimir("MENU DE EVENTOS");
         Prompt.separador();
@@ -59,41 +56,70 @@ public class Menu {
 
         switch (opcao2) {
             case 1:
-                Evento evento = controleDeEvento.incluirEvento();
+
+                String nome =  Prompt.lerLinha("Informe o nome do evento: ");
+
+                int ano = Prompt.lerInteiro("Informe o ano do evento: ");
+                int mes = Prompt.lerInteiro("Informe o mês do evento: ");
+                int dia = Prompt.lerInteiro("Informe o dia do evento: ");
+                LocalDate data =  LocalDate.of(ano, mes, dia);
+
+                String local = Prompt.lerLinha("Informe o local do evento: ");
+                int lotacao = Prompt.lerInteiro("Informe a locação máxima do evento: ");
+                double precoIngresso = Prompt.lerDecimal("Informe o preço do ingresso: ");
+
+                Evento evento = new Evento(nome, data, local, lotacao, precoIngresso);
+
+                controleDeEvento.incluirEvento(evento);
+
                 Prompt.separador();
                 Prompt.imprimir("Evento cadastrado com sucesso!");
                 Prompt.imprimir(evento);
                 Prompt.separador();
-                continuar();
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 2:
-                String idString = Prompt.lerLinha("Informe o id do evento: ");
+                int id = Prompt.lerInteiro("Informe o id do evento: ");
                 try{
-                    UUID id = UUID.fromString(idString);
-                    Evento evento2 = controleDeEvento.alterarEvento(id);
+
+                    Evento evento2 = controleDeEvento.buscar(id);
+                    
                     if(evento2 == null){
                         Prompt.imprimir("Id não encontrado.");
                     }else{
+                        String nomeAlterar = Prompt.lerLinha("Informe o novo nome do evento: ");
+                        int anoAlterar = Prompt.lerInteiro("Informe o novo ano do evento: ");
+                        int mesAlterar = Prompt.lerInteiro("Informe o novo mês do evento: ");
+                        int diaAlterar = Prompt.lerInteiro("Informe o novo dia do evento: ");
+                        String localAlterar = Prompt.lerLinha("Informe o novo local do evento: ");
+                        int lotacaoAlterar = Prompt.lerInteiro("Informe a nova locação máxima do evento: ");
+                        double precoIngressoAlterar = Prompt.lerDecimal("Informe o novo preço do ingresso: ");
+
+                        Evento eventoAlterado = controleDeEvento.alterarEvento(id, nomeAlterar, anoAlterar, mesAlterar, diaAlterar, localAlterar, lotacaoAlterar, precoIngressoAlterar);
+
                         Prompt.separador();
                         Prompt.imprimir("Alteração realizada com sucesso.");
-                        Prompt.imprimir(evento2);
+                        Prompt.imprimir(eventoAlterado);
                         Prompt.separador();
                     }
                 }catch (IllegalArgumentException e) {
                     Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
                 }
                 
-                continuar();
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 3:
                 controleDeEvento.listaDeEventos();
-                continuar();
+
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 4:
-                String idString2 = Prompt.lerLinha("Informe o id do evento: ");
+                int idDeletar = Prompt.lerInteiro("Informe o id do evento: ");
                 try{
-                    UUID id = UUID.fromString(idString2);
-                    boolean evento2 = controleDeEvento.ExcluirEvento(id);
+                    boolean evento2 = controleDeEvento.ExcluirEvento(idDeletar);
                     if(evento2 == false){
                         Prompt.imprimir("Evento não encontrado.");
                     }else{
@@ -102,7 +128,9 @@ public class Menu {
                 }catch (IllegalArgumentException e) {
                     Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
                 }
-                continuar();
+
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 5:
                 menuPrincipal();
@@ -131,12 +159,34 @@ public class Menu {
 
         switch (opcao3) {
             case 1:
-                Reserva reserva = controleDeReserva.incluirReserva();
-                Prompt.separador();
-                Prompt.imprimir("Reserva realizada com sucesso.");
-                Prompt.imprimir(reserva);
-                Prompt.separador();
-                continuar();
+                int opcaoEvento = Prompt.lerInteiro("Selecione o id do evento desejado: ");
+                Evento eventoSelecionado = controleDeEvento.buscar(opcaoEvento);
+
+                if (eventoSelecionado == null) {
+                    Prompt.imprimir("Opção inválida.");
+                }else{
+
+                    String nomeResponsavel = Prompt.lerLinha("Informe o nome do responsável pela reserva: ");
+                    int quantPessoas = Prompt.lerInteiro("Informe para quantas pessoas é a reserva: ");
+                    LocalDate data = LocalDate.now();
+                    
+
+                    Prompt.separador();
+                    Prompt.imprimir("Eventos disponíveis:");
+                    Prompt.imprimir(controleDeEvento.listaDeEventos());
+                    double valorTotalReserva = eventoSelecionado.getPrecoIngresso() * quantPessoas;
+                    Reserva reserva = new Reserva(nomeResponsavel, quantPessoas, data, eventoSelecionado, valorTotalReserva);
+                    eventoSelecionado.setQuantIgressosVendidos(eventoSelecionado.getQuantIgressosVendidos() + quantPessoas);
+
+
+                    controleDeReserva.incluirReserva(reserva);
+                    Prompt.separador();
+                    Prompt.imprimir("Reserva realizada com sucesso.");
+                    Prompt.imprimir(reserva);
+                    Prompt.separador();
+                }
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 2:
                 String idString3 = Prompt.lerLinha("Informe o id da reserva: ");
@@ -154,11 +204,15 @@ public class Menu {
                 }catch (IllegalArgumentException e) {
                     Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
                 }
-                continuar();
+
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 3:
                 controleDeReserva.listaDeReservas();
-                continuar();
+
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 4:
                 String idString4 = Prompt.lerLinha("Informe o id do evento: ");
@@ -173,7 +227,9 @@ public class Menu {
                 }catch (IllegalArgumentException e) {
                     Prompt.imprimir("Formato de UUID inválido. Certifique-se de inserir um UUID válido.");
                 }
-                continuar();
+
+                Prompt.pressionarEnter();
+                menuPrincipal();
                 break;
             case 5:
                 menuPrincipal();
@@ -187,11 +243,5 @@ public class Menu {
     public void encerrarPrograma(){
         Prompt.imprimir("Encerrando o programa...");
         System.exit(3);
-    }
-
-    public void continuar(){
-        Prompt.imprimir("Pressione qualquer tecla para continuar...");
-        scanner.nextLine();
-        menuPrincipal();
     }
 }

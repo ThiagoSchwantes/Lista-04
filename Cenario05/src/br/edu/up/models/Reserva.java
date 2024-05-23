@@ -1,12 +1,9 @@
 package br.edu.up.models;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class Reserva {
-    private static List<Reserva> listaReservas = new ArrayList<>();
     private UUID idReserva;
     private String nomeResponsavel;
     private int quantPessoas;
@@ -64,20 +61,10 @@ public class Reserva {
     public UUID getId() {
         return idReserva;
     }
-
-    public static List<Reserva> getListaReservas() {
-        return listaReservas;
-    }
-
-    public static void setListaReservas(List<Reserva> listaReservas) {
-        Reserva.listaReservas = listaReservas;
-    }
-
+    
     @Override
     public String toString() {
         return "Reserva [idReserva=" + idReserva + ", nomeResponsavel=" + nomeResponsavel + ", quantPessoas=" + quantPessoas
                 + ", data=" + data + ", valorTotal=" + valorTotal + ", evento=" + evento + "]";
     }
-
-    
 }

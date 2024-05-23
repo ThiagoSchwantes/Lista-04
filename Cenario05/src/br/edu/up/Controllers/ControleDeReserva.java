@@ -1,6 +1,7 @@
 package br.edu.up.Controllers;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,34 +11,10 @@ import br.edu.up.utils.Prompt;
 import br.edu.up.views.InformacaoReserva;
 
 public class ControleDeReserva {
+    private static List<Reserva> listaReservas = new ArrayList<>();
     
-    public Reserva incluirReserva(){
-        InformacaoReserva ir = new InformacaoReserva();
-
-        String nomeResponsavel = ir.registrarNome();
-        int quantPessoas = ir.registrarQuantPessoas();
-        LocalDate data = ir.registrarData();
-        
-        List<Evento> eventosDisponiveis = Evento.getListaEventos();
-
-        Prompt.separador();
-        Prompt.imprimir("Eventos disponíveis:");
-        for (int i = 0; i < eventosDisponiveis.size(); i++) {
-            Evento evento = eventosDisponiveis.get(i);
-            Prompt.imprimir((i + 1) + ". " + evento.getNome());
-        }
-        int opcaoEvento = Prompt.lerInteiro("Selecione o evento desejado: ");
-
-        if (opcaoEvento < 1 || opcaoEvento > eventosDisponiveis.size()) {
-            Prompt.imprimir("Opção inválida.");
-            return null;
-        }
-
-        Evento eventoSelecionado = eventosDisponiveis.get(opcaoEvento - 1);
-        double valorTotalReserva = eventoSelecionado.getPrecoIngresso() * quantPessoas;
-        Reserva reserva = new Reserva(nomeResponsavel, quantPessoas, data, eventoSelecionado, valorTotalReserva);
-        eventoSelecionado.setQuantIgressosVendidos(eventoSelecionado.getQuantIgressosVendidos() + quantPessoas);
-        Reserva.getListaReservas().add(reserva);
+    public Reserva incluirReserva(Reserva reserva){        
+        listaReservas.add(reserva);
         return reserva;
     }
 

@@ -2,13 +2,10 @@ package br.edu.up.models;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class Evento {
-    private static List<Evento> listaEventos = new ArrayList<>();
-    private UUID id;
+    
+    private int id;
     private String nome;
     private LocalDate data;
     private String local;
@@ -18,19 +15,12 @@ public class Evento {
 
     public Evento(String nome, LocalDate data, String local, int lotacaoMaxima,
             double precoIngresso) {
-        this.id = UUID.randomUUID();
         this.nome = nome;
         this.data = data;
         this.local = local;
         this.lotacaoMaxima = lotacaoMaxima;
         this.precoIngresso = precoIngresso;
     }
-
-
-
-    public Evento(){
-        id = UUID.randomUUID();
-    }    
 
     public String getNome() {
         return nome;
@@ -68,13 +58,11 @@ public class Evento {
     public void setPrecoIngresso(double precoIngresso) {
         this.precoIngresso = precoIngresso;
     }
-
-    public UUID getId() {
+    public int getId() {
         return id;
     }
-
-    public static List<Evento> getListaEventos() {
-        return listaEventos;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -87,7 +75,4 @@ public class Evento {
                 + lotacaoMaxima + ", quantIgressosVendidos=" + quantIgressosVendidos + ", precoIngresso="
                 + precoIngresso + "]";
     }
-
-    
-    
 }

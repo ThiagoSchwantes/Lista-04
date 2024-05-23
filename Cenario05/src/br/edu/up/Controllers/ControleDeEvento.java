@@ -1,69 +1,60 @@
 package br.edu.up.Controllers;
-import br.edu.up.views.*;
 import br.edu.up.models.*;
-import br.edu.up.utils.Prompt;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ControleDeEvento {
+    private static List<Evento> listaEventos = new ArrayList<>();
+    Integer id = 0;
 
-
-    public Evento incluirEvento(){
-        InformacaoEvento ie = new InformacaoEvento();
-
-        String nome = ie.registrarNome();
-        LocalDate data = ie.registrarData();
-        String local = ie.registrarLocal();
-        int lotacao = ie.registrarLotacaoMax();
-        double precoIngresso = ie.registrarPrecoIngresso();
-
-
-        Evento evento = new Evento(nome,data,local,lotacao,precoIngresso);
-        Evento.getListaEventos().add(evento);
-
+    public Evento incluirEvento(Evento evento){
+        evento.setId(id);
+        id++;
+        
+        listaEventos.add(evento);
         return evento;
     }
 
-    public Evento alterarEvento(UUID id){
-
-        List<Evento> listaEventos = Evento.getListaEventos();
-        InformacaoEvento ie = new InformacaoEvento();
-
+    public Evento alterarEvento(int id, String nome, int ano, int mes, int dia, String local, int lotacao, double precoIngresso){
         for ( Evento evento : listaEventos) {
-            if(evento.getId().equals(id)){
-                evento.setNome(ie.registrarNovoNome());
-                evento.setData(ie.registrarNovoData());
-                evento.setLocal(ie.registrarNovoLocal());
-                evento.setLotacaoMaxima(ie.registrarNovoLotacaoMax());
-                evento.setPrecoIngresso(ie.registrarNovoPrecoIngresso());
+            if(evento.getId() == (id)){                
+                evento.setNome(nome);
+                evento.setData(LocalDate.of(ano, mes, dia));
+                evento.setLocal(local);
+                evento.setLotacaoMaxima(lotacao);
+                evento.setPrecoIngresso(precoIngresso);
 
                 return evento;
             }
         }
-
         return null;
     }
 
-    public void listaDeEventos(){
-        List<Evento> listaEventos = Evento.getListaEventos();
-
+    public Evento buscar(int id){
         for (Evento evento : listaEventos) {
-            Prompt.imprimir(evento);
+            if(evento.getId() == id){
+                return evento;
+            }
         }
+        return null;
     }
 
-    public boolean ExcluirEvento(UUID id){
+    public String listaDeEventos(){
+        String lista = "";
+        for (Evento evento : listaEventos) {
+            lista += "Evento " + evento.toString();
+            lista += "\n---------------------------------------------------\n";
+        }
+        return lista;
+    }
 
-        List<Evento> listaEventos = Evento.getListaEventos();
-
+    public boolean ExcluirEvento(int id){
         for ( Evento evento : listaEventos) {
-            if(evento.getId().equals(id)){
+            if(evento.getId() == id){
                 return listaEventos.remove(evento);
             }
         }
         return false;
     }
-    
 }
