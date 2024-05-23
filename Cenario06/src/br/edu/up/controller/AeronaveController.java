@@ -23,7 +23,7 @@ public class AeronaveController {
         int i = 1;
         
         for (Aeronave aeronave : aeronavesCadastradas) {
-            lista += "Aeronave " + i + " "+aeronave.toString();
+            lista += "Aeronave " + aeronave.toString();
             lista += "\n---------------------------------------------------\n";
             i++;
         }

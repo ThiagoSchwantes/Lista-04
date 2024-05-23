@@ -7,7 +7,9 @@ import br.edu.up.utils.Prompt;
 public class MenuAeronave {
     protected AeronaveController aeronaveController = new AeronaveController();
 
-    public void mostrar(){
+    public void mostrar(AeronaveController aeronaveController){
+        this.aeronaveController = aeronaveController;
+
         boolean sair = false;
 
         Prompt.separador();
@@ -50,7 +52,7 @@ public class MenuAeronave {
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
-            mostrar();
+            mostrar(aeronaveController);
         }
     }
 
@@ -92,7 +94,7 @@ public class MenuAeronave {
 
         Prompt.imprimir(aeronaveController.listar());
 
-        Integer codigo = Prompt.lerInteiro("\nDigite o código do avião que deseja alterar:");
+        Integer codigo = Prompt.lerInteiro("Digite o código do avião que deseja alterar:");
         Aeronave aeronaveAntiga = aeronaveController.buscar(codigo);
 
         if (aeronaveAntiga == null) {
@@ -123,7 +125,7 @@ public class MenuAeronave {
         if(!aeronaveController.listar().equals("")){
             Prompt.imprimir(aeronaveController.listar());
 
-            Integer codigo = Prompt.lerInteiro("\nDigite o código do avião que deseja deletar:");
+            Integer codigo = Prompt.lerInteiro("Digite o código do avião que deseja deletar:");
             Aeronave aeronave = aeronaveController.buscar(codigo);
 
             if (aeronave == null) {

@@ -1,5 +1,6 @@
 package br.edu.up.views.menus;
 
+import br.edu.up.controller.AeronaveController;
 import br.edu.up.controller.ComissarioController;
 import br.edu.up.models.Aeronave;
 import br.edu.up.models.pessoas.tripulantes.Comissario;
@@ -8,7 +9,7 @@ import br.edu.up.utils.Prompt;
 public class MenuComissario {
     ComissarioController comissarioController = new ComissarioController();
     
-    public void mostrar(MenuAeronave menuAeronave){
+    public void mostrar(AeronaveController aeronaveController){
         boolean sair = false;
 
         Prompt.separador();
@@ -27,18 +28,19 @@ public class MenuComissario {
 
         switch (opcao) {
             case 1:
-                cadastrar(menuAeronave);
+                cadastrar(aeronaveController);
                 break;
             case 2:
                 listar();
                 break;
             case 3:
-                alterar();
+                alterar(aeronaveController);
                 break;
             case 4:
                 deletar();
                 break;
             case 5:
+                sair = true;
                 break;
             default:
                 Prompt.separador();
@@ -50,12 +52,12 @@ public class MenuComissario {
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
-            mostrar(menuAeronave);
+            mostrar(aeronaveController);
         }
     }
 
-    public void cadastrar(MenuAeronave menuAeronave){
-        if (!menuAeronave.aeronaveController.listar().equals("")) {
+    public void cadastrar(AeronaveController aeronaveController){
+        if (!aeronaveController.listar().equals("")) {
             Prompt.separador();
             Prompt.imprimir("CADASTRAR COMISSÁRIO");
             Prompt.separador();
@@ -108,13 +110,13 @@ public class MenuComissario {
                 Prompt.imprimir("LISTA DE AVIÕES:");
                 Prompt.separador();
 
-                menuAeronave.aeronaveController.listar();
+                Prompt.imprimir(aeronaveController.listar());
 
                 Prompt.separador();
-                int opcao = Prompt.lerInteiro("Em qual avião o comissario vai estar?");
+                int opcao = Prompt.lerInteiro("Digite o código do avião ao qual vai estar");
                 Prompt.separador();
 
-                Aeronave aeronaveEscolhida = menuAeronave.aeronaveController.buscar(opcao);
+                Aeronave aeronaveEscolhida = aeronaveController.buscar(opcao);
 
                 if(aeronaveEscolhida == null){
                     Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
@@ -132,7 +134,9 @@ public class MenuComissario {
             Prompt.imprimir("COMISSARIO CADASTRADO COM SUCESSO!\n" + comissario.toString());
             Prompt.separador();
         }else{
+            Prompt.separador();
             Prompt.imprimir("Não é possível cadastrar nenhuma Pessoa ainda! Não possui nenhuma aeronave cadastrada");
+            Prompt.separador();
         }
     }
 
@@ -144,7 +148,7 @@ public class MenuComissario {
         Prompt.imprimir(comissarioController.listar());
     }
 
-    public void alterar(){
+    public void alterar(AeronaveController aeronaveController){
         //menu de busca de comissario
         Prompt.separador();
         Prompt.imprimir("ALTERAR COMISSARIO");
@@ -202,19 +206,43 @@ public class MenuComissario {
                     repetir = false;
                 }     
             } while (repetir);
-            
-            Comissario comissarioNovo = comissarioAntigo;
-            //alterar o comissario e salvar
-            comissarioNovo.setNome(nomeAlterar);
-            comissarioNovo.setRg(rgAlterar);
-            comissarioNovo.setMatriculaFuncionario(matriculaFuncionario);
-            comissarioNovo.setIdAeronautica(idAeronauticaAlterar);
-            comissarioNovo.setIdiomas(idiomas);
-                
+
+             //alterar o comissario
+             Comissario comissarioNovo = comissarioAntigo;
+
+             comissarioNovo.setNome(nomeAlterar);
+             comissarioNovo.setRg(rgAlterar);
+             comissarioNovo.setMatriculaFuncionario(matriculaFuncionario);
+             comissarioNovo.setIdAeronautica(idAeronauticaAlterar);
+             comissarioNovo.setIdiomas(idiomas);
+                 
+
+            boolean achado = false;
+            do {
+                Prompt.clearConsole();
+                Prompt.imprimir("LISTA DE AVIÕES:");
+                Prompt.separador();
+
+                Prompt.imprimir(aeronaveController.listar());
+                int opcao = Prompt.lerInteiro("Digite o código do avião ao qual vai estar:");
+                Prompt.separador();
+
+                Aeronave aeronaveEscolhida = aeronaveController.buscar(opcao);
+
+                if(aeronaveEscolhida == null){
+                    Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
+                    Prompt.pressionarEnter();
+                }else{
+                    achado = true;
+                    comissarioNovo.setAeronave(aeronaveEscolhida);
+                }
+            } while (achado != true);            
+           
             comissarioController.alterar(comissarioAntigo, comissarioNovo);
-    
+
+            Prompt.clearConsole();
             Prompt.separador();
-            Prompt.imprimir("Comissario alterado com suscesso!");
+            Prompt.imprimir("COMISSARIO ALTERADO COM SUCESSO!\n" + comissarioNovo.toString());
             Prompt.separador();
         }
     }

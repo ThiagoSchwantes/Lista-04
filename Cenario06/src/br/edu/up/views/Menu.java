@@ -1,4 +1,5 @@
 package br.edu.up.views;
+import br.edu.up.controller.AeronaveController;
 import br.edu.up.utils.Prompt;
 
 import br.edu.up.views.menus.MenuAeronave;
@@ -14,6 +15,8 @@ public class Menu {
     MenuAeronave menuAeronave = new MenuAeronave();
     MenuPassagem menuPassagem = new MenuPassagem();
 
+    protected AeronaveController aeronaveController = new AeronaveController();
+
     public void menuPrincipal(){
         Prompt.clearConsole();
         Prompt.separador();
@@ -21,9 +24,9 @@ public class Menu {
         Prompt.separador();
 
         Prompt.imprimir("Digite uma das opções para gerenciar:");
-        Prompt.imprimir("\t1 - Passageiros");
-        Prompt.imprimir("\t2 - Tripulação");
-        Prompt.imprimir("\t3 - Aeronaves");
+        Prompt.imprimir("\t1 - Aeronaves");
+        Prompt.imprimir("\t2 - Passageiros");
+        Prompt.imprimir("\t3 - Tripulação");
         Prompt.imprimir("\t4 - Voos / passagens");
         Prompt.imprimir("\t5 - Fechar Programa\n");
 
@@ -32,13 +35,13 @@ public class Menu {
 
         switch (opcao1) {
             case 1:
-                menuPassageiro.mostrar(menuAeronave);
+                menuAeronave.mostrar(aeronaveController);
                 break;
             case 2:
-                menuTripulacao();
+                menuPassageiro.mostrar(aeronaveController);
                 break;
             case 3:
-                menuAeronave.mostrar();
+                menuTripulacao();
                 break;
             case 4:
                 menuPassagem.mostrar(menuPassageiro);
@@ -74,10 +77,10 @@ public class Menu {
 
         switch (opcao) {
             case 1:
-                menuComandante.mostrar(menuAeronave);
+                menuComandante.mostrar(aeronaveController);
                 break;
             case 2:
-                menuComissario.mostrar(menuAeronave);
+                menuComissario.mostrar(aeronaveController);
                 break;
             case 3:
                 menuPrincipal();

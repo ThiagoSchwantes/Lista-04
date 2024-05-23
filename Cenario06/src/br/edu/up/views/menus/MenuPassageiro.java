@@ -1,5 +1,6 @@
 package br.edu.up.views.menus;
 
+import br.edu.up.controller.AeronaveController;
 import br.edu.up.controller.PassageiroController;
 import br.edu.up.controller.PassagemController;
 import br.edu.up.models.Aeronave;
@@ -11,7 +12,7 @@ public class MenuPassageiro {
     protected PassageiroController passageiroController = new PassageiroController();
     protected PassagemController passagemController = new PassagemController();
 
-    public void mostrar(MenuAeronave menuAeronave){
+    public void mostrar(AeronaveController controllerAeronave){
         boolean sair = false;
 
         Prompt.separador();
@@ -30,13 +31,13 @@ public class MenuPassageiro {
 
         switch (opcao) {
             case 1:
-                cadastrar(menuAeronave);
+                cadastrar(controllerAeronave);
                 break;
             case 2:
                 listar();
                 break;
             case 3:
-                alterar();
+                alterar(controllerAeronave);
                 break;
             case 4:
                 deletar();
@@ -54,12 +55,12 @@ public class MenuPassageiro {
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
-            mostrar(menuAeronave);
+            mostrar(controllerAeronave);
         }
     }
 
-    public void cadastrar(MenuAeronave menuAeronave){
-        if (!menuAeronave.aeronaveController.listar().equals("")) {
+    public void cadastrar(AeronaveController controllerAeronave){
+        if (!controllerAeronave.listar().equals("")) {
             Prompt.separador();
             Prompt.imprimir("CADASTRAR PASSAGEIRO");
             Prompt.separador();
@@ -75,13 +76,11 @@ public class MenuPassageiro {
                 Prompt.imprimir("LISTA DE AVIÕES:");
                 Prompt.separador();
 
-                menuAeronave.aeronaveController.listar();
-
-                Prompt.separador();
-                int opcao = Prompt.lerInteiro("Em qual avião o comissario vai estar?");
+                Prompt.imprimir(controllerAeronave.listar());
+                int opcao = Prompt.lerInteiro("Digite o código do avião ao qual vai viajar");
                 Prompt.separador();
 
-                Aeronave aeronaveEscolhida = menuAeronave.aeronaveController.buscar(opcao);
+                Aeronave aeronaveEscolhida = controllerAeronave.buscar(opcao);
 
                 if(aeronaveEscolhida == null){
                     Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
@@ -104,13 +103,16 @@ public class MenuPassageiro {
             Passagem passagem = new Passagem(numeroAcento, classe, data);
             passageiroCadastrado.setPassagem(passagem);
             
+            passagemController.adicionar(passagem);
             passageiroController.adicionar(passageiroCadastrado);
 
             Prompt.separador();
             Prompt.imprimir("PASSAGEIRO CADASTRADO\n" + passageiroCadastrado.toString());
             Prompt.separador();
         }else{
+            Prompt.separador();
             Prompt.imprimir("Não é possível cadastrar nenhuma Pessoa ainda! Não possui nenhuma aeronave cadastrada");
+            Prompt.separador();
         }
     }
 
@@ -122,7 +124,7 @@ public class MenuPassageiro {
         Prompt.imprimir(passageiroController.listar());
     }
 
-    public void alterar(){
+    public void alterar(AeronaveController controllerAeronave){
 
         Prompt.separador();
         Prompt.imprimir("ALTERAR PASSAGEIRO");
@@ -140,13 +142,55 @@ public class MenuPassageiro {
             String rgAlterar = Prompt.lerLinha("Digite o seu rg");
 
             Passageiro passageiroNovo = passageiroAntigo;
-
             passageiroNovo.setNome(nomeAlterar);
             passageiroNovo.setRg(rgAlterar);
 
+            boolean achado = false;
+            do {
+                Prompt.clearConsole();
+                Prompt.imprimir("LISTA DE AVIÕES:");
+                Prompt.separador();
+
+                Prompt.imprimir(controllerAeronave.listar());
+                int opcao = Prompt.lerInteiro("Digite o código do avião ao qual vai viajar");
+                Prompt.separador();
+
+                Aeronave aeronaveEscolhida = controllerAeronave.buscar(opcao);
+
+                if(aeronaveEscolhida == null){
+                    Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
+                    Prompt.pressionarEnter();
+                }else{
+                    achado = true;
+                    passageiroNovo.setAeronave(aeronaveEscolhida);
+                }
+            } while (achado != true);
+
+            Prompt.clearConsole();
+            Prompt.separador();
+            Prompt.imprimir("EMITIR SUA PASSAGEM:");
+            Prompt.separador();
+
+            Integer numeroAcento = Prompt.lerInteiro("Digite o numero do acento que deseja centar!");
+            String classe = Prompt.lerLinha("Digite em qual classe você vai centar");
+            String data = Prompt.lerLinha("Digite a data do voo:");
+
+            Passagem passagemNova = new Passagem(numeroAcento, classe, data);
+            
+            passagemController.alterar(passageiroAntigo.getPassagem(), passagemNova);
+            
+            passageiroNovo.setPassagem(passagemNova);
+
+            passagemController.deletar(passageiroAntigo.getPassagem());
+            passagemController.adicionar(passagemNova);
             passageiroController.alterar(passageiroAntigo, passageiroNovo);
 
             Prompt.separador();
+            Prompt.imprimir("PASSAGEIRO CADASTRADO\n" + passageiroNovo.toString());
+            Prompt.separador();
+
+            passageiroController.alterar(passageiroAntigo, passageiroNovo);
+
             Prompt.imprimir("Passageiro alterado com suscesso!");
             Prompt.separador();
         } 
@@ -165,6 +209,7 @@ public class MenuPassageiro {
             Prompt.imprimir("Passageiro não encontrado!");
             Prompt.separador();
         }else{
+            passagemController.deletar(passageiroDeletar.getPassagem());
             passageiroController.deletar(passageiroDeletar);
 
             Prompt.separador();

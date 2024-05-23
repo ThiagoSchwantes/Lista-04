@@ -1,5 +1,6 @@
 package br.edu.up.views.menus;
 
+import br.edu.up.controller.AeronaveController;
 import br.edu.up.controller.ComandanteController;
 import br.edu.up.models.Aeronave;
 import br.edu.up.models.pessoas.tripulantes.Comandante;
@@ -8,7 +9,7 @@ import br.edu.up.utils.Prompt;
 public class MenuComandante {
     ComandanteController comandanteController = new ComandanteController();
 
-    public void mostrar(MenuAeronave menuAeronave){
+    public void mostrar(AeronaveController aeronaveController){
         boolean sair = false;
 
         Prompt.separador();
@@ -27,13 +28,13 @@ public class MenuComandante {
 
         switch (opcao) {
             case 1:
-                cadastrar(menuAeronave);
+                cadastrar(aeronaveController);
                 break;
             case 2:
                 listar();
                 break;
             case 3:
-                alterar();
+                alterar(aeronaveController);
                 break;
             case 4:
                 deletar();
@@ -51,12 +52,12 @@ public class MenuComandante {
         if (!sair) {
             Prompt.pressionarEnter();
             Prompt.clearConsole();
-            mostrar(menuAeronave);
+            mostrar(aeronaveController);
         }
     }
 
-    public void cadastrar(MenuAeronave menuAeronave){
-        if (!menuAeronave.aeronaveController.listar().equals("")) {
+    public void cadastrar(AeronaveController aeronaveController){
+        if (!aeronaveController.listar().equals("")) {
             Prompt.separador();
             Prompt.imprimir("CADASTRAR COMANDANTE");
             Prompt.separador();
@@ -75,13 +76,12 @@ public class MenuComandante {
                 Prompt.imprimir("LISTA DE AVIÕES:");
                 Prompt.separador();
 
-                menuAeronave.aeronaveController.listar();
+                Prompt.imprimir(aeronaveController.listar());
 
-                Prompt.separador();
-                int opcao = Prompt.lerInteiro("Em qual avião o comandente vai estar?");
+                int opcao = Prompt.lerInteiro("Digite o código do avião ao qual vai pilotar");
                 Prompt.separador();
 
-                Aeronave aeronaveEscolhida = menuAeronave.aeronaveController.buscar(opcao);
+                Aeronave aeronaveEscolhida = aeronaveController.buscar(opcao);
 
                 if(aeronaveEscolhida == null){
                     Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
@@ -93,11 +93,16 @@ public class MenuComandante {
             } while (achado != true);
 
             comandanteController.adicionar(comandanteCadastrar);
+            
+            Prompt.clearConsole();
             Prompt.separador();
             Prompt.imprimir("COMANDANTE CADASTRADO\n" + comandanteCadastrar.toString());
             Prompt.separador(); 
         }else{
+            Prompt.clearConsole();
+            Prompt.separador();
             Prompt.imprimir("Não é possível cadastrar nenhuma Pessoa ainda! Não possui nenhuma aeronave cadastrada");
+            Prompt.separador();
         }
     }
     
@@ -109,7 +114,7 @@ public class MenuComandante {
         Prompt.imprimir(comandanteController.listar());
     }
 
-    public void alterar(){
+    public void alterar(AeronaveController aeronaveController){
         Prompt.separador();
         Prompt.imprimir("ALTERAR COMANDANTE");
         Prompt.separador();
@@ -135,9 +140,34 @@ public class MenuComandante {
             comandanteNovo.setTotalHorasDeVoo(totalHorasDeVoo);
             comandanteNovo.setMatriculaFuncionario(matriculaFuncionario);
             comandanteNovo.setIdAeronautica(idAeronautica);
+
+
+            boolean achado = false;
+            do {
+                Prompt.clearConsole();
+                Prompt.imprimir("LISTA DE AVIÕES:");
+                Prompt.separador();
+
+                Prompt.imprimir(aeronaveController.listar());
+
+                Prompt.separador();
+                int opcao = Prompt.lerInteiro("Digite o código do avião ao qual vai pilotar");
+                Prompt.separador();
+
+                Aeronave aeronaveEscolhida = aeronaveController.buscar(opcao);
+
+                if(aeronaveEscolhida == null){
+                    Prompt.imprimir("Valor digitado incorreto! Digite corretamente!");
+                    Prompt.pressionarEnter();
+                }else{
+                    achado = true;
+                    comandanteNovo.setAeronave(aeronaveEscolhida);
+                }
+            } while (achado != true);
             
             comandanteController.alterar(comandanteAntigo, comandanteNovo);
 
+            Prompt.clearConsole();
             Prompt.separador();
             Prompt.imprimir("Comandante alterado com suscesso!");
             Prompt.separador();
