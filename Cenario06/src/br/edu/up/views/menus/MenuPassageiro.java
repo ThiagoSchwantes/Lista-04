@@ -5,7 +5,7 @@ import br.edu.up.controller.PassageiroController;
 import br.edu.up.controller.PassagemController;
 import br.edu.up.models.Aeronave;
 import br.edu.up.models.Passagem;
-import br.edu.up.models.pessoas.Passageiro;
+import br.edu.up.models.pessoa.Passageiro;
 import br.edu.up.utils.Prompt;
 
 public class MenuPassageiro {

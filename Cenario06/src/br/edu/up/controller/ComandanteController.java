@@ -1,6 +1,6 @@
 package br.edu.up.controller;
 
-import br.edu.up.models.pessoas.tripulantes.Comandante;
+import br.edu.up.models.pessoa.tripulantes.Comandante;
 
 public class ComandanteController {
     Comandante[] comandantesCadastrados = new Comandante[0];

@@ -1,5 +1,5 @@
 package br.edu.up.controller;
-import br.edu.up.models.pessoas.Passageiro;
+import br.edu.up.models.pessoa.Passageiro;
 
 public class PassageiroController {
     Passageiro[] passageirosCadastrados = new Passageiro[0];
