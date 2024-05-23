@@ -1,7 +1,7 @@
 package br.edu.up.controller;
 
 
-import br.edu.up.models.pessoa.tripulantes.Comissario;
+import br.edu.up.models.pessoas.tripulantes.Comissario;
 
 public class ComissarioController {
     Comissario[] comissariosCadastrados = new Comissario[0];

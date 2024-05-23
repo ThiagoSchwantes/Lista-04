@@ -3,7 +3,7 @@ package br.edu.up.views.menus;
 import br.edu.up.controller.AeronaveController;
 import br.edu.up.controller.ComissarioController;
 import br.edu.up.models.Aeronave;
-import br.edu.up.models.pessoa.tripulantes.Comissario;
+import br.edu.up.models.pessoas.tripulantes.Comissario;
 import br.edu.up.utils.Prompt;
 
 public class MenuComissario {

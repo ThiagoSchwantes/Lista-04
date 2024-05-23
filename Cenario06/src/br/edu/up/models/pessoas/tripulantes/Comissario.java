@@ -1,6 +1,6 @@
-package br.edu.up.models.pessoa.tripulantes;
+package br.edu.up.models.pessoas.tripulantes;
 
-import br.edu.up.models.pessoa.Tripulante;
+import br.edu.up.models.pessoas.Tripulante;
 
 public class Comissario extends Tripulante{
     private String[] idiomas;

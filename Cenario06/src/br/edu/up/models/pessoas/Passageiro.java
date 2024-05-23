@@ -1,4 +1,4 @@
-package br.edu.up.models.pessoa;
+package br.edu.up.models.pessoas;
 
 import java.util.UUID;
 
