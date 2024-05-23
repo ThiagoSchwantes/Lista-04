@@ -1,23 +1,28 @@
 package br.edu.up.controller;
-
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.edu.up.models.Carro;
 
 public class EstacionamentoController {
-    private List<Carro> carrosEstacionados = new ArrayList<Carro>();
+
+    private Carro[] carrosEstacionados = new Carro[0];
+    Integer index = 0;
+
     private Integer quantCarrosEntrou = 0;
     private Integer quantCarrosSaiu = 0;
     private double valorTotalPagoPorPeriodo = 0.0;
 
     public Boolean ocuparVaga(Carro carro){
         Boolean estacionou = false;
-        
-        if(carrosEstacionados.size() <= 10){
+
+        if(carrosEstacionados.length <= 10){
             carro.setHorarioEntrada();
-            carrosEstacionados.add(carro);
+            
+            Carro[] aux = new Carro[carrosEstacionados.length + 1];
+            System.arraycopy(carrosEstacionados, 0, aux, 0, carrosEstacionados.length);
+            
+            aux[carrosEstacionados.length] = carro;
+            carrosEstacionados = aux;
 
             estacionou = true;
             quantCarrosEntrou++;
@@ -29,17 +34,29 @@ public class EstacionamentoController {
     public Boolean desocuparVaga(String placa){
         Boolean desocupou = false;
         
-        for (int i = 0; i < carrosEstacionados.size(); i++) {
-            Carro carro = carrosEstacionados.get(i);
+        if(carrosEstacionados.length > 0){
+        Carro[] aux = new Carro[carrosEstacionados.length - 1];
+        
+        for (int i = 0; i < carrosEstacionados.length; i++) {
+            Carro carro = carrosEstacionados[i];
 
             if(carro != null && carro.getPlaca().equals(placa)){
                 carro.setHorarioSaida();
                 quantCarrosSaiu++;
                 desocupou = true;
                 // Limpar a vaga
-                carrosEstacionados.remove(carro);
+                for (int j = i; j < carrosEstacionados.length - 1; j++) {
+                    aux[j] = carrosEstacionados[j+1];
+                }
+
                 break; // Sair do loop após encontrar o carro
+            }else{
+                aux[i] = carrosEstacionados[i];
             }
+        }
+
+        carrosEstacionados = new Carro[carrosEstacionados.length - 1];
+        carrosEstacionados = aux;
         }
         
         return desocupou;
@@ -47,8 +64,8 @@ public class EstacionamentoController {
 
     public String cobranca(String placa){
         String frase = "";
-        for (int i = 0; i < carrosEstacionados.size(); i++) {
-            Carro carro = carrosEstacionados.get(i);
+        for (int i = 0; i < carrosEstacionados.length; i++) {
+            Carro carro = carrosEstacionados[i];
 
             if(carro != null && carro.getPlaca().equals(placa)){
                 double valorCobrado = carro.getPeriodos() * 5.00;
@@ -80,17 +97,18 @@ public class EstacionamentoController {
                     carro.setPeriodos(carro.getPeriodos() + 1);
                 }               
             }
+        }else{
+            frase = "Não é possivel finalizar o periodo ainda! (apenas às 6, 12 e 18 horas)";
         }
-
         return frase;
     }
 
     @Override
     public String toString() {
         String toString = "";
-        for (int i = 0; i < carrosEstacionados.size(); i++) {
+        for (int i = 0; i < carrosEstacionados.length; i++) {
             
-            toString += "Vaga "+ (i+1) +"[" + carrosEstacionados.get(i) + "]\n";
+            toString += "Vaga "+ (i+1) +"[" + carrosEstacionados[i] + "]\n";
         }
 
         return toString;

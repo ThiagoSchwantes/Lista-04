@@ -50,6 +50,7 @@ public class Menu {
 
             case 3:
                 System.out.println(estacionamento.relatorioPeriodo());
+                break;
             default:
                 Prompt.imprimir("Valor inválido.");
                 break;
