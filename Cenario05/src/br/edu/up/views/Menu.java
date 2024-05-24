@@ -354,8 +354,6 @@ public class Menu {
                     novaReservaAlterada.setEvento(eventoDaReserva);
                     break;
                 }else if (Character.toLowerCase(continuar) != 'n') {
-                    
-                }{
                     Prompt.imprimir("Digite s/n por favor!");
                     Prompt.pressionarEnter();
 
@@ -363,8 +361,6 @@ public class Menu {
                     Prompt.separador();
                     Prompt.imprimir("ALTERAR RESERVA (ID: " + ReservaAlterar.getId() + " Evento: "+ ReservaAlterar.getEvento().getNome() +")");
                     Prompt.separador();
-
-                    
                 }
 
             } while (Character.toLowerCase(continuar) != 'n');
