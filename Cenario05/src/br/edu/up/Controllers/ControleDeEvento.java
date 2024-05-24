@@ -1,6 +1,5 @@
 package br.edu.up.Controllers;
 import br.edu.up.models.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,15 +15,10 @@ public class ControleDeEvento {
         return evento;
     }
 
-    public Evento alterarEvento(int id, String nome, int ano, int mes, int dia, String local, int lotacao, double precoIngresso){
+    public Evento alterarEvento(Evento antigo, Evento novo){
         for ( Evento evento : listaEventos) {
-            if(evento.getId() == (id)){                
-                evento.setNome(nome);
-                evento.setData(LocalDate.of(ano, mes, dia));
-                evento.setLocal(local);
-                evento.setLotacaoMaxima(lotacao);
-                evento.setPrecoIngresso(precoIngresso);
-
+            if(evento.getId() == (antigo.getId())){                
+                evento = novo;
                 return evento;
             }
         }
@@ -49,7 +43,7 @@ public class ControleDeEvento {
         return lista;
     }
 
-    public boolean ExcluirEvento(int id){
+    public boolean excluirEvento(int id){
         for ( Evento evento : listaEventos) {
             if(evento.getId() == id){
                 return listaEventos.remove(evento);

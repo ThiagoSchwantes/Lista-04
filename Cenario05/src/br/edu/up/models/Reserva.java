@@ -1,10 +1,9 @@
 package br.edu.up.models;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class Reserva {
-    private UUID idReserva;
+    private Integer idReserva;
     private String nomeResponsavel;
     private int quantPessoas;
     private LocalDate data;
@@ -12,7 +11,6 @@ public class Reserva {
     private Evento evento;
 
     public Reserva(String nomeResponsavel, int quantPessoas, LocalDate data, Evento evento, double valorTotalReserva) {
-        this.idReserva = UUID.randomUUID();
         this.nomeResponsavel = nomeResponsavel;
         this.quantPessoas = quantPessoas;
         this.data = data;
@@ -21,7 +19,7 @@ public class Reserva {
     }
 
     public Reserva(){
-        idReserva = UUID.randomUUID();
+
     }
     
     public String getNomeResponsavel() {
@@ -58,7 +56,11 @@ public class Reserva {
         this.data = data;
     }
 
-    public UUID getId() {
+    public void setIdReserva(Integer idReserva) {
+        this.idReserva = idReserva;
+    }
+
+    public Integer getId() {
         return idReserva;
     }
     

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Um classe utilitária para imprimir e ler textos, números inteiros e decimais
+ * Um classe utilitÃ¡ria para imprimir e ler textos, nÃºmeros inteiros e decimais
  * no prompt de comandos.
  * 
  * @version 1.0 Mar 2023
@@ -68,7 +68,7 @@ public class Prompt {
 				BufferedReader br = new BufferedReader(isr);
 				return br.readLine();
 			} catch (IOException e) {
-				System.out.println("Texto inválido, digite novamente...");
+				System.out.println("Texto invÃ¡lido, digite novamente...");
 			}
 		}
 	}
@@ -78,7 +78,7 @@ public class Prompt {
 	 * Faz a leitura de um caractere digitado no prompt de comandos e retorna no
 	 * formato ISO-8859-1 Latin ou UTF-8.
 	 * 
-	 * Vai retornar o caractere com espaço vazio " " se o valor digitado for inválido!
+	 * Vai retornar o caractere com espaÃ§o vazio " " se o valor digitado for invÃ¡lido!
 	 * 
 	 * @return String
 	 */
@@ -92,7 +92,7 @@ public class Prompt {
 	 * Faz a leitura de um caractere digitado no prompt de comandos e retorna no
 	 * formato ISO-8859-1 Latin ou UTF-8.
 	 * 
-	 * Vai retornar o caractere com espaço vazio " " se o valor digitado for inválido!
+	 * Vai retornar o caractere com espaÃ§o vazio " " se o valor digitado for invÃ¡lido!
 	 * 
 	 * @return String
 	 */
@@ -108,7 +108,7 @@ public class Prompt {
 	}
 
 	/**
-	 * Imprime a mensagem enviada, faz a leitura do número digitado no prompt de
+	 * Imprime a mensagem enviada, faz a leitura do nÃºmero digitado no prompt de
 	 * comandos e retorna um int.
 	 * 
 	 * @return int
@@ -119,7 +119,7 @@ public class Prompt {
 	}
 
 	/**
-	 * Faz a leitura do número digitado no prompt de comandos e retorna um int.
+	 * Faz a leitura do nÃºmero digitado no prompt de comandos e retorna um int.
 	 * 
 	 * @return int
 	 */
@@ -132,13 +132,13 @@ public class Prompt {
 				}
 				return Integer.parseInt(linha);
 			} catch (NumberFormatException tExcept) {
-				System.out.println("Inteiro inválido, digite novamente...");
+				System.out.println("Inteiro invÃ¡lido, digite novamente...");
 			}
 		}
 	}
 
 	/**
-	 * Imprime a mensagem enviada, faz a leitura do número digitado no prompt de
+	 * Imprime a mensagem enviada, faz a leitura do nÃºmero digitado no prompt de
 	 * comandos e retorna um double.
 	 * 
 	 * @return double
@@ -149,7 +149,7 @@ public class Prompt {
 	}
 
 	/**
-	 * Faz a leitura do número digitado no prompt de comandos e retorna um double.
+	 * Faz a leitura do nÃºmero digitado no prompt de comandos e retorna um double.
 	 * 
 	 * @return double
 	 */
@@ -162,17 +162,38 @@ public class Prompt {
 				}
 				return Double.parseDouble(linha);
 			} catch (NumberFormatException e) {
-				System.out.println("Decimal inválido, digite novamente...");
+				System.out.println("Decimal invÃ¡lido, digite novamente...");
 			}
 		}
 	}
 
 	/**
-	 * Faz uma pausa no processamento e pede para o usuário pressionar enter para
+	 * Faz uma pausa no processamento e pede para o usuÃ¡rio pressionar enter para
 	 * continuar.
 	 */
 	public static void pressionarEnter() {
 		System.out.print("Pressione ENTER para continuar...");
 		lerLinha();
+	}
+	
+	
+ /**
+   * Limpa o console
+   */
+	public static void limparConsole(){
+			try{
+					if (System.getProperty("os.name").contains("Windows")){
+							new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+					}
+					else{
+							Runtime.getRuntime().exec("clear");
+					}
+			}
+			catch (final Exception e)
+			{
+				 for (int i = 0; i < 100; i++) {
+							Prompt.imprimir("\n");
+				 }
+			}
 	}
 }
