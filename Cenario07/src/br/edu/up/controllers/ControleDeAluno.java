@@ -1,23 +1,27 @@
 package br.edu.up.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import br.edu.up.models.Pessoas.Aluno;
+import br.edu.up.models.pessoas.Aluno;
 
 public class ControleDeAluno {
 
-    private List<Aluno> alunos = new ArrayList<>();
+    private Aluno[] alunos = new Aluno[0];
 
     public void incluirAluno(Aluno aluno){
-        alunos.add(aluno);
+        Aluno[] aux = new Aluno[alunos.length + 1];
+        System.arraycopy(alunos, 0, aux, 0, alunos.length);
+        
+        aux[alunos.length] = aluno;
+
+        alunos = aux;
     }
 
-    public List<Aluno> getAlunos() {
+
+    public Aluno[] getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(Aluno[] alunos) {
         this.alunos = alunos;
     }
     

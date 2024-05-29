@@ -1,18 +1,25 @@
 package br.edu.up.controllers;
-import java.util.ArrayList;
-import java.util.List;
+
 import br.edu.up.models.Disciplina;
 
 public class ControleDeDisciplina {
 
-    private List<Disciplina> disciplinas = new ArrayList<>();
+    private Disciplina[] disciplinas = new Disciplina[0];
+
     public void incluirDisciplina(Disciplina disciplina){
-        disciplinas.add(disciplina);
+        Disciplina[] aux = new Disciplina[disciplinas.length + 1];
+        System.arraycopy(disciplinas, 0, aux, 0, disciplinas.length);
+        
+        aux[disciplinas.length] = disciplina;
+
+        disciplinas = aux;
     }
-    public List<Disciplina> getDisciplinas() {
+
+    public Disciplina[] getDisciplinas() {
         return disciplinas;
     }
-    public void setDisciplinas(List<Disciplina> disciplinas) {
+
+    public void setDisciplinas(Disciplina[] disciplinas) {
         this.disciplinas = disciplinas;
     }
     

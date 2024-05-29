@@ -1,22 +1,24 @@
 package br.edu.up.controllers;
-
-import java.util.ArrayList;
-import java.util.List;
-import br.edu.up.models.Pessoas.Professor;
+import br.edu.up.models.pessoas.Professor;
 
 public class ControleDeProfessor {
     
-    private List<Professor> professores = new ArrayList<>();
+    private Professor[] professores = new Professor[0];
 
     public void incluirProfessor(Professor professor){
-        professores.add(professor);
+        Professor[] aux = new Professor[professores.length + 1];
+        System.arraycopy(professores, 0, aux, 0, professores.length);
+        
+        aux[professores.length] = professor;
+
+        professores = aux;
     }
 
-    public List<Professor> getProfessores() {
+    public Professor[] getProfessores() {
         return professores;
     }
 
-    public void setProfessores(List<Professor> professores) {
+    public void setProfessores(Professor[] professores) {
         this.professores = professores;
     }
     
