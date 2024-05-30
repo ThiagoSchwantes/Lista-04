@@ -1,4 +1,4 @@
-package br.edu.up.models.pessoas;
+package br.edu.up.models.pessoa;
 import br.edu.up.models.Pessoa;
 
 public class Professor extends Pessoa{
