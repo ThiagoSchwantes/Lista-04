@@ -5,12 +5,11 @@ public class Cidade {
     private String nome;
     private String uf;
 
-    
-
     public Cidade(String nome, String uf) {
         this.nome = nome;
         this.uf = uf;
     }
+
     public String getNome() {
         return nome;
     }
@@ -23,10 +22,9 @@ public class Cidade {
     public void setUf(String uf) {
         this.uf = uf;
     }
+    
     @Override
     public String toString() {
         return "Cidade [nome=" + nome + ", uf=" + uf + "]";
     }
-
-    
 }
