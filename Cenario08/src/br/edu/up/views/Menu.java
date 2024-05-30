@@ -1,13 +1,15 @@
 package br.edu.up.views;
 import java.util.Scanner;
 
-import br.edu.up.controllers.ContatoController;
+import br.edu.up.controllers.AgendaController;
 import br.edu.up.modelos.*;
+import br.edu.up.modelos.contatos.Comercial;
+import br.edu.up.modelos.contatos.Pessoal;
 import br.edu.up.utils.*;
 
 public class Menu {
 
-    Agenda agenda = new Agenda();
+    AgendaController agendaController = new AgendaController();
 
     public String getNome(){
         String nome = Prompt.lerLinha("Informe o nome do contato: ");
@@ -33,7 +35,7 @@ public class Menu {
     Scanner scanner = new Scanner(System.in);
 
     public void menuPrincipal(){
-
+        Prompt.clearConsole();
         Prompt.separador();
         Prompt.imprimir("MENU PRINCIPAL");
         Prompt.separador();
@@ -47,56 +49,126 @@ public class Menu {
         Prompt.imprimir("\t6 - Sair do programa ");
 
         int opcao1 = Prompt.lerInteiro("Digite aqui: ");
-
-        ContatoController contatoController = new ContatoController();
+        Prompt.clearConsole();
 
         switch (opcao1) {
             case 1:
-                Pessoal pessoal = contatoController.incluirContatoPessoal(this, agenda);
-                Prompt.imprimir(pessoal);
-                continuar();
+                incluirContatoPessoal();
                 break;
             case 2:
-                Comercial comercial = contatoController.incluirContatoComercial(this, agenda);
-                Prompt.imprimir(comercial);
-                continuar();
+                incluirContatoComercial();
                 break;
             case 3:
-                if(contatoController.excluirContato(this, agenda)){
-                    Prompt.imprimir("Exclusão realizada com sucesso.");
-                }else{
-                    Prompt.imprimir("erro ao excluir contato.");
-                }
-
-                continuar();
+                excluirContato();
                 break;
             case 4:
-                Contato contato = contatoController.consultarContato(this, agenda);
-                Prompt.imprimir(contato);
-                continuar();
+                consultarContato();
                 break;
             case 5:
-                String lista = agenda.listarContatos();
-                Prompt.imprimir(lista);
-                continuar();
+                listarTodosContatos();
                 break;
             case 6:
                 encerrarPrograma();
                 break;
             default:
                 Prompt.imprimir("Valor Inválido.");
-                menuPrincipal();
                 break;
         }
+
+        Prompt.pressionarEnter();
+        Prompt.clearConsole();
+        menuPrincipal();
+    }
+
+    public void incluirContatoPessoal(){
+        Prompt.separador();
+        Prompt.imprimir("INCLUIR CONTATO PESSOAL");
+        Prompt.separador();
+
+        String nome = Prompt.lerLinha("Informe o nome do contato: ");
+        String telefone = Prompt.lerLinha("Informe o telefone do contato: ");
+        String aniversario = Prompt.lerLinha("Informe o aniversário do contato: ");
+
+        Pessoal contatoPessoal = agendaController.incluirContatoPessoal(nome, telefone, aniversario);
+
+        Prompt.separador();
+        Prompt.imprimir("Contato incluido com sucesso!");
+        Prompt.imprimir(contatoPessoal);
+        Prompt.separador();
+    }
+
+    public void incluirContatoComercial(){
+        Prompt.separador();
+        Prompt.imprimir("INCLUIR CONTATO COMERCIAL");
+        Prompt.separador();
+
+        String nome = Prompt.lerLinha("Informe o nome do contato: ");
+        String telefone = Prompt.lerLinha("Informe o telefone do contato: ");
+        String cnpj = Prompt.lerLinha("Informe o CNPJ do contato: ");
+
+        Comercial contatoComercial = agendaController.incluirContatoComercial(nome, telefone, cnpj);
+
+        Prompt.separador();
+        Prompt.imprimir("Contato incluido com sucesso!");
+        Prompt.imprimir(contatoComercial);
+        Prompt.separador();
+    }
+
+    public void excluirContato(){
+        Prompt.separador();
+        Prompt.imprimir("EXCLUIR UM CONTATO PELO CÓDIGO");
+        Prompt.separador();
+        
+        int codigo = Prompt.lerInteiro("Informe o código do contato que deseja excluir:");
+        
+        if(agendaController.excluirContato(codigo)){
+            Prompt.separador();
+            Prompt.imprimir("Exclusão realizada com sucesso.");
+            Prompt.separador();
+        }else{
+            Prompt.separador();
+            Prompt.imprimir("erro ao excluir contato.");
+            Prompt.separador();
+        }
+    }
+
+    public void consultarContato(){
+        Prompt.separador();
+        Prompt.imprimir("CONSULTAR UM CONTATO PELO CÓDIGO");
+        Prompt.separador();
+
+        int codigo = Prompt.lerInteiro("Informe o código do contato: ");
+
+        Contato contato = agendaController.consultarContato(codigo);
+
+        if (contato == null) {
+            Prompt.separador();
+            Prompt.imprimir("Nenhum contato econtrado com esse código!");
+            Prompt.separador();
+        }else{
+            Prompt.separador();
+            Prompt.imprimir(contato);
+            Prompt.separador();
+        }
+        
+    }
+
+    public void listarTodosContatos(){
+        Prompt.separador();
+        Prompt.imprimir("LISTAR TODOS CONTATOS");
+        Prompt.separador();
+
+
+        if(agendaController.listarContatos().equals("")){
+            Prompt.imprimir("Nenhum Contato cadastrato!");
+        }else{
+            Prompt.imprimir(agendaController.listarContatos());
+        }
+        Prompt.separador();
     }
 
     public void encerrarPrograma(){
         Prompt.imprimir("Encerrando o programa...");
         System.exit(6);
-    }
-    public void continuar(){
-        Prompt.imprimir("Pressione qualquer tecla para continuar...");
-        scanner.nextLine();
-        menuPrincipal();
     }
 }

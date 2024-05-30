@@ -3,24 +3,26 @@ package br.edu.up.modelos;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.up.modelos.contatos.Comercial;
+import br.edu.up.modelos.contatos.Pessoal;
+
 public class Agenda {
 
-    List<Contato> listaContatos = new ArrayList<>();
+    List<Contato> contatos = new ArrayList<>();
     
     public Agenda(){
-
     }
 
-    public void adicionarContatoComercial(Comercial contatoComercial){
-        listaContatos.add(contatoComercial);
+    public void adicionar(Comercial contato){
+        contatos.add(contato);
     }
 
-    public void adicionarContatoPessoal(Pessoal contatoPessoal){
-        listaContatos.add(contatoPessoal);
+    public void adicionar(Pessoal contato){
+        contatos.add(contato);
     }
 
     public Contato getContato(int codigo){
-        for (Contato contato : listaContatos) {
+        for (Contato contato : contatos) {
             if(contato.getCodigo() == codigo){
                 return contato;
             }
@@ -28,29 +30,22 @@ public class Agenda {
         return null;
     }
     
-    public void excluirContato(int codigo){
-        for (Contato contato : listaContatos) {
+    public boolean excluirContato(int codigo){
+        for (Contato contato : contatos) {
             if(contato.getCodigo() == codigo){
-                listaContatos.remove(contato);
+                contatos.remove(contato);
+                return true;
             }
         }
+        return false;
     }
     
     public String listarContatos(){/*dessa forma esta concatenando os contatos */
         StringBuilder frase = new StringBuilder();
-        for (Contato contato : listaContatos) {
-            frase.append("[ ").append(contato).append(" ],\n");
+
+        for (Contato contato : contatos) {
+            frase.append("[ ").append(contato).append(" ]\n");
         }
         return frase.toString();
-    }
-
-    public List<Contato> getListaContatos() {
-        return listaContatos;
-    }
-
-    public void setListaContatos(List<Contato> listaContatos) {
-        this.listaContatos = listaContatos;
-    }
-
-    
+    }    
 }
