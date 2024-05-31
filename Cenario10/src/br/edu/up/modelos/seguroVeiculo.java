@@ -6,10 +6,9 @@ public class SeguroVeiculo extends Seguro{
     private Double vlrFranquia;
     private boolean temCarroReserva;
     private boolean cobreVidros;
-
     
     public SeguroVeiculo(String apolice, Segurado segurado, Double vlrApolice, LocalDate dtaInicio, LocalDate dtaFim,
-            Double vlrFranquia, boolean temCarroReserva, boolean cobreVidros) {
+        Double vlrFranquia, boolean temCarroReserva, boolean cobreVidros) {
         super(apolice, segurado, vlrApolice, dtaInicio, dtaFim);
         this.vlrFranquia = vlrFranquia;
         this.temCarroReserva = temCarroReserva;
@@ -36,11 +35,9 @@ public class SeguroVeiculo extends Seguro{
     }
 
     @Override
-    public String toString() {
-        return "seguroVeiculo [vlrFranquia=" + vlrFranquia + ", temCarroReserva=" + temCarroReserva + ", cobreVidros="
+    public String getDados() {
+        return "seguroVeiculo [vlrFranquia=" + vlrFranquia + ", tem Carro Reserva=" + temCarroReserva + ", cobre Vidros="
                 + cobreVidros + ", Segurado=" + getSegurado() + ", VlrApolice=" + getVlrApolice()
                 + ", DtaInicio=" + getDtaInicio() + ", DtaFim=" + getDtaFim() + "]";
     }
-    
-    
 }

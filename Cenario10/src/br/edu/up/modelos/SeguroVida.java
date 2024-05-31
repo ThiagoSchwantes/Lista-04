@@ -25,13 +25,11 @@ public class SeguroVida extends Seguro{
     public void setCobreAcidente(boolean cobreAcidente) {
         this.cobreAcidente = cobreAcidente;
     }
+    
     @Override
-    public String toString() {
+    public String getDados() {
         return "SeguroVida [cobreDoenca=" + cobreDoenca + ", cobreAcidente=" + cobreAcidente + ", Apolice="
                 + getApolice() + ", Segurado=" + getSegurado() + ", VlrApolice=" + getVlrApolice()
                 + ", DtaInicio=" + getDtaInicio() + ", DtaFim=" + getDtaFim() + "]";
     }
-
-    
-
 }

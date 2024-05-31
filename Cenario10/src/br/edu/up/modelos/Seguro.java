@@ -22,35 +22,37 @@ public abstract class Seguro {
     public void setApolice(String apolice) {
         this.apolice = apolice;
     }
+
     public Segurado getSegurado() {
         return segurado;
     }
     public void setSegurado(Segurado segurado) {
         this.segurado = segurado;
     }
+
     public Double getVlrApolice() {
         return vlrApolice;
     }
     public void setVlrApolice(Double vlrApolice) {
         this.vlrApolice = vlrApolice;
     }
+
     public LocalDate getDtaInicio() {
         return dtaInicio;
     }
     public void setDtaInicio(LocalDate dtaInicio) {
         this.dtaInicio = dtaInicio;
     }
+
     public LocalDate getDtaFim() {
         return dtaFim;
     }
     public void setDtaFim(LocalDate dtaFim) {
         this.dtaFim = dtaFim;
     }
-
-    @Override
-    public String toString() {
+    
+    public String getDados() {
         return "Seguro [apolice=" + apolice + ", segurado=" + segurado + ", vlrApolice=" + vlrApolice + ", dtaInicio="
                 + dtaInicio + ", dtaFim=" + dtaFim + "]";
     }
-    
 }

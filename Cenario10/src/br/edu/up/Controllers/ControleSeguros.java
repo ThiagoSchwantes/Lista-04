@@ -2,9 +2,7 @@ package br.edu.up.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import br.edu.up.modelos.Seguro;
-import br.edu.up.views.Menu;
 
 public class ControleSeguros {
     List<Seguro> seguros = new ArrayList<>();
@@ -14,21 +12,35 @@ public class ControleSeguros {
         return true;
     }
 
-    public Seguro localizarSeguro(Menu menu){
-        String apolice = menu.pegarApolice();
+    public String localizarSeguro(String apolice){
         
         for (Seguro seguro : seguros) {
             if (seguro.getApolice().equals(apolice)) {
-                return seguro;
+                return seguro.getDados();
             }
         }
         
         return null;
     }
 
-    public boolean excluirSeguro(Menu menu) {
-        String apolice = menu.pegarApolice();
-        
+    public String listarTodosSeguros(){
+        String lista = "";
+
+        int contador = 0;
+        for (Seguro seguro : seguros) {
+
+            if (contador == 0) {
+                lista += seguro.getDados();
+                contador++;
+            }else{
+                lista += "\n\n"+seguro.getDados();
+            }
+        }
+
+        return lista;
+    }
+
+    public boolean excluirSeguro(String apolice) {        
         for (Seguro seguro : seguros) {
             if (seguro.getApolice().equals(apolice)) { 
                 seguros.remove(seguro);
@@ -39,15 +51,11 @@ public class ControleSeguros {
         return false;
     }
 
+    public int getQuantidadeSeguros(){
+        return seguros.size();
+    }
+
     public void excluirTodosOsSeguros() {
         seguros.clear();
     }
-
-    public List<Seguro> getSeguros() {
-        return seguros;
-    }
-
-    public void setSeguros(List<Seguro> seguros) {
-        this.seguros = seguros;
-    }    
 }
