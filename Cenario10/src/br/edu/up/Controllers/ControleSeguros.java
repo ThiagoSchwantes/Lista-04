@@ -1,4 +1,4 @@
-package br.edu.up.Controllers;
+package br.edu.up.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
