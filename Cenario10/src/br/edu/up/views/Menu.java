@@ -1,7 +1,7 @@
 package br.edu.up.views;
 import java.time.LocalDate;
 
-import br.edu.up.a.ControleSeguros;
+import br.edu.up.controllers.ControleSeguros;
 import br.edu.up.modelos.Segurado;
 import br.edu.up.modelos.SeguroVeiculo;
 import br.edu.up.modelos.SeguroVida;
