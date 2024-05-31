@@ -2,7 +2,7 @@ package br.edu.up.views;
 import br.edu.up.utils.*;
 
 import java.time.LocalDate;
-import br.edu.up.Controllers.*;
+import br.edu.up.controllers.*;
 import br.edu.up.models.*;
 
 public class Menu {
